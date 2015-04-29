@@ -1,25 +1,26 @@
 
- <!DOCTYPE HTML>
+  
+    <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   
-    <title>Opticalix Blog</title>
+    <title>about | Opticalix Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Opticalix">
     
 
     
-    <meta name="description">
+    <meta name="description" content="My Name is Ji Hongfei.This is my new Blog :).">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Opticalix Blog">
-<meta property="og:url" content="http://opticalix.github.com/index.html">
+<meta property="og:title" content="about">
+<meta property="og:url" content="http://opticalix.github.com/about/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description">
+<meta property="og:description" content="My Name is Ji Hongfei.This is my new Blog :).">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Opticalix Blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="about">
+<meta name="twitter:description" content="My Name is Ji Hongfei.This is my new Blog :).">
 
     
     <link rel="alternative" href="/atom.xml" title="Opticalix Blog" type="application/atom+xml">
@@ -34,9 +35,9 @@
     <link rel="stylesheet" href="/css/style.css" type="text/css">
 </head>
 
-  <body>
-    <header>
-      
+      <body>
+        <header>
+          
 <div>
 		
 			<div id="textlogo">
@@ -67,138 +68,56 @@
 				</ul>
 			</nav>			
 </div>
-    </header>
-    <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+        </header>
+        <div id="container">
+          <div id="main" class="page" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/04/29/auto-merge/" title="Git技巧--自动Merge逻辑(.gitattribute配置)" itemprop="url">Git技巧--自动Merge逻辑(.gitattribute配置)</a>
+      <a href="/about/index.html" title="about" itemprop="url">about</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Opticalix" target="_blank" itemprop="author">Opticalix</a>
 		
   <p class="article-time">
-    <time datetime="2015-04-29T07:12:16.000Z" itemprop="datePublished"> 发表于 2015-04-29</time>
+    <time datetime="2015-04-29T07:52:24.000Z" itemprop="datePublished"> 发表于 2015-04-29</time>
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <h2 id="问题引入">问题引入</h2><p>这是在创建子App时引出的问题，目前公司的项目需要分支出多个子项目，只需要更换图标和主体色彩（即更换res文件下内容），因此需要拉不同的branch，而当版本迭代时希望通过只修改master分支的业务逻辑，再合并到branch的方法来完成。这样保证了各子项目保持最新，但问题是也会把master分支的资源文件引入到各个branch，造成混乱，因此考虑通过配置<strong>.gitattribute</strong>以完成merge过程中conflict时以本分支优先，即auto-merge。</p>
-<h2 id="配置方法：">配置方法：</h2><p><strong>step1</strong>： 修改Git全局配置，默认的merge是不可配置的。Git命令行中输入<code>$ git config --global merge.ours.driver true</code>。参考自<a href="http://stackoverflow.com/questions/14093540/tell-git-to-use-ours-merge-strategy-on-specific-files" title="stackoverflow" target="_blank" rel="external">http://stackoverflow.com/questions/14093540/tell-git-to-use-ours-merge-strategy-on-specific-files</a><br><strong>step2</strong>： 在项目根目录下新建文件.gitattribute，配置需要使用auto-merge的文件，例如本例中忽略掉所有layout布局文件：<code>app/src/main/res/layout/*.xml merge=ours</code><br><strong>step3</strong>： 将gitattribute文件拷贝至不同的branch。提交代码。此时如果你修改master下的布局文件，然后切换至子分支testBranch，将master合并过来，你会发现不会提示资源文件或色值修改带来的冲突，因为已自动忽略master下布局文件的修改。</p>
-<h2 id="Tips:">Tips:</h2><p>由于子项目属于不同的App，包名不同会带来import-R文件的错乱。如何合理修改包名见”original-package”的使用。<br>本情况仅适用于系列App开发，不同子项目之间只更换对应的color、strings、drawable等。如果大量更改res下资源文件，还是不要用此法..</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+	<div class="article-content">
+		
+		<p>My Name is Ji Hongfei.<br>This is my new Blog :).</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Android/">Android</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a><a href="/tags/Git/">Git</a><a href="/tags/gitattribute/">gitattribute</a>
-  </div>
 
 </div>
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-</div>
+	  <div data-url="http://opticalix.github.com/about/index.html" data-title="about | Opticalix Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
 
 </footer>
 
+   	       
+	</article>
+	
+	
 
-    </article>
-
-
-
-
-
-
-
-</div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-
-  
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-		  
-			<li><a href="/categories/Android/" title="Android">Android<sup>1</sup></a></li>
-		  
-		
-		</ul>
-</div>
-
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			
-				<li><a href="/tags/Android/" title="Android">Android<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Git/" title="Git">Git<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/gitattribute/" title="gitattribute">gitattribute<sup>1</sup></a></li>
-			
-		
-		</ul>
-</div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-        
-          <li>
-            
-            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
-            
-          </li>
-        
-    </ul>
-</div>
-
-  
-
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-</aside>
-</div>
-    </div>
-    <footer><div id="footer" >
+</div>  
+        </div>
+        <footer><div id="footer" >
 	
 	
 	<section class="info">
@@ -230,7 +149,7 @@
 		</p>
 </div>
 </footer>
-    <script src="/js/jquery-2.0.3.min.js"></script>
+        <script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
@@ -279,6 +198,35 @@ $(document).ready(function(){
 });
 </script>
 
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
 
 
 
@@ -338,5 +286,6 @@ $(document).ready(function(){
 
 <!-- Tiny_search End -->
 
-  </body>
- </html>
+      </body>
+     </html>
+     
