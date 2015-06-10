@@ -91,13 +91,21 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题引入"><span class="toc-number">1.</span> <span class="toc-text">问题引入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置方法："><span class="toc-number">2.</span> <span class="toc-text">配置方法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tips:"><span class="toc-number">3.</span> <span class="toc-text">Tips:</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题引入"><span class="toc-number">1.</span> <span class="toc-text">问题引入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置方法："><span class="toc-number">2.</span> <span class="toc-text">配置方法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tips:"><span class="toc-number">3.</span> <span class="toc-text">Tips:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git问题汇总"><span class="toc-number">4.</span> <span class="toc-text">Git问题汇总</span></a></li></ol>
 		
 		</div>
 		
 		<h2 id="问题引入">问题引入</h2><p>这是在创建子App时引出的问题，目前公司的项目需要分支出多个子项目，只需要更换图标和主体色彩（即更换res文件下内容），因此需要拉不同的branch，而当版本迭代时希望通过只修改master分支的业务逻辑，再合并到branch的方法来完成。这样保证了各子项目保持最新，但问题是也会把master分支的资源文件引入到各个branch，造成混乱，因此考虑通过配置<strong>.gitattribute</strong>以完成merge过程中conflict时以本分支优先，即auto-merge。</p>
 <h2 id="配置方法：">配置方法：</h2><p><strong>step1</strong>： 修改Git全局配置，默认的merge是不可配置的。Git命令行中输入<code>$ git config --global merge.ours.driver true</code>。参考自<a href="http://stackoverflow.com/questions/14093540/tell-git-to-use-ours-merge-strategy-on-specific-files" title="stackoverflow" target="_blank" rel="external">http://stackoverflow.com/questions/14093540/tell-git-to-use-ours-merge-strategy-on-specific-files</a><br><strong>step2</strong>： 在项目根目录下新建文件.gitattribute，配置需要使用auto-merge的文件，例如本例中忽略掉所有layout布局文件：<code>app/src/main/res/layout/*.xml merge=ours</code>(这里是Android studio项目目录，这里要根据gitattribute文件的位置来写路径，以同目录的其他文件夹为开头，如这里的app)<br><strong>step3</strong>： 将gitattribute文件拷贝至不同的branch。提交代码。此时如果你修改master下的布局文件，然后切换至子分支testBranch，将master合并过来，你会发现不会提示资源文件或色值修改带来的冲突，因为已自动忽略master下布局文件的修改。</p>
 <h2 id="Tips:">Tips:</h2><p>由于子项目属于不同的App，包名不同会带来import-R文件的错乱。如何合理修改包名见”original-package”的使用。<br>本情况仅适用于系列App开发，不同子项目之间只更换对应的color、strings、drawable等。如果大量更改res下资源文件，还是不要用此法..</p>
+<h2 id="Git问题汇总">Git问题汇总</h2><ol>
+<li><p>执行git add somefile的时候，出现错误：</p>
+<pre><code>If <span class="literal">no</span> other git process <span class="keyword">is</span> currently running, <span class="keyword">this</span> probably means a
+git process crashed <span class="keyword">in</span> <span class="keyword">this</span> repository earlier. Make sure <span class="literal">no</span> other git
+process <span class="keyword">is</span> running <span class="keyword">and</span> remove the file manually <span class="keyword">to</span> <span class="keyword">continue</span>.
+</code></pre></li>
+</ol>
+<p>解决方法：<br>rm -f ./.git/index.lock</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -152,7 +160,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题引入"><span class="toc-number">1.</span> <span class="toc-text">问题引入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置方法："><span class="toc-number">2.</span> <span class="toc-text">配置方法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tips:"><span class="toc-number">3.</span> <span class="toc-text">Tips:</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题引入"><span class="toc-number">1.</span> <span class="toc-text">问题引入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置方法："><span class="toc-number">2.</span> <span class="toc-text">配置方法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tips:"><span class="toc-number">3.</span> <span class="toc-text">Tips:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git问题汇总"><span class="toc-number">4.</span> <span class="toc-text">Git问题汇总</span></a></li></ol>
  
   </div>
 
