@@ -77,7 +77,71 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/06/original-package/" title="original-package" itemprop="url">original-package</a>
+      <a href="/2015/06/10/studio-convert-encoding/" title="Android Studio中对乱码问题的处理" itemprop="url">Android Studio中对乱码问题的处理</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Opticalix" target="_blank" itemprop="author">Opticalix</a>
+		
+  <p class="article-time">
+    <time datetime="2015-06-10T12:57:05.000Z" itemprop="datePublished"> 发表于 2015-06-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="问题引入">问题引入</h2><p>乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为build时检查不够严格。而一切当项目迁移到Android Studio时就发生了不同，Lint Checks会报乱码错误。</p>
+<h2 id="解决">解决</h2><p>自然的想到选择Setting-搜索encoding修改文件编码来解决。Studio比Eclipse更加强大的是其能够选择每个文件的编码格式，不仅如此它还支持文件编码格式的转换。<br>例如GBK编码格式的文件无法正常显示：<br><img src="http://i1.tietuku.com/b98491f5d9a2bec8.png" alt=""><br><img src="http://i1.tietuku.com/cf86e6602c2d414e.png" alt=""><br><img src="http://i1.tietuku.com/650bda240acaa46e.png" alt=""></p>
+<p><strong>Reload</strong><br>    只是重新使用新选择的编码去读取文件，不改变当前文件的实际编码</p>
+<p><strong>Convert</strong><br>    会将文件的编码转换为新选择的。IDE会检查转换后是否能够正常显示，这么选一般是安全的。否则Studio会提示你发现异常，是否要强制转换。</p>
+<p>一般的编辑工具也带有convert encoding的功能，但是Studio集合在了IDE中，会更加方便编程。而且非常灵活，每一个文件的格式都可以单独选择。不过也有一个问题就是不能批量修改，对一些路径较深的文件改起来还是有点麻烦的。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Android/">Android</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a><a href="/tags/Studio/">Studio</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/06/original-package/" title="original-package标签使用" itemprop="url">original-package标签使用</a>
   </h1>
   <p class="article-author">By
        
@@ -90,7 +154,18 @@
 </header>
     <div class="article-content">
         
-        
+        <h2 id="需求">需求</h2><p>同”Git技巧—自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。</p>
+<h2 id="属性介绍">属性介绍</h2><p>关于的original-package标签的资料大多如出一辙，这里简单讲讲我的看法。<br>AndroidManifest中的<package>和<original-package>标签相似，其中package代表进程名，代表app唯一的标识，不同app的package必须不一样，另外package的值与R文件息息相关，R文件生成只依赖于package标签；original-package设置的是源码级别包名，也就是要与包结构一致。</original-package></package></p>
+<h2 id="使用方法">使用方法</h2><p>知道以上这些就足够，例如我这里有开发好的原app—“<strong>test</strong>”。这时需要发布的新的一套resouce的app—“<strong>other_test</strong>”，他们的package分别为“test”和“other_test”。使用Git版本控制，只需要从我们原分支test上拉一条新分支（或者从master），然后将其package标签更名为other_test（可利用全局替换replace in path）。此时项目肯定会因为R文件丢失而报错，因为包名和源码路径已经不一致，这时我们在新项目的Manifest文件中手工添加original-package标签，如下：</p>
+<pre><code>&lt;manifest <span class="string">xmlns:</span>android=<span class="string">"http://schemas.android.com/apk/res/android"</span>
+<span class="keyword">package</span>=<span class="string">"com.other_test"</span>&gt;
+
+&lt;original-<span class="keyword">package</span> <span class="string">android:</span>name=<span class="string">"com.test"</span>/&gt;
+
+...
+&lt;/manifest&gt;
+</code></pre><p>由于R文件的生成只依赖于package标签的值，利用全局替换将<code>import com.test.R</code> 修改为 <code>import com.other_test.R</code>。此时两个branch代码结构一致，依赖于original-package所指向的com.test路径，但分明是两个app。后期做任何逻辑上的修改，都可以任意在master上操作，最后merge到其他两个分支即可。</p>
+
         
         
         <p class="article-more-link">
@@ -152,14 +227,6 @@
         <h2 id="问题引入">问题引入</h2><p>这是在创建子App时引出的问题，目前公司的项目需要分支出多个子项目，只需要更换图标和主体色彩（即更换res文件下内容），因此需要拉不同的branch，而当版本迭代时希望通过只修改master分支的业务逻辑，再合并到branch的方法来完成。这样保证了各子项目保持最新，但问题是也会把master分支的资源文件引入到各个branch，造成混乱，因此考虑通过配置<strong>.gitattribute</strong>以完成merge过程中conflict时以本分支优先，即auto-merge。</p>
 <h2 id="配置方法：">配置方法：</h2><p><strong>step1</strong>： 修改Git全局配置，默认的merge是不可配置的。Git命令行中输入<code>$ git config --global merge.ours.driver true</code>。参考自<a href="http://stackoverflow.com/questions/14093540/tell-git-to-use-ours-merge-strategy-on-specific-files" title="stackoverflow" target="_blank" rel="external">http://stackoverflow.com/questions/14093540/tell-git-to-use-ours-merge-strategy-on-specific-files</a><br><strong>step2</strong>： 在项目根目录下新建文件.gitattribute，配置需要使用auto-merge的文件，例如本例中忽略掉所有layout布局文件：<code>app/src/main/res/layout/*.xml merge=ours</code>(这里是Android studio项目目录，这里要根据gitattribute文件的位置来写路径，以同目录的其他文件夹为开头，如这里的app)<br><strong>step3</strong>： 将gitattribute文件拷贝至不同的branch。提交代码。此时如果你修改master下的布局文件，然后切换至子分支testBranch，将master合并过来，你会发现不会提示资源文件或色值修改带来的冲突，因为已自动忽略master下布局文件的修改。</p>
 <h2 id="Tips:">Tips:</h2><p>由于子项目属于不同的App，包名不同会带来import-R文件的错乱。如何合理修改包名见”original-package”的使用。<br>本情况仅适用于系列App开发，不同子项目之间只更换对应的color、strings、drawable等。如果大量更改res下资源文件，还是不要用此法..</p>
-<h2 id="Git问题汇总">Git问题汇总</h2><ol>
-<li><p>执行git add somefile的时候，出现错误：</p>
-<pre><code>If <span class="literal">no</span> other git process <span class="keyword">is</span> currently running, <span class="keyword">this</span> probably means a
-git process crashed <span class="keyword">in</span> <span class="keyword">this</span> repository earlier. Make sure <span class="literal">no</span> other git
-process <span class="keyword">is</span> running <span class="keyword">and</span> remove the file manually <span class="keyword">to</span> <span class="keyword">continue</span>.
-</code></pre></li>
-</ol>
-<p>解决方法：<br>rm -f ./.git/index.lock</p>
 
         
         
@@ -214,7 +281,7 @@ process <span class="keyword">is</span> running <span class="keyword">and</span>
 		<ul>
 		
 		  
-			<li><a href="/categories/Android/" title="Android">Android<sup>2</sup></a></li>
+			<li><a href="/categories/Android/" title="Android">Android<sup>3</sup></a></li>
 		  
 		
 		</ul>
@@ -227,7 +294,7 @@ process <span class="keyword">is</span> running <span class="keyword">and</span>
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Android/" title="Android">Android<sup>2</sup></a></li>
+				<li><a href="/tags/Android/" title="Android">Android<sup>3</sup></a></li>
 			
 		
 			
@@ -236,6 +303,10 @@ process <span class="keyword">is</span> running <span class="keyword">and</span>
 		
 			
 				<li><a href="/tags/gitattribute/" title="gitattribute">gitattribute<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Studio/" title="Studio">Studio<sup>1</sup></a></li>
 			
 		
 		</ul>
