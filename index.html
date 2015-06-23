@@ -77,32 +77,32 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/06/23/DialogFragment/" title="" itemprop="url"></a>
+      <a href="/2015/06/23/dialog-fragment/" title="DialogFragment的简单分析和封装使用" itemprop="url">DialogFragment的简单分析和封装使用</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Opticalix" target="_blank" itemprop="author">Opticalix</a>
 		
   <p class="article-time">
-    <time datetime="2015-06-23T14:20:10.301Z" itemprop="datePublished"> 发表于 2015-06-23</time>
+    <time datetime="2015-06-23T14:32:27.000Z" itemprop="datePublished"> 发表于 2015-06-23</time>
     
   </p>
 </header>
     <div class="article-content">
         
-        <h3 id="1-初识DialogFragment">1.初识DialogFragment</h3><p>DialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由FragmentManager控制，当遇到特殊情况，例如转屏后，传统Dialog将会消失，而使用DialogFragment，onCreate方法重新调用，并获取arguments。这种方式创建的对话框会再次生成。</p>
-<h3 id="2-DialogFragment的生命周期">2.DialogFragment的生命周期</h3><p>首先，Fragment生命周期参考此图，不再赘述<img src="http://img.my.csdn.net/uploads/201210/23/1350998205_2002.png" alt="Fragment生命周期"><br>其实DialogFragment作为其子类，生命周期类似，重点是多了一个onCreateDialog方法，经过Log输出，确定创建时调用顺序为：</p>
+        <h2 id="初识DialogFragment">初识DialogFragment</h2><p>DialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由FragmentManager控制，当遇到特殊情况，例如转屏后，传统Dialog将会消失，而使用DialogFragment，onCreate方法重新调用，并获取arguments。这种方式创建的对话框会再次生成。</p>
+<h2 id="DialogFragment的生命周期">DialogFragment的生命周期</h2><p>首先，Fragment生命周期参考此图，不再赘述。<br><img src="http://img.my.csdn.net/uploads/201210/23/1350998205_2002.png" alt="Fragment生命周期"><br>其实DialogFragment作为其子类，生命周期类似，重点是多了一个onCreateDialog方法，经过Log输出，确定创建时调用顺序为：</p>
 <blockquote>
 <p>onCreate —&gt; onCreateDialog —&gt; onCreateView</p>
 </blockquote>
 <p>接下来细化各生命周期调用过程：</p>
 <ul>
-<li>onCreate方法中主要是完成Fragmen重创建过程，如果savedInstanceState不为空则从savedInstanceState恢复由于转屏等引起的已销毁的Fragment。</li>
-<li>onCreateDialog方法在getLayoutInflater中调用，向上追溯是FragmentManager在performCreateView时调用。如果onCreateDialog没有被子类override则直接new出一个默认的Dialog，因此在onCreateDialog方法中应该由我们自定义如何创建Dialog，比如利用AlertDialog.Builder。</li>
-<li>onCreateView。该方法是继承Fragment必复写的，可是在DialogFragment中则有所不同，如果你同时复写onCreateView和onCreateDialog则有可能会发生一些奇怪的Exception，参见<a href="http://stackoverflow.com/questions/13257038/custom-layout-for-dialogfragment-oncreateview-vs-oncreatedialog" title="onCreateView or onCreateDialog" target="_blank" rel="external">http://stackoverflow.com/questions/13257038/custom-layout-for-dialogfragment-oncreateview-vs-oncreatedialog</a>。建议使用DialogFragment时只选择使用onCreateDialog，将inflate和findview的过程也全部放在onCreateDialog中即可。</li>
+<li><strong>onCreate</strong>方法中主要是完成Fragmen重创建过程，如果savedInstanceState不为空则从savedInstanceState恢复由于转屏等引起的已销毁的Fragment。</li>
+<li><strong>onCreateDialog</strong>方法在getLayoutInflater中调用，向上追溯是FragmentManager在performCreateView时调用。如果onCreateDialog没有被子类override则直接new出一个默认的Dialog，因此在onCreateDialog方法中应该由我们自定义如何创建Dialog，比如利用AlertDialog.Builder。</li>
+<li><strong>onCreateView</strong>。该方法是继承Fragment必复写的，可是在DialogFragment中则有所不同，如果你同时复写onCreateView和onCreateDialog则有可能会发生一些奇怪的Exception，参见<a href="http://stackoverflow.com/questions/13257038/custom-layout-for-dialogfragment-oncreateview-vs-oncreatedialog" title="onCreateView or onCreateDialog" target="_blank" rel="external">http://stackoverflow.com/questions/13257038/custom-layout-for-dialogfragment-oncreateview-vs-oncreatedialog</a>。建议使用DialogFragment时只选择使用onCreateDialog，将inflate和findview的过程也全部放在onCreateDialog中即可。</li>
 </ul>
 <p>除此外，DialogFragment有别于普通Fragment的地方在于多了show、dismiss等方法，查看源码发现其实是多了一层转调，像show(FragmentManager manager, String tag)是传入FragmentManager后，add自身这个Fragment并commit。remove方法类似，转调dismissInternal，如果add了backStack则pop出栈，否则remove该Fragment。</p>
-<h3 id="3-自定义DialogFragment实例">3.自定义DialogFragment实例</h3><p>在这里写了一个基类BaseDialogFragment，作为各种提示型Dialog的父类。它继承自DialogFragment，本身主要是根据子类传递的Layout建立Dialog并加以点击事件。点击响应和Button的自定义则通过接口和抽象方法，由子类去实现。</p>
+<h2 id="自定义DialogFragment实例">自定义DialogFragment实例</h2><p>在这里写了一个基类BaseDialogFragment，作为各种提示型Dialog的父类。它继承自DialogFragment，本身主要是根据子类传递的Layout建立Dialog并加以点击事件。点击响应和Button的自定义则通过接口和抽象方法，由子类去实现。</p>
 <p><strong>基类代码如下：</strong></p>
 <pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseDialogFragment</span> <span class="keyword">extends</span> <span class="title">DialogFragment</span> </span>{
     <span class="keyword">protected</span> <span class="keyword">int</span> mLayout;
@@ -300,6 +300,16 @@
     <footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Android/">Android</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a><a href="/tags/Fragment/">Fragment</a>
+  </div>
 
 </div>
 
@@ -530,7 +540,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/Android/" title="Android">Android<sup>3</sup></a></li>
+			<li><a href="/categories/Android/" title="Android">Android<sup>4</sup></a></li>
 		  
 		
 		</ul>
@@ -543,11 +553,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Android/" title="Android">Android<sup>3</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Studio/" title="Studio">Studio<sup>1</sup></a></li>
+				<li><a href="/tags/Android/" title="Android">Android<sup>4</sup></a></li>
 			
 		
 			
@@ -556,6 +562,14 @@
 		
 			
 				<li><a href="/tags/gitattribute/" title="gitattribute">gitattribute<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Studio/" title="Studio">Studio<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Fragment/" title="Fragment">Fragment<sup>1</sup></a></li>
 			
 		
 		</ul>
