@@ -77,6 +77,386 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/08/23/memery-leak/" title="内存泄露及LeakCanary的使用" itemprop="url">内存泄露及LeakCanary的使用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Opticalix" target="_blank" itemprop="author">Opticalix</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-23T02:47:38.000Z" itemprop="datePublished"> 发表于 2015-08-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="基本概念">基本概念</h2><ul>
+<li>内存泄露，即MemeryLeak，是平时Coding非常容易忽视的点..像我之前对泄露的认识和针对性都不强，写的代码马马虎虎就可以，毕竟Leak并不像OOM那样，小白都可以轻易发现且容忍度为0。对泄露的定义，参考Wiki：</li>
+</ul>
+<blockquote>
+<p>内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之前就失去了对该段内存的控制，从而造成了内存的浪费。</p>
+</blockquote>
+<ul>
+<li>应该说优秀的程序设计完全可以避免内存泄露。以下是我对Android中内存泄露的简单理解和常见情景分析。<h2 id="简单举例">简单举例</h2></li>
+<li><p>类描述如下</p>
+<pre><code><span class="keyword">class</span> <span class="title">A</span>{
+    B b;
+    <span class="function"><span class="keyword">void</span> <span class="title">setB</span><span class="params">(B b)</span></span>{
+        <span class="keyword">this</span>.b = b
+    }
+}
+
+<span class="keyword">class</span> <span class="title">B</span>{
+
+}
+</code></pre></li>
+<li><p>A可以通过setB方法，持有B的引用。这时B对象若要销毁，但因为A还保存着B的强引用，所以GC无法回收，内存（对象B）泄露。</p>
+<h2 id="容易Leak的场景">容易Leak的场景</h2></li>
+<li>Context<ul>
+<li>Android开发中许多场景都要用到Context，但是Context由于占用内存大/传递频繁，所以是造成内存泄露的大户。比如一后台Service需要拿到Context，传入当前Activity，但是由于Service的生命周期往往大于Activity，当退出该Activity时这部分内存无法回收，造成泄露。</li>
+</ul>
+</li>
+<li><p>匿名内部类</p>
+<ul>
+<li>会默认持有外部类的引用，同Context类似，如果该内部类生命周期大于外部类，内部类还未销毁/释放资源时外部类试图销毁，就会造成外部类这部分内存泄露。</li>
+<li><p>最常见的就是Handler的使用。多数写法为：</p>
+<pre><code>Handler mHandler = <span class="keyword">new</span> Handler(){
+    <span class="annotation">@Override</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>{
+        <span class="keyword">super</span>.handleMessage(msg);
+    }
+};
+</code></pre><p>  应改为内部持有weakreference<activity>。</activity></p>
+<pre><code><span class="keyword">protected</span> <span class="type">MyHandler</span> mHandler;
+
+public static <span class="class"><span class="keyword">class</span> <span class="title">MyHandler</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Handler</span> {</span>
+    <span class="type">WeakReference</span>&lt;<span class="type">BaseActivity</span>&gt; mWeakReference;
+
+    public <span class="type">MyHandler</span>(<span class="type">BaseActivity</span> mAct) {
+        <span class="keyword">this</span>.mWeakReference = <span class="keyword">new</span> <span class="type">WeakReference</span>&lt;&gt;(mAct);
+    }
+
+    <span class="annotation">@Override</span>
+    public void handleMessage(<span class="type">Message</span> msg) {
+        <span class="type">BaseActivity</span> act = mWeakReference.get();
+        <span class="keyword">if</span> (act != <span class="literal">null</span>) {
+            act.handleMessage(msg);<span class="comment">//转调Activity方法</span>
+        }
+    }
+
+}
+</code></pre></li>
+</ul>
+</li>
+<li>心得<ul>
+<li>使用匿名内部类时要记住，内部类生命周期一定要小于外部类。</li>
+<li>使用Context时尽量考虑使用ApplicationContext，它的生命周期和整个进程所绑定。</li>
+<li>使用Weakreference持有引用，这样不会影响GC。<h2 id="使用LeakCanary">使用LeakCanary</h2></li>
+</ul>
+</li>
+<li><p>Square出品，见<a href="https://github.com/square/leakcanary" title="leakcanary" target="_blank" rel="external">https://github.com/square/leakcanary</a>，使用起来超级方便。只需要在Application中onCreate添加一句话：</p>
+<pre><code>LeakCanary.install(<span class="keyword">this</span>);
+</code></pre><p>  不过这里只考虑了监听Activity，因为内存泄露影响最大的就是Activity的泄露，这块内存大而且泄露后会一定程度造成程序卡顿，除非退出该进程；如需单独监视一块内存，可以使用LeakCanary.install(this)返回的RefWatcher对象，调用其watch方法。</p>
+</li>
+<li><p>一个简单的使用Demo，LeakActivity开线程跑任务，退出后会提示Leak，如图</p>
+<pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LeakActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span> </span>{
+    <span class="annotation">@InjectView</span>(R.id.btn_1)
+    Button mBtn1;
+    <span class="annotation">@InjectView</span>(R.id.btn_2)
+    Button mBtn2;
+    <span class="annotation">@InjectView</span>(R.id.btn_3)
+    Button mBtn3;
+    <span class="keyword">private</span> BackgroundTask mBackgroundTask;
+    <span class="keyword">private</span> Thread mBackgroundThread;
+
+    <span class="annotation">@Override</span>
+    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>{
+        <span class="keyword">super</span>.onCreate(savedInstanceState);
+        LeakCanary.install(<span class="keyword">this</span>);
+        setContentView(R.layout.activity_leak);
+        ButterKnife.inject(<span class="keyword">this</span>);
+        mBtn1.setOnClickListener(<span class="keyword">this</span>);
+        mBtn2.setOnClickListener(<span class="keyword">this</span>);
+        mBtn3.setOnClickListener(<span class="keyword">this</span>);
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>{
+        <span class="keyword">switch</span> (v.getId()) {
+            <span class="keyword">case</span> R.id.btn_1:
+                <span class="comment">//开启后台线程，持有该Activity</span>
+                <span class="keyword">if</span> (mBackgroundTask == <span class="keyword">null</span>) {
+                    mBackgroundTask = <span class="keyword">new</span> BackgroundTask();
+                    mBackgroundTask.setLeakObject(<span class="keyword">this</span>);
+                    mBackgroundThread = <span class="keyword">new</span> Thread(mBackgroundTask);
+                    mBackgroundThread.start();
+                }
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> R.id.btn_2:
+                <span class="comment">//开启后台线程，持有该Activity的弱引用</span>
+                <span class="keyword">if</span> (mBackgroundTask == <span class="keyword">null</span>) {
+                    mBackgroundTask = <span class="keyword">new</span> BackgroundTask();
+                    mBackgroundTask.setWeakObj(<span class="keyword">new</span> WeakReference&lt;Object&gt;(<span class="keyword">this</span>));
+                    mBackgroundThread = <span class="keyword">new</span> Thread(mBackgroundTask);
+                    mBackgroundThread.start();
+                }
+                <span class="keyword">break</span>;
+            <span class="keyword">case</span> R.id.btn_3:
+                <span class="comment">//停止线程</span>
+                mBackgroundTask.stop = <span class="keyword">true</span>;
+                mBackgroundThread.interrupt();
+                <span class="keyword">break</span>;
+        }
+
+    }
+}
+
+<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BackgroundTask</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>{
+    <span class="keyword">private</span> WeakReference&lt;Object&gt; weakObj;
+    <span class="keyword">private</span> Object object;
+    <span class="keyword">private</span> <span class="keyword">int</span> count;
+    <span class="keyword">public</span> <span class="keyword">boolean</span> stop;
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLeakObject</span><span class="params">(Object leakObject)</span> </span>{
+        <span class="keyword">this</span>.object = leakObject;
+    }
+
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWeakObj</span><span class="params">(WeakReference&lt;Object&gt; weakObj)</span> </span>{
+        <span class="keyword">this</span>.weakObj = weakObj;
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{
+        <span class="keyword">try</span> {
+            <span class="keyword">while</span> (!stop) {
+                Thread.sleep(<span class="number">1000</span>);
+                count += <span class="number">1</span>;
+                L.d(<span class="string">"background task count:"</span> + count);
+            }
+        } <span class="keyword">catch</span> (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+</code></pre></li>
+</ul>
+<p><img src="http://i1.tietuku.com/91e1dd7f2efac6f2.png" alt="Leak Show"></p>
+<ul>
+<li>更详尽的使用，可参考使用方法的译文<a href="http://www.liaohuqiu.net/cn/posts/leak-canary-read-me/" title="Leakcanary" target="_blank" rel="external">http://www.liaohuqiu.net/cn/posts/leak-canary-read-me/</a></li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Android/">Android</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a><a href="/tags/Optimization/">Optimization</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/08/23/ndk-demo/" title="NDK开发在AS上实现的简易流程" itemprop="url">NDK开发在AS上实现的简易流程</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Opticalix" target="_blank" itemprop="author">Opticalix</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-23T02:46:30.000Z" itemprop="datePublished"> 发表于 2015-08-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="引">引</h2><p>本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：</p>
+<ol>
+<li>脱离JVM，运行效率高。</li>
+<li>安全性强，核心代码不易破解。</li>
+<li>代码可移植性强，此次核心代码就共用于IOS和Android。</li>
+</ol>
+<h2 id="实现">实现</h2><ol>
+<li><p>写native方法。</p>
+<pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NdkEngine</span> </span>{
+    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">nativeCalc</span><span class="params">(<span class="keyword">int</span> n)</span></span>;
+}
+</code></pre></li>
+<li><p>命令行中通过javah生成对应头文件。</p>
+<pre><code>D:<span class="command">\workspace</span>\20150310<span class="command">\demo</span><span class="command">\app</span>&gt;javah -classpath D:<span class="command">\workspace</span>\20150310<span class="command">\demo</span><span class="command">\app</span><span class="command">\build</span><span class="command">\intermediates</span><span class="command">\classes</span><span class="command">\debug</span> -d jni com.felix.opticalixdemo.demo.ndk.NdkEngine
+</code></pre></li>
+<li><p>粘合层c代码实现。</p>
+<ol>
+<li>com_felix_opticalixdemo_demo_ndk_NdkEngine.c</li>
+</ol>
+</li>
+</ol>
+<pre><code><span class="preprocessor">#<span class="keyword">include</span> "com_felix_opticalixdemo_demo_ndk_NdkEngine.h"</span>
+<span class="preprocessor">#<span class="keyword">include</span> "calc.h"</span>
+
+<span class="function">JNIEXPORT jint JNICALL <span class="title">Java_com_felix_opticalixdemo_demo_ndk_NdkEngine_nativeCalc</span>
+<span class="params">(JNIEnv *env, jclass clazz, jint n)</span></span>{
+    <span class="keyword">return</span> calc(n);
+}
+</code></pre><ol>
+<li>本地.h和.c代码实现(calc.h calc.c)。<ol>
+<li>calc.h</li>
+</ol>
+</li>
+</ol>
+<pre><code>        <span class="preprocessor">#ifndef _CALC_H_</span>
+        <span class="preprocessor">#<span class="keyword">define</span> _CALC_H_</span>
+
+        <span class="preprocessor">#<span class="keyword">include</span> &lt;stdint.h&gt;</span>
+
+        <span class="function"><span class="keyword">extern</span> <span class="keyword">uint64_t</span> <span class="title">calc</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>;
+        <span class="preprocessor">#<span class="keyword">endif</span></span>
+
+<span class="number">2.</span> calc.c
+
+
+        <span class="preprocessor">#<span class="keyword">include</span> "calc.h"</span>
+
+        <span class="function"><span class="keyword">uint64_t</span> <span class="title">calc</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>{
+            <span class="keyword">return</span> n;<span class="comment">//do some calc</span>
+        }
+</code></pre><ol>
+<li><p>编写makeFile。</p>
+<ol>
+<li><p>Android.mk</p>
+<pre><code>LO<span class="built_in">CAL_PATH</span> := $(call my-dir)
+include $(CLEAR_VARS)
+LO<span class="built_in">CAL_MODULE</span> := ndk_calc_demo
+LO<span class="built_in">CAL_SRC_FILES</span> := com_felix_opticalixdemo_demo_ndk_NdkEngine<span class="variable">.c</span> calc<span class="variable">.c</span> <span class="comment">//add all your .c files</span>
+include $(B<span class="built_in">UILD_SHARED_LIBRARY</span>)
+</code></pre></li>
+<li><p>Application.mk</p>
+<pre><code><span class="rule"><span class="attribute">APP_ABI </span>:<span class="value">= armeabi-v7a</span></span>
+</code></pre></li>
+</ol>
+</li>
+<li><p>gradle中添加ndk编译任务。</p>
+<ol>
+<li><p>注意先配置ndk环境。下载最新ndk，配置环境变量。并在local.properties中配置ndk路径。</p>
+<pre><code>ndk.<span class="keyword">dir</span>=<span class="keyword">D</span>\:\\android-ndk-r10e
+</code></pre></li>
+<li><p>在使用native方法的module下，build.gradle中添加ndk任务。记得同时指定jniLibs目录。</p>
+<pre><code><span class="keyword">sourceSets</span> {
+    main {
+        jniLibs.srcDir <span class="string">'libs/'</span><span class="comment">//.so files generate here</span>
+        jni.srcDirs = [] <span class="comment">//disable automatic ndk-build call</span>
+    }
+}
+
+<span class="keyword">task</span> ndkBuild(type: Exec, <span class="keyword">description</span>: <span class="string">'Compile JNI source via NDK'</span>) {
+    <span class="keyword">def</span> ndkDir = <span class="keyword">project</span>.plugins.findPlugin(<span class="string">'com.android.application'</span>).sdkHandler.getNdkFolder();
+    <span class="keyword">def</span> baseDir = projectDir.absolutePath;
+    <span class="keyword">def</span> ext = projectDir.absolutePath;
+    <span class="keyword">if</span> (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        ext = <span class="string">".cmd"</span>;
+    } <span class="keyword">else</span> {
+        ext = <span class="string">""</span>;
+    }
+    commandLine <span class="string">"$ndkDir/ndk-build"</span> + ext,
+            <span class="string">'-C'</span>, baseDir + <span class="string">'/jni'</span>,
+            <span class="string">'-j4'</span>,
+            <span class="string">'NDK_DEBUG=1'</span>
+}
+
+tasks.withType(JavaCompile) {
+    compileTask -&gt; compileTask.dependsOn ndkBuild
+}
+</code></pre></li>
+</ol>
+</li>
+<li>make Project。会自动将so文件导出到libs文件夹中。</li>
+<li>static代码块System.loadLibrary(“module_name”)。</li>
+<li>(待验证)使用ndk-stack调试ndk（或者利用gdb？ <a href="http://blog.csdn.net/xqhrs232/article/details/7532276" target="_blank" rel="external">http://blog.csdn.net/xqhrs232/article/details/7532276</a>）<ol>
+<li>运行终端，进入jni所在目录，输入adb logcat | ndk-stack -sym .（最后的.代表当前目录）</li>
+<li>这时再运行程序，如果native方法crash就会打印出c代码崩溃的位置。</li>
+</ol>
+</li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Android/">Android</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a><a href="/tags/NDK/">NDK</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/06/23/dialog-fragment/" title="DialogFragment的简单分析和封装使用" itemprop="url">DialogFragment的简单分析和封装使用</a>
   </h1>
   <p class="article-author">By
@@ -540,7 +920,7 @@
 		<ul>
 		
 		  
-			<li><a href="/categories/Android/" title="Android">Android<sup>4</sup></a></li>
+			<li><a href="/categories/Android/" title="Android">Android<sup>6</sup></a></li>
 		  
 		
 		</ul>
@@ -553,7 +933,7 @@
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Android/" title="Android">Android<sup>4</sup></a></li>
+				<li><a href="/tags/Android/" title="Android">Android<sup>6</sup></a></li>
 			
 		
 			
@@ -566,6 +946,14 @@
 		
 			
 				<li><a href="/tags/Studio/" title="Studio">Studio<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NDK/" title="NDK">NDK<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Optimization/" title="Optimization">Optimization<sup>1</sup></a></li>
 			
 		
 			
