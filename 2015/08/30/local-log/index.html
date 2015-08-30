@@ -11,25 +11,28 @@
     
 
     
-    <meta name="description" content="可保存Log到本地的模块简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+    <meta name="description" content="简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
 棘手的问题主要有：
 
-单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够">
+单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。
+文件读写操作和管">
 <meta property="og:type" content="article">
 <meta property="og:title" content="可保存Log到本地的模块">
 <meta property="og:url" content="http://opticalix.github.com/2015/08/30/local-log/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="可保存Log到本地的模块简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+<meta property="og:description" content="简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
 棘手的问题主要有：
 
-单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够">
+单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。
+文件读写操作和管">
 <meta property="og:image" content="http://i3.tietuku.com/2481c20bc2096a8a.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="可保存Log到本地的模块">
-<meta name="twitter:description" content="可保存Log到本地的模块简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+<meta name="twitter:description" content="简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
 棘手的问题主要有：
 
-单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够">
+单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。
+文件读写操作和管">
 
     
     <link rel="alternative" href="/atom.xml" title="Opticalix Blog" type="application/atom+xml">
@@ -101,11 +104,11 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#可保存Log到本地的模块"><span class="toc-number">1.</span> <span class="toc-text">可保存Log到本地的模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#详解"><span class="toc-number">1.2.</span> <span class="toc-text">详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalLog-java"><span class="toc-number">1.2.1.</span> <span class="toc-text">LocalLog.java</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-_getCallerLineNumber&getCallerFilename。"><span class="toc-number">1.2.1.0.1.</span> <span class="toc-text">1. getCallerLineNumber&getCallerFilename。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-_msgForTextLog。"><span class="toc-number">1.2.1.0.2.</span> <span class="toc-text">2. msgForTextLog。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-_writeToLog。"><span class="toc-number">1.2.1.0.3.</span> <span class="toc-text">3. writeToLog。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LogWriteHelper-java"><span class="toc-number">1.2.2.</span> <span class="toc-text">LogWriteHelper.java</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#详解"><span class="toc-number">2.</span> <span class="toc-text">详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalLog-java"><span class="toc-number">2.1.</span> <span class="toc-text">LocalLog.java</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-_getCallerLineNumber&getCallerFilename。"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">1. getCallerLineNumber&getCallerFilename。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-_msgForTextLog。"><span class="toc-number">2.1.0.2.</span> <span class="toc-text">2. msgForTextLog。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-_writeToLog。"><span class="toc-number">2.1.0.3.</span> <span class="toc-text">3. writeToLog。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LogWriteHelper-java"><span class="toc-number">2.2.</span> <span class="toc-text">LogWriteHelper.java</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
 		
 		</div>
 		
-		<h1 id="可保存Log到本地的模块">可保存Log到本地的模块</h1><h2 id="简介">简介</h2><p>Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。</p>
+		<h2 id="简介">简介</h2><p>Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。</p>
 <p>棘手的问题主要有：</p>
 <ol>
 <li>单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。</li>
@@ -515,7 +518,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#可保存Log到本地的模块"><span class="toc-number">1.</span> <span class="toc-text">可保存Log到本地的模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#详解"><span class="toc-number">1.2.</span> <span class="toc-text">详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalLog-java"><span class="toc-number">1.2.1.</span> <span class="toc-text">LocalLog.java</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-_getCallerLineNumber&getCallerFilename。"><span class="toc-number">1.2.1.0.1.</span> <span class="toc-text">1. getCallerLineNumber&getCallerFilename。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-_msgForTextLog。"><span class="toc-number">1.2.1.0.2.</span> <span class="toc-text">2. msgForTextLog。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-_writeToLog。"><span class="toc-number">1.2.1.0.3.</span> <span class="toc-text">3. writeToLog。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LogWriteHelper-java"><span class="toc-number">1.2.2.</span> <span class="toc-text">LogWriteHelper.java</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#详解"><span class="toc-number">2.</span> <span class="toc-text">详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalLog-java"><span class="toc-number">2.1.</span> <span class="toc-text">LocalLog.java</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-_getCallerLineNumber&getCallerFilename。"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">1. getCallerLineNumber&getCallerFilename。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-_msgForTextLog。"><span class="toc-number">2.1.0.2.</span> <span class="toc-text">2. msgForTextLog。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-_writeToLog。"><span class="toc-number">2.1.0.3.</span> <span class="toc-text">3. writeToLog。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LogWriteHelper-java"><span class="toc-number">2.2.</span> <span class="toc-text">LogWriteHelper.java</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
  
   </div>
 
