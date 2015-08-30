@@ -1,0 +1,787 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Opticalix Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Opticalix">
+    
+
+    
+    <meta name="description" content="可保存Log到本地的模块简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+棘手的问题主要有：
+
+单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Opticalix Blog">
+<meta property="og:url" content="http://opticalix.github.com/2015/08/30/local-log/index.html">
+<meta property="og:site_name" content="Opticalix Blog">
+<meta property="og:description" content="可保存Log到本地的模块简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+棘手的问题主要有：
+
+单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够">
+<meta property="og:image" content="http://i3.tietuku.com/2481c20bc2096a8a.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Opticalix Blog">
+<meta name="twitter:description" content="可保存Log到本地的模块简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+棘手的问题主要有：
+
+单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Opticalix Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Opticalix Blog">Opticalix Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:opticalix.github.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/08/30/local-log/" title="" itemprop="url"></a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Opticalix" target="_blank" itemprop="author">Opticalix</a>
+		
+  <p class="article-time">
+    <time datetime="2015-08-30T03:22:37.779Z" itemprop="datePublished"> 发表于 2015-08-30</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#可保存Log到本地的模块"><span class="toc-number">1.</span> <span class="toc-text">可保存Log到本地的模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#详解"><span class="toc-number">1.2.</span> <span class="toc-text">详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalLog-java"><span class="toc-number">1.2.1.</span> <span class="toc-text">LocalLog.java</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-_getCallerLineNumber&getCallerFilename。"><span class="toc-number">1.2.1.0.1.</span> <span class="toc-text">1. getCallerLineNumber&getCallerFilename。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-_msgForTextLog。"><span class="toc-number">1.2.1.0.2.</span> <span class="toc-text">2. msgForTextLog。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-_writeToLog。"><span class="toc-number">1.2.1.0.3.</span> <span class="toc-text">3. writeToLog。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LogWriteHelper-java"><span class="toc-number">1.2.2.</span> <span class="toc-text">LogWriteHelper.java</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="可保存Log到本地的模块">可保存Log到本地的模块</h1><h2 id="简介">简介</h2><p>Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。</p>
+<p>棘手的问题主要有：</p>
+<ol>
+<li>单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。</li>
+<li>文件读写操作和管理。比如控制log日志只保留最近两天，单个文件大小不超过2MB。</li>
+</ol>
+<p>核心类有两个：</p>
+<ol>
+<li>LocalLog，用于在代码中调用各级别（debug、info、error等）log。</li>
+<li>LogWriteHelper，用于存储日志到本地。</li>
+</ol>
+<h2 id="详解">详解</h2><h3 id="LocalLog-java">LocalLog.java</h3><p>提供各级别静态方法。这个好理解，无非和平时Log.d一致。</p>
+<pre><code><span class="comment">/**
+ * Reference : boolean : %b. byte, short, int, long, Integer,
+ * Long : %d. NOTE %x for hex. String : %s. Object : %s, for this
+ * occasion, toString of the object will be called, and the
+ * object can be null - no exception for this occasion.
+ *
+ * @param obj
+ * @param format
+ * @param args
+ */</span>
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> d(<span class="keyword">Object</span> obj, <span class="keyword">String</span> format, <span class="keyword">Object</span>... args) {
+    <span class="keyword">try</span> {
+        <span class="keyword">String</span> msg = <span class="keyword">null</span>;
+        <span class="keyword">if</span> (format != <span class="keyword">null</span>) {
+            msg = <span class="keyword">String</span>.format(format, args);
+        } <span class="keyword">else</span> {
+            msg = Arrays.toString(args);
+        }
+        <span class="keyword">if</span> (TextUtils.isEmpty(msg)) {
+            <span class="keyword">return</span>;
+        }
+        <span class="built_in">int</span> <span class="built_in">line</span> = getCallerLineNumber();
+        <span class="keyword">String</span> filename = getCallerFilename();
+        <span class="keyword">String</span> logText = msgForTextLog(MsgType_Debug, obj, filename, <span class="built_in">line</span>, msg);
+        <span class="keyword">if</span> (isDebug) {
+            Log.d(TAG, logText);
+        }
+        <span class="keyword">if</span> (isLogUpload &amp;&amp; externalStorageExist()) {
+            writeToLog(logText);
+        }
+    } <span class="keyword">catch</span> (java.util.IllegalFormatException e) {
+        e.printStackTrace();
+    }
+}
+</code></pre><p>可以看出，isDebug、isLogUpload和externalStorageExist都是日志是否输出的先决条件。这些boolean值在Application中初始化，externalStorageExist可自行判断，不再赘述。<br>感兴趣的地方有三：</p>
+<h5 id="1-_getCallerLineNumber&amp;getCallerFilename。">1. getCallerLineNumber&amp;getCallerFilename。</h5><p>顾名思义，这些信息其实可以在当前线程的堆栈信息中取到:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread.<span class="function"><span class="title">currentThread</span><span class="params">()</span></span>.<span class="function"><span class="title">getStackTrace</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>上述方法返回StackTrace数组。有意思的是，调用打印log这句代码的信息是固定在第5个。如图：<br><img src="http://i3.tietuku.com/2481c20bc2096a8a.png" alt=""></p>
+<p>于是便变得简单。</p>
+<pre><code><span class="keyword">private</span> static <span class="built_in">int</span> getCallerLineNumber<span class="literal">()</span> {
+    return <span class="type">Thread</span>.currentThread<span class="literal">()</span>.getStackTrace<span class="literal">()</span>[<span class="number">4</span>].getLineNumber<span class="literal">()</span>;
+}
+
+<span class="keyword">private</span> static <span class="type">String</span> getCallerFilename<span class="literal">()</span> {
+    return <span class="type">Thread</span>.currentThread<span class="literal">()</span>.getStackTrace<span class="literal">()</span>[<span class="number">4</span>].getFileName<span class="literal">()</span>;
+}
+
+<span class="keyword">private</span> static <span class="type">String</span> getCallerMethodName<span class="literal">()</span> {
+    return <span class="type">Thread</span>.currentThread<span class="literal">()</span>.getStackTrace<span class="literal">()</span>[<span class="number">4</span>].getMethodName<span class="literal">()</span>;
+}
+</code></pre><h5 id="2-_msgForTextLog。">2. msgForTextLog。</h5><p>拼装log信息，这里一并添加了进程信息、线程信息、类信息等。</p>
+<pre><code><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">String</span> msgForTextLog(<span class="keyword">String</span> MsgType, <span class="keyword">Object</span> obj, <span class="keyword">String</span> filename, <span class="built_in">int</span> <span class="built_in">line</span>,
+                                    <span class="keyword">String</span> msg) {
+    StringBuilder sb = <span class="keyword">new</span> StringBuilder();
+    sb.<span class="built_in">append</span>(MsgType);
+    sb.<span class="built_in">append</span>(msg);
+    sb.<span class="built_in">append</span>(<span class="string">"(P:"</span>);
+    sb.<span class="built_in">append</span>(android.os.Process.myPid());
+    sb.<span class="built_in">append</span>(<span class="string">")"</span>);
+    sb.<span class="built_in">append</span>(<span class="string">"(T:"</span>);
+    sb.<span class="built_in">append</span>(Thread.currentThread().getId());
+    sb.<span class="built_in">append</span>(<span class="string">")"</span>);
+    sb.<span class="built_in">append</span>(<span class="string">"(C:"</span>);
+    <span class="keyword">if</span> (objClassName(obj) == <span class="string">"String"</span>) {
+        sb.<span class="built_in">append</span>(obj);
+    } <span class="keyword">else</span> {
+        sb.<span class="built_in">append</span>(objClassName(obj));
+    }
+    sb.<span class="built_in">append</span>(<span class="string">")"</span>);
+    sb.<span class="built_in">append</span>(<span class="string">"at ("</span>);
+    sb.<span class="built_in">append</span>(filename);
+    sb.<span class="built_in">append</span>(<span class="string">":"</span>);
+    sb.<span class="built_in">append</span>(<span class="built_in">line</span>);
+    sb.<span class="built_in">append</span>(<span class="string">")"</span>);
+    <span class="keyword">String</span> ret = sb.toString();
+    <span class="keyword">return</span> ret;
+}
+</code></pre><h5 id="3-_writeToLog。">3. writeToLog。</h5><p>调用LogWriteHelpr写数据。Log文件以当前日期为单位，即每天只生产一个本地日志。这点用SimpleDateFormat格式化后很容易做到。</p>
+<h3 id="LogWriteHelper-java">LogWriteHelper.java</h3><p>提供写log到file的方法。除此外，为了完成管理本地log，控制日志保存天数、单个日志大小等因素，还需要增加以下功能：</p>
+<ul>
+<li><strong>控制日志保存天数。</strong>根据日期，在程序每次启动时判断最近N天内应保留的文件名，扫描log目录，删除过期文件。</li>
+<li><strong>控制日志大小。</strong>根据文件大小，每当writeToFile后（在最后才能保证该条log信息不丢失）判断文件大小是否超过定义值。如果超过则新启动线程将原本的Log文件剪切为之前的一半，因为我们所需log往往是最新的。同时置Cutting标志位为true，有新log需要写入文件时，提供新的目的地xxx.collect来保存这段时间的log，子线程完成Cut后将.collect文件内容写回并删除。期间要注意多线程同步问题。</li>
+</ul>
+<p>核心代码如下：</p>
+<pre><code><span class="keyword">public</span> class LogWriteHelper {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> TAG = <span class="string">"LogWriteHelper"</span>;
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">int</span> MAX_DAYS = <span class="number">2</span>;<span class="comment">// Max days</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="built_in">int</span> MAX_FILE_SIZE = <span class="number">10</span> * <span class="number">1024</span>;<span class="comment">//Max Mb</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> LOG_SUFFIX_NAME = <span class="string">"logs.txt"</span>;
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> SimpleDateFormat LOG_FORMAT = <span class="keyword">new</span> SimpleDateFormat(
+            <span class="string">"yyyy-MM-dd kk:mm:ss.SSS"</span>, Locale.getDefault());
+
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">boolean</span> sOnCutting = <span class="keyword">false</span>;<span class="comment">//use a working flag, so you can collect log during CUT.</span>
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> CUT_TEMP_SUFFIX_NAME = <span class="string">".temp"</span>;
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> COLLECT_TEMP_SUFFIX_NAME = <span class="string">".collect"</span>;
+
+    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> <span class="keyword">void</span> writeLogToFile(<span class="keyword">String</span> fileName, <span class="keyword">String</span> msg)
+            <span class="keyword">throws</span> IOException {
+        <span class="comment">//prepare dir and file</span>
+        File fileToWrite = <span class="keyword">null</span>;
+        File esdf = Environment.getExternalStorageDirectory();
+        <span class="keyword">String</span> dir = esdf.getAbsolutePath() + LocalLog.LOG_DIR_NAME;
+        File dirFile = <span class="keyword">new</span> File(dir);
+        <span class="keyword">if</span> (!dirFile.exists()) {
+            dirFile.mkdirs();
+        }
+        <span class="keyword">final</span> File logFile = <span class="keyword">new</span> File(dir + File.separator + fileName);
+        <span class="keyword">final</span> <span class="keyword">String</span> logFilePath = logFile.getAbsolutePath();
+        <span class="keyword">if</span> (!logFile.exists()) {
+            logFile.createNewFile();
+        }
+        File tempFile = <span class="keyword">new</span> File(logFile.getAbsolutePath() + COLLECT_TEMP_SUFFIX_NAME);
+        <span class="keyword">final</span> <span class="keyword">String</span> tempFilePath = tempFile.getAbsolutePath();
+        <span class="keyword">if</span> (sOnCutting) {
+            <span class="comment">//if cut is running, use temp file replace</span>
+            <span class="keyword">if</span> (!tempFile.exists()) {
+                tempFile.createNewFile();
+            }
+            fileToWrite = tempFile;
+        } <span class="keyword">else</span> {
+            fileToWrite = logFile;
+        }
+
+        <span class="comment">//combine DATE and LOG</span>
+        Date date = <span class="keyword">new</span> Date();
+        <span class="keyword">String</span> strLog = LOG_FORMAT.format(date);
+
+        StringBuffer sb = <span class="keyword">new</span> StringBuffer(strLog);
+        sb.<span class="built_in">append</span>(<span class="string">' '</span>);
+        sb.<span class="built_in">append</span>(msg);
+        sb.<span class="built_in">append</span>(<span class="string">'\n'</span>);
+        strLog = sb.toString();
+
+        <span class="comment">//write into file</span>
+        FileWriter fileWriter = <span class="keyword">new</span> FileWriter(fileToWrite, <span class="keyword">true</span>);
+        fileWriter.write(strLog);
+        fileWriter.flush();
+        fileWriter.close();
+
+        <span class="keyword">if</span> (!sOnCutting &amp;&amp; logFile.length() &gt; MAX_FILE_SIZE) {
+            <span class="comment">//check every time.</span>
+            sOnCutting = <span class="keyword">true</span>;
+            <span class="keyword">if</span> (!tempFile.exists()) {
+                tempFile.createNewFile();
+            }
+
+            <span class="keyword">new</span> Thread(<span class="keyword">new</span> CutFileRunnable(logFile, logFilePath, tempFilePath)).start();
+        }
+
+    }
+
+    <span class="keyword">static</span> class CutFileRunnable implements Runnable {
+        <span class="keyword">public</span> CutFileRunnable(File logFile, <span class="keyword">String</span> logFilePath, <span class="keyword">String</span> tempFilePath) {
+            <span class="keyword">this</span>.logFile = logFile;
+            <span class="keyword">this</span>.logFilePath = logFilePath;
+            <span class="keyword">this</span>.tempFilePath = tempFilePath;
+        }
+
+        <span class="keyword">private</span> File logFile;
+        <span class="keyword">private</span> <span class="keyword">String</span> logFilePath;
+        <span class="keyword">private</span> <span class="keyword">String</span> tempFilePath;
+
+        @Override
+        <span class="keyword">public</span> <span class="keyword">void</span> run() {
+            <span class="comment">//step1 cut</span>
+            <span class="built_in">boolean</span> b = cutLogToHalf(logFile);
+            Log.d(TAG, <span class="string">"child thread run cutHalf result="</span> + b);
+            <span class="keyword">if</span> (b) {
+                <span class="comment">//step2 copy other log into half file.</span>
+                <span class="built_in">boolean</span> b1 = mergeCollectToLog(logFilePath, tempFilePath);
+                Log.d(TAG, <span class="string">"mergeCollectToLog result="</span> + b1 + <span class="string">", thread="</span> + Thread.currentThread().getName());
+            }
+        }
+
+    }
+
+    <span class="comment">/**
+     * @param logFilePath
+     * @param tempFilePath
+     * @return true if success
+     */</span>
+    <span class="keyword">private</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> <span class="built_in">boolean</span> mergeCollectToLog(<span class="keyword">String</span> logFilePath, <span class="keyword">String</span> tempFilePath) {
+        <span class="keyword">long</span> start = System.currentTimeMillis();
+
+        File logFile = <span class="keyword">new</span> File(logFilePath);
+        File tempLogFile = <span class="keyword">new</span> File(tempFilePath);
+        <span class="keyword">if</span> (!logFile.exists() || !tempLogFile.exists()) {
+            Log.e(TAG, <span class="string">"mergeCollectToLog, file not exists! thread="</span> + Thread.currentThread().getName());
+        } <span class="keyword">else</span> {
+            <span class="keyword">BufferedReader</span> bufferedReader = <span class="keyword">null</span>;
+            BufferedWriter bufferedWriter = <span class="keyword">null</span>;
+            <span class="keyword">try</span> {
+                FileWriter fileWriter = <span class="keyword">new</span> FileWriter(logFile, <span class="keyword">true</span>);
+                bufferedWriter = <span class="keyword">new</span> BufferedWriter(fileWriter);
+                FileReader fileReader = <span class="keyword">new</span> FileReader(tempLogFile);
+                bufferedReader = <span class="keyword">new</span> <span class="keyword">BufferedReader</span>(fileReader);
+                <span class="keyword">String</span> thisLine = <span class="keyword">null</span>;
+                <span class="keyword">while</span> ((thisLine = bufferedReader.readLine()) != <span class="keyword">null</span>) {
+                    bufferedWriter.write(thisLine);
+                    bufferedWriter.newLine();
+                }
+                tempLogFile.delete();
+                Log.d(TAG, <span class="string">"temp collect log file delete. thread="</span> + Thread.currentThread().getName());
+
+                <span class="keyword">long</span> end = System.currentTimeMillis();
+                Log.d(TAG, <span class="string">"copy tempLog spend: "</span> + (end - start) / <span class="number">1000</span> + <span class="string">"seconds."</span>);
+                <span class="keyword">return</span> <span class="keyword">true</span>;
+            } <span class="keyword">catch</span> (IOException e) {
+                e.printStackTrace();
+            } <span class="keyword">finally</span> {
+                sOnCutting = <span class="keyword">false</span>;
+                closeQuietly(bufferedReader);
+                closeQuietly(bufferedWriter);
+            }
+        }
+        sOnCutting = <span class="keyword">false</span>;
+        <span class="keyword">return</span> <span class="keyword">false</span>;
+    }
+
+    <span class="comment">/**
+     * use RandomAccessFile. copy old data into temp file, then remove old file and rename the temp.
+     *
+     * @param old
+     * @return true if success
+     */</span>
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">boolean</span> cutLogToHalf(File old) {
+        Log.i(TAG, <span class="string">"logFile is too big! need cut half."</span>);
+        <span class="keyword">long</span> start = System.currentTimeMillis();
+
+        BufferedWriter bfdTempWriter = <span class="keyword">null</span>;
+        RandomAccessFile randomAccessFile = <span class="keyword">null</span>;
+        <span class="keyword">try</span> {
+            <span class="comment">//prepare temp file</span>
+            <span class="keyword">if</span> (!old.exists()) {
+                <span class="keyword">return</span> <span class="keyword">false</span>;
+            }
+            File temp = <span class="keyword">new</span> File(old.getAbsolutePath() + CUT_TEMP_SUFFIX_NAME);
+            <span class="keyword">if</span> (temp.exists()) {
+                temp.delete();
+            }
+            temp.createNewFile();
+            FileWriter tempWriter = <span class="keyword">new</span> FileWriter(temp);
+            bfdTempWriter = <span class="keyword">new</span> BufferedWriter(tempWriter);<span class="comment">//fixme better buf?</span>
+
+            <span class="comment">//read from old file, start at half</span>
+            randomAccessFile = <span class="keyword">new</span> RandomAccessFile(old, <span class="string">"r"</span>);
+            <span class="keyword">long</span> newStart = randomAccessFile.length() / <span class="number">2</span>;
+            randomAccessFile.seek(newStart);
+            randomAccessFile.readLine();<span class="comment">//just skip this line.</span>
+            bfdTempWriter.write(<span class="string">"-----CUT HALF START "</span> + LOG_FORMAT.format(<span class="keyword">new</span> Date()) + <span class="string">"-----\n"</span>);
+
+            <span class="keyword">String</span> thisLine = <span class="keyword">null</span>;
+            <span class="keyword">while</span> ((thisLine = randomAccessFile.readLine()) != <span class="keyword">null</span>) {
+                bfdTempWriter.write(thisLine);
+                bfdTempWriter.newLine();
+            }
+
+            <span class="comment">//rename. remove.</span>
+            <span class="keyword">if</span> (!old.delete() || !temp.renameTo(old.getAbsoluteFile())) {
+                Log.e(TAG, <span class="string">"cutHalfFile, delete or rename error!"</span>);
+            }
+            <span class="keyword">long</span> end = System.currentTimeMillis();
+            Log.d(TAG, <span class="string">"cutHalf file to: "</span> + old.length() / <span class="number">1024</span> + <span class="string">"kb, spend: "</span> + (end - start) / <span class="number">1000</span> + <span class="string">"seconds."</span>);
+            <span class="comment">//2m --&gt; 1m: about 8s.</span>
+            <span class="keyword">return</span> <span class="keyword">true</span>;
+        } <span class="keyword">catch</span> (IOException e) {
+            Log.e(TAG, <span class="string">"cutHalfFile error!"</span>, e);
+        } <span class="keyword">finally</span> {
+            closeQuietly(randomAccessFile);
+            closeQuietly(bfdTempWriter);
+        }
+        <span class="keyword">return</span> <span class="keyword">false</span>;
+    }
+
+    <span class="comment">/**
+     * delete expire log files depends on MAX_DAYS.
+     */</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> deleteExpireLogFiles() {
+        <span class="keyword">if</span> (!LocalLog.externalStorageExist()) {
+            <span class="keyword">return</span>;
+        }
+        File esdf = Environment.getExternalStorageDirectory();
+        <span class="keyword">String</span> dir = esdf.getAbsolutePath() + LocalLog.LOG_DIR_NAME;
+        File dirFile = <span class="keyword">new</span> File(dir);
+        <span class="keyword">if</span> (!dirFile.exists()) {
+            dirFile.mkdirs();
+        }
+
+        Calendar c = Calendar.getInstance();
+        ArrayList&lt;<span class="keyword">String</span>&gt; remainFileNames = <span class="keyword">new</span> ArrayList&lt;&gt;();
+        remainFileNames.<span class="built_in">add</span>(<span class="keyword">new</span> File(dir + File.separator + LocalLog.getLogFileName(c.getTime())).getName());
+        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; MAX_DAYS; i++) {
+            c.<span class="built_in">add</span>(Calendar.DATE, -<span class="number">1</span>);
+            remainFileNames.<span class="built_in">add</span>(<span class="keyword">new</span> File(dir + File.separator + LocalLog.getLogFileName(c.getTime())).getName());
+        }
+        Log.d(TAG, <span class="string">"LogFileNames need to remain: "</span> + remainFileNames.toString());
+
+        <span class="keyword">for</span> (File f : dirFile.listFiles()) {
+            <span class="keyword">if</span> (!remainFileNames.contains(f.getName()) &amp;&amp; f.exists() &amp;&amp; f.isFile()) {
+                f.delete();
+                Log.d(TAG, <span class="string">"delete logFile: "</span> + f.getAbsolutePath());
+            }
+        }
+    }
+
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> createTestLogFiles(<span class="built_in">int</span> days) {
+        <span class="keyword">if</span> (!LocalLog.externalStorageExist()) {
+            <span class="keyword">return</span>;
+        }
+        File esdf = Environment.getExternalStorageDirectory();
+        <span class="keyword">String</span> dir = esdf.getAbsolutePath() + LocalLog.LOG_DIR_NAME;
+        File dirFile = <span class="keyword">new</span> File(dir);
+        <span class="keyword">if</span> (!dirFile.exists()) {
+            dirFile.mkdirs();
+        }
+
+        Calendar c = Calendar.getInstance();
+        <span class="built_in">int</span> temp = <span class="number">0</span>;
+        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">1</span>; i &lt; days; i++) {
+            c.<span class="built_in">add</span>(Calendar.DATE, -<span class="number">1</span>);
+            File logFile = <span class="keyword">new</span> File(dir + File.separator + LocalLog.getLogFileName(c.getTime()));
+            <span class="keyword">if</span> (!logFile.exists()) {
+                <span class="keyword">try</span> {
+                    <span class="keyword">if</span> (logFile.createNewFile()) {
+                        temp++;
+                    }
+                } <span class="keyword">catch</span> (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        Log.d(TAG, <span class="string">"createTestLogFile: number="</span> + temp);
+    }
+
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> closeQuietly(Closeable closeable) {
+        <span class="keyword">try</span> {
+            closeable.close();
+        } <span class="keyword">catch</span> (IOException e) {
+            <span class="comment">//ignore</span>
+        }
+    }
+
+}
+</code></pre><h2 id="总结">总结</h2><p>实测可用，如果程序没有Crash监测功能（例如Umeng），还可以通过UncaughtExceptionHandler来完成Crash信息的收集。<br>除此之外，这里没有写到如何上传LogFile到自己的服务器。因为每人使用的Http框架有所不同，Api也多种多样。总体上说就是利用multipart/form-data，使用Post请求携带file上传。记得上传前做Zip压缩工作，这样会使原本2mb的文件小到几十k，十分可观。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://opticalix.github.com/2015/08/30/local-log/" data-title="Opticalix Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/08/23/memery-leak/"  title="内存泄露及LeakCanary的使用">
+ <strong>下一篇：</strong><br/> 
+ <span>内存泄露及LeakCanary的使用
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#可保存Log到本地的模块"><span class="toc-number">1.</span> <span class="toc-text">可保存Log到本地的模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#详解"><span class="toc-number">1.2.</span> <span class="toc-text">详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LocalLog-java"><span class="toc-number">1.2.1.</span> <span class="toc-text">LocalLog.java</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-_getCallerLineNumber&getCallerFilename。"><span class="toc-number">1.2.1.0.1.</span> <span class="toc-text">1. getCallerLineNumber&getCallerFilename。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-_msgForTextLog。"><span class="toc-number">1.2.1.0.2.</span> <span class="toc-text">2. msgForTextLog。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-_writeToLog。"><span class="toc-number">1.2.1.0.3.</span> <span class="toc-text">3. writeToLog。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LogWriteHelper-java"><span class="toc-number">1.2.2.</span> <span class="toc-text">LogWriteHelper.java</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Android/" title="Android">Android<sup>6</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Git/" title="Git">Git<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/gitattribute/" title="gitattribute">gitattribute<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Studio/" title="Studio">Studio<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/NDK/" title="NDK">NDK<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Optimization/" title="Optimization">Optimization<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Fragment/" title="Fragment">Fragment<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+          <li>
+            
+            	<a href="https://coderq.com" target="_blank" title="一个面向程序员交流分享的新一代社区">码农圈</a>
+            
+          </li>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m Opticalix. <br/>
+			This is my blog.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="/about" target="_blank" title="Opticalix">Opticalix</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
