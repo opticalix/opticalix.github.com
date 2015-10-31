@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="theme-next use-motion ">
+<html class="theme-next use-motion theme-next-mist">
 <head>
   
 
@@ -58,8 +58,8 @@
 
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
-    scheme: '',
-    sidebar: 'post'
+    scheme: 'Mist',
+    sidebar: 'always'
   };
 </script>
 
@@ -359,7 +359,7 @@
         
           <span itemprop="articleBody">
             
-              <h2 id="简介">简介</h2><p>Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。</p>
+              <p>##简介<br>Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。</p>
 <p>棘手的问题主要有：</p>
 <ol>
 <li>单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。</li>
@@ -370,7 +370,8 @@
 <li>LocalLog，用于在代码中调用各级别（debug、info、error等）log。</li>
 <li>LogWriteHelper，用于存储日志到本地。</li>
 </ol>
-<h2 id="详解">详解</h2><h3 id="LocalLog-java">LocalLog.java</h3><p>提供各级别静态方法。这个好理解，无非和平时Log.d一致。</p>
+<p>##详解</p>
+<p>###LocalLog.java<br>提供各级别静态方法。这个好理解，无非和平时Log.d一致。</p>
 <pre><code><span class="comment">/**
  * Reference : boolean : %b. byte, short, int, long, Integer,
  * Long : %d. NOTE %x for hex. String : %s. Object : %s, for this
@@ -410,16 +411,16 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread.<span class="function"><span class="title">currentThread</span><span class="params">()</span></span>.<span class="function"><span class="title">getStackTrace</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
 <p>上述方法返回StackTrace数组。有意思的是，调用打印log这句代码的信息是固定在第5个。如图：<br><img src="http://i3.tietuku.com/2481c20bc2096a8a.png" alt=""></p>
 <p>于是便变得简单。</p>
-<pre><code><span class="keyword">private</span> static <span class="built_in">int</span> getCallerLineNumber<span class="literal">()</span> {
-    return <span class="type">Thread</span>.currentThread<span class="literal">()</span>.getStackTrace<span class="literal">()</span>[<span class="number">4</span>].getLineNumber<span class="literal">()</span>;
+<pre><code><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getCallerLineNumber</span><span class="params">()</span> </span>{
+    <span class="keyword">return</span> Thread.currentThread().getStackTrace()[<span class="number">4</span>].getLineNumber();
 }
 
-<span class="keyword">private</span> static <span class="type">String</span> getCallerFilename<span class="literal">()</span> {
-    return <span class="type">Thread</span>.currentThread<span class="literal">()</span>.getStackTrace<span class="literal">()</span>[<span class="number">4</span>].getFileName<span class="literal">()</span>;
+<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">getCallerFilename</span><span class="params">()</span> </span>{
+    <span class="keyword">return</span> Thread.currentThread().getStackTrace()[<span class="number">4</span>].getFileName();
 }
 
-<span class="keyword">private</span> static <span class="type">String</span> getCallerMethodName<span class="literal">()</span> {
-    return <span class="type">Thread</span>.currentThread<span class="literal">()</span>.getStackTrace<span class="literal">()</span>[<span class="number">4</span>].getMethodName<span class="literal">()</span>;
+<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">getCallerMethodName</span><span class="params">()</span> </span>{
+    <span class="keyword">return</span> Thread.currentThread().getStackTrace()[<span class="number">4</span>].getMethodName();
 }
 </code></pre><h5 id="2-_msgForTextLog。">2. msgForTextLog。</h5><p>拼装log信息，这里一并添加了进程信息、线程信息、类信息等。</p>
 <pre><code><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">String</span> msgForTextLog(<span class="keyword">String</span> MsgType, <span class="keyword">Object</span> obj, <span class="keyword">String</span> filename, <span class="built_in">int</span> <span class="built_in">line</span>,
@@ -449,7 +450,7 @@
     <span class="keyword">return</span> ret;
 }
 </code></pre><h5 id="3-_writeToLog。">3. writeToLog。</h5><p>调用LogWriteHelpr写数据。Log文件以当前日期为单位，即每天只生产一个本地日志。这点用SimpleDateFormat格式化后很容易做到。</p>
-<h3 id="LogWriteHelper-java">LogWriteHelper.java</h3><p>提供写log到file的方法。除此外，为了完成管理本地log，控制日志保存天数、单个日志大小等因素，还需要增加以下功能：</p>
+<p>###LogWriteHelper.java<br>提供写log到file的方法。除此外，为了完成管理本地log，控制日志保存天数、单个日志大小等因素，还需要增加以下功能：</p>
 <ul>
 <li><strong>控制日志保存天数。</strong>根据日期，在程序每次启动时判断最近N天内应保留的文件名，扫描log目录，删除过期文件。</li>
 <li><strong>控制日志大小。</strong>根据文件大小，每当writeToFile后（在最后才能保证该条log信息不丢失）判断文件大小是否超过定义值。如果超过则新启动线程将原本的Log文件剪切为之前的一半，因为我们所需log往往是最新的。同时置Cutting标志位为true，有新log需要写入文件时，提供新的目的地xxx.collect来保存这段时间的log，子线程完成Cut后将.collect文件内容写回并删除。期间要注意多线程同步问题。</li>
@@ -714,7 +715,7 @@
     }
 
 }
-</code></pre><h2 id="总结">总结</h2><p>实测可用，如果程序没有Crash监测功能（例如Umeng），还可以通过UncaughtExceptionHandler来完成Crash信息的收集。<br>除此之外，这里没有写到如何上传LogFile到自己的服务器。因为每人使用的Http框架有所不同，Api也多种多样。总体上说就是利用multipart/form-data，使用Post请求携带file上传。记得上传前做Zip压缩工作，这样会使原本2mb的文件小到几十k，十分可观。</p>
+</code></pre><p>##总结<br>实测可用，如果程序没有Crash监测功能（例如Umeng），还可以通过UncaughtExceptionHandler来完成Crash信息的收集。<br>除此之外，这里没有写到如何上传LogFile到自己的服务器。因为每人使用的Http框架有所不同，Api也多种多样。总体上说就是利用multipart/form-data，使用Post请求携带file上传。记得上传前做Zip压缩工作，这样会使原本2mb的文件小到几十k，十分可观。</p>
 
             
           </span>
@@ -812,28 +813,29 @@
         
           <span itemprop="articleBody">
             
-              <h2 id="基本概念">基本概念</h2><ul>
+              <p>##基本概念</p>
+<ul>
 <li>内存泄露，即MemeryLeak，是平时Coding非常容易忽视的点..像我之前对泄露的认识和针对性都不强，写的代码马马虎虎就可以，毕竟Leak并不像OOM那样，小白都可以轻易发现且容忍度为0。对泄露的定义，参考Wiki：</li>
 </ul>
 <blockquote>
 <p>内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之前就失去了对该段内存的控制，从而造成了内存的浪费。</p>
 </blockquote>
 <ul>
-<li>应该说优秀的程序设计完全可以避免内存泄露。以下是我对Android中内存泄露的简单理解和常见情景分析。<h2 id="简单举例">简单举例</h2></li>
+<li>应该说优秀的程序设计完全可以避免内存泄露。以下是我对Android中内存泄露的简单理解和常见情景分析。<br>##简单举例</li>
 <li><p>类描述如下</p>
-<pre><code><span class="keyword">class</span> <span class="title">A</span>{
-    B b;
-    <span class="function"><span class="keyword">void</span> <span class="title">setB</span><span class="params">(B b)</span></span>{
-        <span class="keyword">this</span>.b = b
-    }
+<pre><code><span class="label">class</span> A{
+    <span class="keyword">B </span><span class="keyword">b;
+</span>    void setB(<span class="keyword">B </span><span class="keyword">b){
+</span>        this.<span class="keyword">b </span>= <span class="keyword">b
+</span>    }
 }
 
-<span class="keyword">class</span> <span class="title">B</span>{
-
+<span class="label">class</span> <span class="keyword">B{
+</span>
 }
 </code></pre></li>
-<li><p>A可以通过setB方法，持有B的引用。这时B对象若要销毁，但因为A还保存着B的强引用，所以GC无法回收，内存（对象B）泄露。</p>
-<h2 id="容易Leak的场景">容易Leak的场景</h2></li>
+<li><p>A可以通过setB方法，持有B的引用。这时B对象若要销毁，但因为A还保存着B的强引用，所以GC无法回收，内存（对象B）泄露。<br>##容易Leak的场景</p>
+</li>
 <li>Context<ul>
 <li>Android开发中许多场景都要用到Context，但是Context由于占用内存大/传递频繁，所以是造成内存泄露的大户。比如一后台Service需要拿到Context，传入当前Activity，但是由于Service的生命周期往往大于Activity，当退出该Activity时这部分内存无法回收，造成泄露。</li>
 </ul>
@@ -873,7 +875,7 @@ public static <span class="class"><span class="keyword">class</span> <span class
 <li>心得<ul>
 <li>使用匿名内部类时要记住，内部类生命周期一定要小于外部类。</li>
 <li>使用Context时尽量考虑使用ApplicationContext，它的生命周期和整个进程所绑定。</li>
-<li>使用Weakreference持有引用，这样不会影响GC。<h2 id="使用LeakCanary">使用LeakCanary</h2></li>
+<li>使用Weakreference持有引用，这样不会影响GC。<br>##使用LeakCanary</li>
 </ul>
 </li>
 <li><p>Square出品，见<a href="https://github.com/square/leakcanary" title="leakcanary" target="_blank" rel="external">https://github.com/square/leakcanary</a>，使用起来超级方便。只需要在Application中onCreate添加一句话：</p>
@@ -1064,13 +1066,14 @@ public static <span class="class"><span class="keyword">class</span> <span class
         
           <span itemprop="articleBody">
             
-              <h2 id="引">引</h2><p>本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：</p>
+              <p>##引<br>本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：</p>
 <ol>
 <li>脱离JVM，运行效率高。</li>
 <li>安全性强，核心代码不易破解。</li>
 <li>代码可移植性强，此次核心代码就共用于IOS和Android。</li>
 </ol>
-<h2 id="实现">实现</h2><ol>
+<p>##实现</p>
+<ol>
 <li><p>写native方法。</p>
 <pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NdkEngine</span> </span>{
     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">nativeCalc</span><span class="params">(<span class="keyword">int</span> n)</span></span>;
@@ -1085,8 +1088,8 @@ public static <span class="class"><span class="keyword">class</span> <span class
 </ol>
 </li>
 </ol>
-<pre><code><span class="preprocessor">#<span class="keyword">include</span> "com_felix_opticalixdemo_demo_ndk_NdkEngine.h"</span>
-<span class="preprocessor">#<span class="keyword">include</span> "calc.h"</span>
+<pre><code><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"com_felix_opticalixdemo_demo_ndk_NdkEngine.h"</span></span>
+<span class="preprocessor">#<span class="keyword">include</span> <span class="string">"calc.h"</span></span>
 
 <span class="function">JNIEXPORT jint JNICALL <span class="title">Java_com_felix_opticalixdemo_demo_ndk_NdkEngine_nativeCalc</span>
 <span class="params">(JNIEnv *env, jclass clazz, jint n)</span></span>{
@@ -1098,34 +1101,34 @@ public static <span class="class"><span class="keyword">class</span> <span class
 </ol>
 </li>
 </ol>
-<pre><code>        <span class="preprocessor">#ifndef _CALC_H_</span>
+<pre><code>        <span class="preprocessor">#<span class="keyword">ifndef</span> _CALC_H_</span>
         <span class="preprocessor">#<span class="keyword">define</span> _CALC_H_</span>
 
-        <span class="preprocessor">#<span class="keyword">include</span> &lt;stdint.h&gt;</span>
+        <span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span>
 
-        <span class="function"><span class="keyword">extern</span> <span class="keyword">uint64_t</span> <span class="title">calc</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>;
+        <span class="function"><span class="keyword">extern</span> uint64_t <span class="title">calc</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>;
         <span class="preprocessor">#<span class="keyword">endif</span></span>
 
 <span class="number">2.</span> calc.c
 
 
-        <span class="preprocessor">#<span class="keyword">include</span> "calc.h"</span>
+        <span class="preprocessor">#<span class="keyword">include</span> <span class="string">"calc.h"</span></span>
 
-        <span class="function"><span class="keyword">uint64_t</span> <span class="title">calc</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>{
+        <span class="keyword">uint64_t</span> calc(<span class="keyword">unsigned</span> <span class="keyword">int</span> n){
             <span class="keyword">return</span> n;<span class="comment">//do some calc</span>
         }
 </code></pre><ol>
 <li><p>编写makeFile。</p>
 <ol>
 <li><p>Android.mk</p>
-<pre><code>LO<span class="built_in">CAL_PATH</span> := $(call my-dir)
-include $(CLEAR_VARS)
-LO<span class="built_in">CAL_MODULE</span> := ndk_calc_demo
-LO<span class="built_in">CAL_SRC_FILES</span> := com_felix_opticalixdemo_demo_ndk_NdkEngine<span class="variable">.c</span> calc<span class="variable">.c</span> <span class="comment">//add all your .c files</span>
-include $(B<span class="built_in">UILD_SHARED_LIBRARY</span>)
+<pre><code>LOCAL_PATH := $(<span class="operator"><span class="keyword">call</span> my-dir)
+<span class="keyword">include</span> $(CLEAR_VARS)
+LOCAL_MODULE := ndk_calc_demo
+LOCAL_SRC_FILES := com_felix_opticalixdemo_demo_ndk_NdkEngine.<span class="keyword">c</span> calc.<span class="keyword">c</span> //<span class="keyword">add</span> all your .<span class="keyword">c</span> files
+<span class="keyword">include</span> $(BUILD_SHARED_LIBRARY)</span>
 </code></pre></li>
 <li><p>Application.mk</p>
-<pre><code><span class="rule"><span class="attribute">APP_ABI </span>:<span class="value">= armeabi-v7a</span></span>
+<pre><code><span class="attribute">APP_ABI :</span>=<span class="string"> armeabi-v7a</span>
 </code></pre></li>
 </ol>
 </li>
@@ -1268,10 +1271,10 @@ tasks.withType(JavaCompile) {
         
           <span itemprop="articleBody">
             
-              <h2 id="初识DialogFragment">初识DialogFragment</h2><p>DialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由FragmentManager控制，当遇到特殊情况，例如转屏后，传统Dialog将会消失，而使用DialogFragment，onCreate方法重新调用，并获取arguments。这种方式创建的对话框会再次生成。</p>
-<h2 id="DialogFragment的生命周期">DialogFragment的生命周期</h2><p>首先，Fragment生命周期参考此图，不再赘述。<br><img src="http://img.my.csdn.net/uploads/201210/23/1350998205_2002.png" alt="Fragment生命周期"><br>其实DialogFragment作为其子类，生命周期类似，重点是多了一个onCreateDialog方法，经过Log输出，确定创建时调用顺序为：</p>
+              <p>##初识DialogFragment<br>DialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由FragmentManager控制，当遇到特殊情况，例如转屏后，传统Dialog将会消失，而使用DialogFragment，onCreate方法重新调用，并获取arguments。这种方式创建的对话框会再次生成。</p>
+<p>##DialogFragment的生命周期<br>首先，Fragment生命周期参考此图，不再赘述。<br><img src="http://img.my.csdn.net/uploads/201210/23/1350998205_2002.png" alt="Fragment生命周期"><br>其实DialogFragment作为其子类，生命周期类似，重点是多了一个onCreateDialog方法，经过Log输出，确定创建时调用顺序为：</p>
 <blockquote>
-<p>onCreate —&gt; onCreateDialog —&gt; onCreateView</p>
+<p>onCreate –&gt; onCreateDialog –&gt; onCreateView</p>
 </blockquote>
 <p>接下来细化各生命周期调用过程：</p>
 <ul>
@@ -1280,7 +1283,7 @@ tasks.withType(JavaCompile) {
 <li><strong>onCreateView</strong>。该方法是继承Fragment必复写的，可是在DialogFragment中则有所不同，如果你同时复写onCreateView和onCreateDialog则有可能会发生一些奇怪的Exception，参见<a href="http://stackoverflow.com/questions/13257038/custom-layout-for-dialogfragment-oncreateview-vs-oncreatedialog" title="onCreateView or onCreateDialog" target="_blank" rel="external">http://stackoverflow.com/questions/13257038/custom-layout-for-dialogfragment-oncreateview-vs-oncreatedialog</a>。建议使用DialogFragment时只选择使用onCreateDialog，将inflate和findview的过程也全部放在onCreateDialog中即可。</li>
 </ul>
 <p>除此外，DialogFragment有别于普通Fragment的地方在于多了show、dismiss等方法，查看源码发现其实是多了一层转调，像show(FragmentManager manager, String tag)是传入FragmentManager后，add自身这个Fragment并commit。remove方法类似，转调dismissInternal，如果add了backStack则pop出栈，否则remove该Fragment。</p>
-<h2 id="自定义DialogFragment实例">自定义DialogFragment实例</h2><p>在这里写了一个基类BaseDialogFragment，作为各种提示型Dialog的父类。它继承自DialogFragment，本身主要是根据子类传递的Layout建立Dialog并加以点击事件。点击响应和Button的自定义则通过接口和抽象方法，由子类去实现。</p>
+<p>##自定义DialogFragment实例<br>在这里写了一个基类BaseDialogFragment，作为各种提示型Dialog的父类。它继承自DialogFragment，本身主要是根据子类传递的Layout建立Dialog并加以点击事件。点击响应和Button的自定义则通过接口和抽象方法，由子类去实现。</p>
 <p><strong>基类代码如下：</strong></p>
 <pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseDialogFragment</span> <span class="keyword">extends</span> <span class="title">DialogFragment</span> </span>{
     <span class="keyword">protected</span> <span class="keyword">int</span> mLayout;
@@ -1352,36 +1355,36 @@ tasks.withType(JavaCompile) {
 
     <span class="keyword">private</span> OnBtnClickListener mOnBtnClickListener;
 
-    <span class="javadoc">/**
+    <span class="comment">/**
      * 添加Button的Click监听
      *
-     *<span class="javadoctag"> @param</span> onBtnClickListener
+     * <span class="doctag">@param</span> onBtnClickListener
      */</span>
     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnBtnClickListener</span><span class="params">(OnBtnClickListener onBtnClickListener)</span> </span>{
         mOnBtnClickListener = onBtnClickListener;
     }
 
-    <span class="javadoc">/**
+    <span class="comment">/**
      * 用于设定Positive Button的Text颜色
-     *<span class="javadoctag"> @return</span> Color的Resource Id
+     * <span class="doctag">@return</span> Color的Resource Id
      */</span>
     <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getOkTextColorRes</span><span class="params">()</span></span>;<span class="comment">// text 只能是color</span>
 
-    <span class="javadoc">/**
+    <span class="comment">/**
      * 用于设定Positive Button的背景颜色
-     *<span class="javadoctag"> @return</span> Color或者Drawable的Resource Id
+     * <span class="doctag">@return</span> Color或者Drawable的Resource Id
      */</span>
     <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getOkBgColorRes</span><span class="params">()</span></span>;
 
-    <span class="javadoc">/**
+    <span class="comment">/**
      * 用于设定Negative Button的Text颜色
-     *<span class="javadoctag"> @return</span> Color的Resource Id
+     * <span class="doctag">@return</span> Color的Resource Id
      */</span>
     <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getCancelTextColorRes</span><span class="params">()</span></span>;
 
-    <span class="javadoc">/**
+    <span class="comment">/**
      * 用于设定Negative Button的背景颜色
-     *<span class="javadoctag"> @return</span> Color或者Drawable的Resource Id
+     * <span class="doctag">@return</span> Color或者Drawable的Resource Id
      */</span>
     <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getCancelBgColorRes</span><span class="params">()</span></span>;
 
@@ -1394,11 +1397,11 @@ tasks.withType(JavaCompile) {
 <p><strong>子类代码:</strong></p>
 <pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UniDialogFragment</span> <span class="keyword">extends</span> <span class="title">BaseDialogFragment</span> </span>{
 
-    <span class="javadoc">/**
+    <span class="comment">/**
      * 根据布局文件，新建Fragment，传递argument
      *
-     *<span class="javadoctag"> @param</span> layout
-     *<span class="javadoctag"> @return</span>
+     * <span class="doctag">@param</span> layout
+     * <span class="doctag">@return</span>
      */</span>
     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BaseDialogFragment <span class="title">newInstance</span><span class="params">(<span class="keyword">int</span> layout)</span> </span>{
         UniDialogFragment dialogFragment = <span class="keyword">new</span> UniDialogFragment();
@@ -1565,8 +1568,8 @@ tasks.withType(JavaCompile) {
         
           <span itemprop="articleBody">
             
-              <h2 id="问题引入">问题引入</h2><p>乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为build时检查不够严格。而一切当项目迁移到Android Studio时就发生了不同，Lint Checks会报乱码错误。</p>
-<h2 id="解决">解决</h2><p>自然的想到选择Setting-搜索encoding修改文件编码来解决。Studio比Eclipse更加强大的是其能够选择每个文件的编码格式，不仅如此它还支持文件编码格式的转换。<br>例如GBK编码格式的文件无法正常显示：<br><img src="http://i1.tietuku.com/b98491f5d9a2bec8.png" alt=""><br><img src="http://i1.tietuku.com/cf86e6602c2d414e.png" alt=""><br><img src="http://i1.tietuku.com/650bda240acaa46e.png" alt=""></p>
+              <p>##问题引入<br>乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为build时检查不够严格。而一切当项目迁移到Android Studio时就发生了不同，Lint Checks会报乱码错误。</p>
+<p>##解决<br>自然的想到选择Setting-搜索encoding修改文件编码来解决。Studio比Eclipse更加强大的是其能够选择每个文件的编码格式，不仅如此它还支持文件编码格式的转换。<br>例如GBK编码格式的文件无法正常显示：<br><img src="http://i1.tietuku.com/b98491f5d9a2bec8.png" alt=""><br><img src="http://i1.tietuku.com/cf86e6602c2d414e.png" alt=""><br><img src="http://i1.tietuku.com/650bda240acaa46e.png" alt=""></p>
 <p><strong>Reload</strong><br>    只是重新使用新选择的编码去读取文件，不改变当前文件的实际编码</p>
 <p><strong>Convert</strong><br>    会将文件的编码转换为新选择的。IDE会检查转换后是否能够正常显示，这么选一般是安全的。否则Studio会提示你发现异常，是否要强制转换。</p>
 <p>一般的编辑工具也带有convert encoding的功能，但是Studio集合在了IDE中，会更加方便编程。而且非常灵活，每一个文件的格式都可以单独选择。不过也有一个问题就是不能批量修改，对一些路径较深的文件改起来还是有点麻烦的。</p>
@@ -1667,9 +1670,9 @@ tasks.withType(JavaCompile) {
         
           <span itemprop="articleBody">
             
-              <h2 id="需求">需求</h2><p>同”Git技巧—自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。</p>
-<h2 id="属性介绍">属性介绍</h2><p>关于的original-package标签的资料大多如出一辙，这里简单讲讲我的看法。<br>AndroidManifest中的<package>和<original-package>标签相似，其中package代表进程名，代表app唯一的标识，不同app的package必须不一样，另外package的值与R文件息息相关，R文件生成只依赖于package标签；original-package设置的是源码级别包名，也就是要与包结构一致。</original-package></package></p>
-<h2 id="使用方法">使用方法</h2><p>知道以上这些就足够，例如我这里有开发好的原app—“<strong>test</strong>”。这时需要发布的新的一套resouce的app—“<strong>other_test</strong>”，他们的package分别为“test”和“other_test”。使用Git版本控制，只需要从我们原分支test上拉一条新分支（或者从master），然后将其package标签更名为other_test（可利用全局替换replace in path）。此时项目肯定会因为R文件丢失而报错，因为包名和源码路径已经不一致，这时我们在新项目的Manifest文件中手工添加original-package标签，如下：</p>
+              <p>##需求<br>同”Git技巧–自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。</p>
+<p>##属性介绍<br>关于的original-package标签的资料大多如出一辙，这里简单讲讲我的看法。<br>AndroidManifest中的<package>和<original-package>标签相似，其中package代表进程名，代表app唯一的标识，不同app的package必须不一样，另外package的值与R文件息息相关，R文件生成只依赖于package标签；original-package设置的是源码级别包名，也就是要与包结构一致。</original-package></package></p>
+<p>##使用方法<br>知道以上这些就足够，例如我这里有开发好的原app–“<strong>test</strong>”。这时需要发布的新的一套resouce的app–“<strong>other_test</strong>”，他们的package分别为“test”和“other_test”。使用Git版本控制，只需要从我们原分支test上拉一条新分支（或者从master），然后将其package标签更名为other_test（可利用全局替换replace in path）。此时项目肯定会因为R文件丢失而报错，因为包名和源码路径已经不一致，这时我们在新项目的Manifest文件中手工添加original-package标签，如下：</p>
 <pre><code>&lt;manifest <span class="string">xmlns:</span>android=<span class="string">"http://schemas.android.com/apk/res/android"</span>
 <span class="keyword">package</span>=<span class="string">"com.other_test"</span>&gt;
 
@@ -1775,9 +1778,9 @@ tasks.withType(JavaCompile) {
         
           <span itemprop="articleBody">
             
-              <h2 id="问题引入">问题引入</h2><p>这是在创建子App时引出的问题，目前公司的项目需要分支出多个子项目，只需要更换图标和主体色彩（即更换res文件下内容），因此需要拉不同的branch，而当版本迭代时希望通过只修改master分支的业务逻辑，再合并到branch的方法来完成。这样保证了各子项目保持最新，但问题是也会把master分支的资源文件引入到各个branch，造成混乱，因此考虑通过配置<strong>.gitattribute</strong>以完成merge过程中conflict时以本分支优先，即auto-merge。</p>
-<h2 id="配置方法：">配置方法：</h2><p><strong>step1</strong>： 修改Git全局配置，默认的merge是不可配置的。Git命令行中输入<code>$ git config --global merge.ours.driver true</code>。参考自<a href="http://stackoverflow.com/questions/14093540/tell-git-to-use-ours-merge-strategy-on-specific-files" title="stackoverflow" target="_blank" rel="external">http://stackoverflow.com/questions/14093540/tell-git-to-use-ours-merge-strategy-on-specific-files</a><br><strong>step2</strong>： 在项目根目录下新建文件.gitattribute，配置需要使用auto-merge的文件，例如本例中忽略掉所有layout布局文件：<code>app/src/main/res/layout/*.xml merge=ours</code>(这里是Android studio项目目录，这里要根据gitattribute文件的位置来写路径，以同目录的其他文件夹为开头，如这里的app)<br><strong>step3</strong>： 将gitattribute文件拷贝至不同的branch。提交代码。此时如果你修改master下的布局文件，然后切换至子分支testBranch，将master合并过来，你会发现不会提示资源文件或色值修改带来的冲突，因为已自动忽略master下布局文件的修改。</p>
-<h2 id="Tips:">Tips:</h2><p>由于子项目属于不同的App，包名不同会带来import-R文件的错乱。如何合理修改包名见”original-package”的使用。<br>本情况仅适用于系列App开发，不同子项目之间只更换对应的color、strings、drawable等。如果大量更改res下资源文件，还是不要用此法..</p>
+              <p>##问题引入<br>这是在创建子App时引出的问题，目前公司的项目需要分支出多个子项目，只需要更换图标和主体色彩（即更换res文件下内容），因此需要拉不同的branch，而当版本迭代时希望通过只修改master分支的业务逻辑，再合并到branch的方法来完成。这样保证了各子项目保持最新，但问题是也会把master分支的资源文件引入到各个branch，造成混乱，因此考虑通过配置<strong>.gitattribute</strong>以完成merge过程中conflict时以本分支优先，即auto-merge。</p>
+<p>##配置方法：<br><strong>step1</strong>： 修改Git全局配置，默认的merge是不可配置的。Git命令行中输入<code>$ git config --global merge.ours.driver true</code>。参考自<a href="http://stackoverflow.com/questions/14093540/tell-git-to-use-ours-merge-strategy-on-specific-files" title="stackoverflow" target="_blank" rel="external">http://stackoverflow.com/questions/14093540/tell-git-to-use-ours-merge-strategy-on-specific-files</a><br><strong>step2</strong>： 在项目根目录下新建文件.gitattribute，配置需要使用auto-merge的文件，例如本例中忽略掉所有layout布局文件：<code>app/src/main/res/layout/*.xml merge=ours</code>(这里是Android studio项目目录，这里要根据gitattribute文件的位置来写路径，以同目录的其他文件夹为开头，如这里的app)<br><strong>step3</strong>： 将gitattribute文件拷贝至不同的branch。提交代码。此时如果你修改master下的布局文件，然后切换至子分支testBranch，将master合并过来，你会发现不会提示资源文件或色值修改带来的冲突，因为已自动忽略master下布局文件的修改。</p>
+<p>##Tips:<br>由于子项目属于不同的App，包名不同会带来import-R文件的错乱。如何合理修改包名见”original-package”的使用。<br>本情况仅适用于系列App开发，不同子项目之间只更换对应的color、strings、drawable等。如果大量更改res下资源文件，还是不要用此法..</p>
 
             
           </span>
@@ -1920,7 +1923,7 @@ tasks.withType(JavaCompile) {
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT
+    NexT.Mist
   </a>
 </div>
 

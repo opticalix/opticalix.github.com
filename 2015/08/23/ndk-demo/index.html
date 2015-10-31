@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="theme-next use-motion ">
+<html class="theme-next use-motion theme-next-mist">
 <head>
   
 
@@ -45,57 +45,51 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="引本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：
+<meta name="description" content="##引本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：
 
 脱离JVM，运行效率高。
 安全性强，核心代码不易破解。
 代码可移植性强，此次核心代码就共用于IOS和Android。
 
-实现
+##实现
+
 写native方法。
 public class NdkEngine {
-    public static native int nativeCalc(int n);
-}
-
-命令">
+    public static native int nativeCalc(int n);">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NDK开发在AS上实现的简易流程">
 <meta property="og:url" content="http://opticalix.github.com/2015/08/23/ndk-demo/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="引本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：
+<meta property="og:description" content="##引本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：
 
 脱离JVM，运行效率高。
 安全性强，核心代码不易破解。
 代码可移植性强，此次核心代码就共用于IOS和Android。
 
-实现
+##实现
+
 写native方法。
 public class NdkEngine {
-    public static native int nativeCalc(int n);
-}
-
-命令">
+    public static native int nativeCalc(int n);">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NDK开发在AS上实现的简易流程">
-<meta name="twitter:description" content="引本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：
+<meta name="twitter:description" content="##引本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：
 
 脱离JVM，运行效率高。
 安全性强，核心代码不易破解。
 代码可移植性强，此次核心代码就共用于IOS和Android。
 
-实现
+##实现
+
 写native方法。
 public class NdkEngine {
-    public static native int nativeCalc(int n);
-}
-
-命令">
+    public static native int nativeCalc(int n);">
 
 
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
-    scheme: '',
-    sidebar: 'post'
+    scheme: 'Mist',
+    sidebar: 'always'
   };
 </script>
 
@@ -291,13 +285,14 @@ public class NdkEngine {
       
 
       
-        <span itemprop="articleBody"><h2 id="引">引</h2><p>本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：</p>
+        <span itemprop="articleBody"><p>##引<br>本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：</p>
 <ol>
 <li>脱离JVM，运行效率高。</li>
 <li>安全性强，核心代码不易破解。</li>
 <li>代码可移植性强，此次核心代码就共用于IOS和Android。</li>
 </ol>
-<h2 id="实现">实现</h2><ol>
+<p>##实现</p>
+<ol>
 <li><p>写native方法。</p>
 <pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NdkEngine</span> </span>{
     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">nativeCalc</span><span class="params">(<span class="keyword">int</span> n)</span></span>;
@@ -312,8 +307,8 @@ public class NdkEngine {
 </ol>
 </li>
 </ol>
-<pre><code><span class="preprocessor">#<span class="keyword">include</span> "com_felix_opticalixdemo_demo_ndk_NdkEngine.h"</span>
-<span class="preprocessor">#<span class="keyword">include</span> "calc.h"</span>
+<pre><code><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"com_felix_opticalixdemo_demo_ndk_NdkEngine.h"</span></span>
+<span class="preprocessor">#<span class="keyword">include</span> <span class="string">"calc.h"</span></span>
 
 <span class="function">JNIEXPORT jint JNICALL <span class="title">Java_com_felix_opticalixdemo_demo_ndk_NdkEngine_nativeCalc</span>
 <span class="params">(JNIEnv *env, jclass clazz, jint n)</span></span>{
@@ -325,34 +320,34 @@ public class NdkEngine {
 </ol>
 </li>
 </ol>
-<pre><code>        <span class="preprocessor">#ifndef _CALC_H_</span>
+<pre><code>        <span class="preprocessor">#<span class="keyword">ifndef</span> _CALC_H_</span>
         <span class="preprocessor">#<span class="keyword">define</span> _CALC_H_</span>
 
-        <span class="preprocessor">#<span class="keyword">include</span> &lt;stdint.h&gt;</span>
+        <span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span>
 
-        <span class="function"><span class="keyword">extern</span> <span class="keyword">uint64_t</span> <span class="title">calc</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>;
+        <span class="function"><span class="keyword">extern</span> uint64_t <span class="title">calc</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>;
         <span class="preprocessor">#<span class="keyword">endif</span></span>
 
 <span class="number">2.</span> calc.c
 
 
-        <span class="preprocessor">#<span class="keyword">include</span> "calc.h"</span>
+        <span class="preprocessor">#<span class="keyword">include</span> <span class="string">"calc.h"</span></span>
 
-        <span class="function"><span class="keyword">uint64_t</span> <span class="title">calc</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>{
+        <span class="keyword">uint64_t</span> calc(<span class="keyword">unsigned</span> <span class="keyword">int</span> n){
             <span class="keyword">return</span> n;<span class="comment">//do some calc</span>
         }
 </code></pre><ol>
 <li><p>编写makeFile。</p>
 <ol>
 <li><p>Android.mk</p>
-<pre><code>LO<span class="built_in">CAL_PATH</span> := $(call my-dir)
-include $(CLEAR_VARS)
-LO<span class="built_in">CAL_MODULE</span> := ndk_calc_demo
-LO<span class="built_in">CAL_SRC_FILES</span> := com_felix_opticalixdemo_demo_ndk_NdkEngine<span class="variable">.c</span> calc<span class="variable">.c</span> <span class="comment">//add all your .c files</span>
-include $(B<span class="built_in">UILD_SHARED_LIBRARY</span>)
+<pre><code>LOCAL_PATH := $(<span class="operator"><span class="keyword">call</span> my-dir)
+<span class="keyword">include</span> $(CLEAR_VARS)
+LOCAL_MODULE := ndk_calc_demo
+LOCAL_SRC_FILES := com_felix_opticalixdemo_demo_ndk_NdkEngine.<span class="keyword">c</span> calc.<span class="keyword">c</span> //<span class="keyword">add</span> all your .<span class="keyword">c</span> files
+<span class="keyword">include</span> $(BUILD_SHARED_LIBRARY)</span>
 </code></pre></li>
 <li><p>Application.mk</p>
-<pre><code><span class="rule"><span class="attribute">APP_ABI </span>:<span class="value">= armeabi-v7a</span></span>
+<pre><code><span class="attribute">APP_ABI :</span>=<span class="string"> armeabi-v7a</span>
 </code></pre></li>
 </ol>
 </li>
@@ -558,7 +553,7 @@ tasks.withType(JavaCompile) {
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引"><span class="nav-number">1.</span> <span class="nav-text">引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -590,7 +585,7 @@ tasks.withType(JavaCompile) {
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT
+    NexT.Mist
   </a>
 </div>
 

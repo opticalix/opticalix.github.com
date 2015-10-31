@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="theme-next use-motion ">
+<html class="theme-next use-motion theme-next-mist">
 <head>
   
 
@@ -45,34 +45,34 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+<meta name="description" content="##简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
 棘手的问题主要有：
 
 单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。
-文件读写操作和管">
+文件读写操作">
 <meta property="og:type" content="article">
 <meta property="og:title" content="可保存Log到本地的模块">
 <meta property="og:url" content="http://opticalix.github.com/2015/08/30/local-log/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+<meta property="og:description" content="##简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
 棘手的问题主要有：
 
 单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。
-文件读写操作和管">
+文件读写操作">
 <meta property="og:image" content="http://i3.tietuku.com/2481c20bc2096a8a.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="可保存Log到本地的模块">
-<meta name="twitter:description" content="简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+<meta name="twitter:description" content="##简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
 棘手的问题主要有：
 
 单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。
-文件读写操作和管">
+文件读写操作">
 
 
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
-    scheme: '',
-    sidebar: 'post'
+    scheme: 'Mist',
+    sidebar: 'always'
   };
 </script>
 
@@ -268,7 +268,7 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="简介">简介</h2><p>Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。</p>
+        <span itemprop="articleBody"><p>##简介<br>Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。</p>
 <p>棘手的问题主要有：</p>
 <ol>
 <li>单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。</li>
@@ -279,7 +279,8 @@
 <li>LocalLog，用于在代码中调用各级别（debug、info、error等）log。</li>
 <li>LogWriteHelper，用于存储日志到本地。</li>
 </ol>
-<h2 id="详解">详解</h2><h3 id="LocalLog-java">LocalLog.java</h3><p>提供各级别静态方法。这个好理解，无非和平时Log.d一致。</p>
+<p>##详解</p>
+<p>###LocalLog.java<br>提供各级别静态方法。这个好理解，无非和平时Log.d一致。</p>
 <pre><code><span class="comment">/**
  * Reference : boolean : %b. byte, short, int, long, Integer,
  * Long : %d. NOTE %x for hex. String : %s. Object : %s, for this
@@ -319,16 +320,16 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread.<span class="function"><span class="title">currentThread</span><span class="params">()</span></span>.<span class="function"><span class="title">getStackTrace</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
 <p>上述方法返回StackTrace数组。有意思的是，调用打印log这句代码的信息是固定在第5个。如图：<br><img src="http://i3.tietuku.com/2481c20bc2096a8a.png" alt=""></p>
 <p>于是便变得简单。</p>
-<pre><code><span class="keyword">private</span> static <span class="built_in">int</span> getCallerLineNumber<span class="literal">()</span> {
-    return <span class="type">Thread</span>.currentThread<span class="literal">()</span>.getStackTrace<span class="literal">()</span>[<span class="number">4</span>].getLineNumber<span class="literal">()</span>;
+<pre><code><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getCallerLineNumber</span><span class="params">()</span> </span>{
+    <span class="keyword">return</span> Thread.currentThread().getStackTrace()[<span class="number">4</span>].getLineNumber();
 }
 
-<span class="keyword">private</span> static <span class="type">String</span> getCallerFilename<span class="literal">()</span> {
-    return <span class="type">Thread</span>.currentThread<span class="literal">()</span>.getStackTrace<span class="literal">()</span>[<span class="number">4</span>].getFileName<span class="literal">()</span>;
+<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">getCallerFilename</span><span class="params">()</span> </span>{
+    <span class="keyword">return</span> Thread.currentThread().getStackTrace()[<span class="number">4</span>].getFileName();
 }
 
-<span class="keyword">private</span> static <span class="type">String</span> getCallerMethodName<span class="literal">()</span> {
-    return <span class="type">Thread</span>.currentThread<span class="literal">()</span>.getStackTrace<span class="literal">()</span>[<span class="number">4</span>].getMethodName<span class="literal">()</span>;
+<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> String <span class="title">getCallerMethodName</span><span class="params">()</span> </span>{
+    <span class="keyword">return</span> Thread.currentThread().getStackTrace()[<span class="number">4</span>].getMethodName();
 }
 </code></pre><h5 id="2-_msgForTextLog。">2. msgForTextLog。</h5><p>拼装log信息，这里一并添加了进程信息、线程信息、类信息等。</p>
 <pre><code><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">String</span> msgForTextLog(<span class="keyword">String</span> MsgType, <span class="keyword">Object</span> obj, <span class="keyword">String</span> filename, <span class="built_in">int</span> <span class="built_in">line</span>,
@@ -358,7 +359,7 @@
     <span class="keyword">return</span> ret;
 }
 </code></pre><h5 id="3-_writeToLog。">3. writeToLog。</h5><p>调用LogWriteHelpr写数据。Log文件以当前日期为单位，即每天只生产一个本地日志。这点用SimpleDateFormat格式化后很容易做到。</p>
-<h3 id="LogWriteHelper-java">LogWriteHelper.java</h3><p>提供写log到file的方法。除此外，为了完成管理本地log，控制日志保存天数、单个日志大小等因素，还需要增加以下功能：</p>
+<p>###LogWriteHelper.java<br>提供写log到file的方法。除此外，为了完成管理本地log，控制日志保存天数、单个日志大小等因素，还需要增加以下功能：</p>
 <ul>
 <li><strong>控制日志保存天数。</strong>根据日期，在程序每次启动时判断最近N天内应保留的文件名，扫描log目录，删除过期文件。</li>
 <li><strong>控制日志大小。</strong>根据文件大小，每当writeToFile后（在最后才能保证该条log信息不丢失）判断文件大小是否超过定义值。如果超过则新启动线程将原本的Log文件剪切为之前的一半，因为我们所需log往往是最新的。同时置Cutting标志位为true，有新log需要写入文件时，提供新的目的地xxx.collect来保存这段时间的log，子线程完成Cut后将.collect文件内容写回并删除。期间要注意多线程同步问题。</li>
@@ -623,7 +624,7 @@
     }
 
 }
-</code></pre><h2 id="总结">总结</h2><p>实测可用，如果程序没有Crash监测功能（例如Umeng），还可以通过UncaughtExceptionHandler来完成Crash信息的收集。<br>除此之外，这里没有写到如何上传LogFile到自己的服务器。因为每人使用的Http框架有所不同，Api也多种多样。总体上说就是利用multipart/form-data，使用Post请求携带file上传。记得上传前做Zip压缩工作，这样会使原本2mb的文件小到几十k，十分可观。</p>
+</code></pre><p>##总结<br>实测可用，如果程序没有Crash监测功能（例如Umeng），还可以通过UncaughtExceptionHandler来完成Crash信息的收集。<br>除此之外，这里没有写到如何上传LogFile到自己的服务器。因为每人使用的Http框架有所不同，Api也多种多样。总体上说就是利用multipart/form-data，使用Post请求携带file上传。记得上传前做Zip压缩工作，这样会使原本2mb的文件小到几十k，十分可观。</p>
 </span>
       
     </div>
@@ -784,7 +785,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详解"><span class="nav-number">2.</span> <span class="nav-text">详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LocalLog-java"><span class="nav-number">2.1.</span> <span class="nav-text">LocalLog.java</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-_getCallerLineNumber&getCallerFilename。"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">1. getCallerLineNumber&getCallerFilename。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-_msgForTextLog。"><span class="nav-number">2.1.0.2.</span> <span class="nav-text">2. msgForTextLog。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-_writeToLog。"><span class="nav-number">2.1.0.3.</span> <span class="nav-text">3. writeToLog。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LogWriteHelper-java"><span class="nav-number">2.2.</span> <span class="nav-text">LogWriteHelper.java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-_getCallerLineNumber&getCallerFilename。"><span class="nav-number">1.</span> <span class="nav-text">1. getCallerLineNumber&getCallerFilename。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-_msgForTextLog。"><span class="nav-number">2.</span> <span class="nav-text">2. msgForTextLog。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-_writeToLog。"><span class="nav-number">3.</span> <span class="nav-text">3. writeToLog。</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -816,7 +817,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT
+    NexT.Mist
   </a>
 </div>
 

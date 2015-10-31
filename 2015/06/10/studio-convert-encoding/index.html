@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="theme-next use-motion ">
+<html class="theme-next use-motion theme-next-mist">
 <head>
   
 
@@ -45,24 +45,24 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="问题引入乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为build时检查不够严格。而一切当项目迁移到Android Studio时就发生了不同，Lint Checks">
+<meta name="description" content="##问题引入乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为build时检查不够严格。而一切当项目迁移到Android Studio时就发生了不同，Lint Chec">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android Studio中对乱码问题的处理">
 <meta property="og:url" content="http://opticalix.github.com/2015/06/10/studio-convert-encoding/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="问题引入乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为build时检查不够严格。而一切当项目迁移到Android Studio时就发生了不同，Lint Checks">
+<meta property="og:description" content="##问题引入乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为build时检查不够严格。而一切当项目迁移到Android Studio时就发生了不同，Lint Chec">
 <meta property="og:image" content="http://i1.tietuku.com/b98491f5d9a2bec8.png">
 <meta property="og:image" content="http://i1.tietuku.com/cf86e6602c2d414e.png">
 <meta property="og:image" content="http://i1.tietuku.com/650bda240acaa46e.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android Studio中对乱码问题的处理">
-<meta name="twitter:description" content="问题引入乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为build时检查不够严格。而一切当项目迁移到Android Studio时就发生了不同，Lint Checks">
+<meta name="twitter:description" content="##问题引入乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为build时检查不够严格。而一切当项目迁移到Android Studio时就发生了不同，Lint Chec">
 
 
 <script type="text/javascript" id="hexo.configuration">
   var CONFIG = {
-    scheme: '',
-    sidebar: 'post'
+    scheme: 'Mist',
+    sidebar: 'always'
   };
 </script>
 
@@ -258,8 +258,8 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="问题引入">问题引入</h2><p>乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为build时检查不够严格。而一切当项目迁移到Android Studio时就发生了不同，Lint Checks会报乱码错误。</p>
-<h2 id="解决">解决</h2><p>自然的想到选择Setting-搜索encoding修改文件编码来解决。Studio比Eclipse更加强大的是其能够选择每个文件的编码格式，不仅如此它还支持文件编码格式的转换。<br>例如GBK编码格式的文件无法正常显示：<br><img src="http://i1.tietuku.com/b98491f5d9a2bec8.png" alt=""><br><img src="http://i1.tietuku.com/cf86e6602c2d414e.png" alt=""><br><img src="http://i1.tietuku.com/650bda240acaa46e.png" alt=""></p>
+        <span itemprop="articleBody"><p>##问题引入<br>乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为build时检查不够严格。而一切当项目迁移到Android Studio时就发生了不同，Lint Checks会报乱码错误。</p>
+<p>##解决<br>自然的想到选择Setting-搜索encoding修改文件编码来解决。Studio比Eclipse更加强大的是其能够选择每个文件的编码格式，不仅如此它还支持文件编码格式的转换。<br>例如GBK编码格式的文件无法正常显示：<br><img src="http://i1.tietuku.com/b98491f5d9a2bec8.png" alt=""><br><img src="http://i1.tietuku.com/cf86e6602c2d414e.png" alt=""><br><img src="http://i1.tietuku.com/650bda240acaa46e.png" alt=""></p>
 <p><strong>Reload</strong><br>    只是重新使用新选择的编码去读取文件，不改变当前文件的实际编码</p>
 <p><strong>Convert</strong><br>    会将文件的编码转换为新选择的。IDE会检查转换后是否能够正常显示，这么选一般是安全的。否则Studio会提示你发现异常，是否要强制转换。</p>
 <p>一般的编辑工具也带有convert encoding的功能，但是Studio集合在了IDE中，会更加方便编程。而且非常灵活，每一个文件的格式都可以单独选择。不过也有一个问题就是不能批量修改，对一些路径较深的文件改起来还是有点麻烦的。</p>
@@ -423,7 +423,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题引入"><span class="nav-number">1.</span> <span class="nav-text">问题引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决"><span class="nav-number">2.</span> <span class="nav-text">解决</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -455,7 +455,7 @@
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT
+    NexT.Mist
   </a>
 </div>
 
