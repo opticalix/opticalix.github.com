@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="Android,Git,gitattribute," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -45,15 +45,24 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="##问题引入这是在创建子App时引出的问题，目前公司的项目需要分支出多个子项目，只需要更换图标和主体色彩（即更换res文件下内容），因此需要拉不同的branch，而当版本迭代时希望通过只修改master分支的业务逻辑，再合并到branch的方法来完成。这样保证了各子项目保持最新，但问题是也会把master分支的资源文件引入到各个branch，造成混乱，因此考虑通过配置.gitattribute以完">
+<meta name="description" content="#TouchEvent
+##简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。
+##Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、o">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git技巧--自动Merge逻辑(.gitattribute配置)">
-<meta property="og:url" content="http://opticalix.github.com/2015/04/29/auto-merge/index.html">
+<meta property="og:title" content="TouchEvent场景简要分析和理解">
+<meta property="og:url" content="http://opticalix.github.com/2015/10/31/touch-event/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="##问题引入这是在创建子App时引出的问题，目前公司的项目需要分支出多个子项目，只需要更换图标和主体色彩（即更换res文件下内容），因此需要拉不同的branch，而当版本迭代时希望通过只修改master分支的业务逻辑，再合并到branch的方法来完成。这样保证了各子项目保持最新，但问题是也会把master分支的资源文件引入到各个branch，造成混乱，因此考虑通过配置.gitattribute以完">
+<meta property="og:description" content="#TouchEvent
+##简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。
+##Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、o">
+<meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/touch-1.png">
+<meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/touch-2.png">
+<meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/touch-3.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git技巧--自动Merge逻辑(.gitattribute配置)">
-<meta name="twitter:description" content="##问题引入这是在创建子App时引出的问题，目前公司的项目需要分支出多个子项目，只需要更换图标和主体色彩（即更换res文件下内容），因此需要拉不同的branch，而当版本迭代时希望通过只修改master分支的业务逻辑，再合并到branch的方法来完成。这样保证了各子项目保持最新，但问题是也会把master分支的资源文件引入到各个branch，造成混乱，因此考虑通过配置.gitattribute以完">
+<meta name="twitter:title" content="TouchEvent场景简要分析和理解">
+<meta name="twitter:description" content="#TouchEvent
+##简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。
+##Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、o">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -65,7 +74,7 @@
 
 
 
-  <title> Git技巧--自动Merge逻辑(.gitattribute配置) | Opticalix Blog </title>
+  <title> TouchEvent场景简要分析和理解 | Opticalix Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -200,7 +209,7 @@
             
             
               
-                Git技巧--自动Merge逻辑(.gitattribute配置)
+                TouchEvent场景简要分析和理解
               
             
           </h1>
@@ -209,8 +218,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-04-29T15:12:16+08:00" content="2015-04-29">
-              2015-04-29
+            <time itemprop="dateCreated" datetime="2015-10-31T12:21:13+08:00" content="2015-10-31">
+              2015-10-31
             </time>
           </span>
 
@@ -235,8 +244,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/04/29/auto-merge/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/29/auto-merge/" itemprop="commentsCount"></span>
+                <a href="/2015/10/31/touch-event/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/31/touch-event/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -255,9 +264,21 @@
       
 
       
-        <span itemprop="articleBody"><p>##问题引入<br>这是在创建子App时引出的问题，目前公司的项目需要分支出多个子项目，只需要更换图标和主体色彩（即更换res文件下内容），因此需要拉不同的branch，而当版本迭代时希望通过只修改master分支的业务逻辑，再合并到branch的方法来完成。这样保证了各子项目保持最新，但问题是也会把master分支的资源文件引入到各个branch，造成混乱，因此考虑通过配置<strong>.gitattribute</strong>以完成merge过程中conflict时以本分支优先，即auto-merge。<br><a id="more"></a></p>
-<p>##配置方法：<br><strong>step1</strong>： 修改Git全局配置，默认的merge是不可配置的。Git命令行中输入<code>$ git config --global merge.ours.driver true</code>。参考自<a href="http://stackoverflow.com/questions/14093540/tell-git-to-use-ours-merge-strategy-on-specific-files" title="stackoverflow" target="_blank" rel="external">http://stackoverflow.com/questions/14093540/tell-git-to-use-ours-merge-strategy-on-specific-files</a><br><strong>step2</strong>： 在项目根目录下新建文件.gitattribute，配置需要使用auto-merge的文件，例如本例中忽略掉所有layout布局文件：<code>app/src/main/res/layout/*.xml merge=ours</code>(这里是Android studio项目目录，这里要根据gitattribute文件的位置来写路径，以同目录的其他文件夹为开头，如这里的app)<br><strong>step3</strong>： 将gitattribute文件拷贝至不同的branch。提交代码。此时如果你修改master下的布局文件，然后切换至子分支testBranch，将master合并过来，你会发现不会提示资源文件或色值修改带来的冲突，因为已自动忽略master下布局文件的修改。</p>
-<p>##Tips:<br>由于子项目属于不同的App，包名不同会带来import-R文件的错乱。如何合理修改包名见”original-package”的使用。<br>本情况仅适用于系列App开发，不同子项目之间只更换对应的color、strings、drawable等。如果大量更改res下资源文件，还是不要用此法..</p>
+        <span itemprop="articleBody"><p>#TouchEvent</p>
+<p>##简介<br>复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。</p>
+<p>##Test场景<br>从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouchEvent。</p>
+<p>###子View放弃<br>子View放弃，事件又回到Activity，如图。<br><img src="http://7xp2qc.com1.z0.glb.clouddn.com/touch-1.png" alt=""><br>具体过程：ActionDown时，事件先经dispatch方法，再经onTouch方法，直到最子View表示对Down事件不感兴趣（return false），方法返回。由于Down事件是一系列事件的开始，也是是否show interest的标识，系统通过Down的一些列传递明了了“不感兴趣”的View群，于是以后的事件（Move/Up/…）便不会想下传递，这样也提高了效率。</p>
+<p>###子View感兴趣<br><img src="http://7xp2qc.com1.z0.glb.clouddn.com/touch-2.png" alt=""><br>知道了一种模式其实其他的都差不多，只不过此时View的onTouch返回了true，系统知道哪一个View感兴趣，之后的事件就全部发送到这个View，通过dispatch-onTouch路径。</p>
+<p>###子ViewGroup拦截<br><img src="http://7xp2qc.com1.z0.glb.clouddn.com/touch-3.png" alt=""><br>这类case要求ViewGroup复写onInterceptTouchEvent并return true，实际测试结果和图中有少许出入，dispatch的时候发现哪一层intercept了，就停止继续传递touch事件，直接传给该层的onTouch方法。也比较好理解。<br>以上只是简单测试，不过已覆盖了很多使用的场景，通过查看源码我们还可发掘更多dispatch/onTouch方法的纠葛..</p>
+<p>##DispatchTouchEvent<br>ViewGroup的dispatch方法才真正有意义，View的dispatch方式主要是分发事件给它本身去调用onTouchEvent，而ViewGroup则是分发给其children，且分发过程是递归执行，遇到ViewGroup会向更深处分发。在这个分发链上一旦遇到dispatchTouchEvent返回true，则终止这个序列。（<a href="http://www.cnblogs.com/linjzong/p/4191891.html）" target="_blank" rel="external">http://www.cnblogs.com/linjzong/p/4191891.html）</a><br>此外，dispatch方法其实感兴趣的是ACTION_DOWN，作为事件的开始，通过dispatch分发并测出target，以后的事件（MOVE/UP/..）就直接传递到target。</p>
+<p>##OnTouchListener<br>OnTouchListener优先于onTouchEvent对事件进行消费。而且OnTouchListener多给使用该View的人使用，onTouchEvent则是实现该View的内部触摸逻辑。</p>
+<p>##总结<br>传递流程描述，ViewGroups和Views构成树形结构，可以看做Event是从根部向下传递（通过dispatch方法）。其中，遇View会转调onTouchEvent，而它的返回结果决定了dispatch的结果，true代表该View已完全处理，这将导致dispatch链中断；遇ViewGroups则递归调用，直到遇到View为止。<br>对于ViewGroup来说，它的onTouchEvent只有在其所有child的onTouchEvent返回false（表示都未处理，而onTouchEvent的结果与该View的dispatchTouchEvent返回值一致）、或没有child时，才会被调用（通过super.dispatch，只因为它也是View的子类..）。<br>关于onIntercept。//TODO<br>关于onTouchListener和onClickListener。//TODO<br>对一般自定义View，复写onTouchEvent一般就足够，毕竟这是事件最终目的地和处理的地方。对于ViewGroup得分情况考虑，大多数自定义View继承自现有XXLayout比如自定义一个RelativeLayout，那么一般只需要考虑分到它上面的事件如何处理即可，因此继承onTouchEvent；如果想要更高级别的控制、赶在child处理之前处理事件，可以复写dispatchTouchEvent，毕竟它的onTouchEvent只有在大家都不要时才执行..</p>
+<p>##Reference</p>
+<ol>
+<li><a href="https://github.com/devunwired/custom-touch-examples" target="_blank" rel="external">https://github.com/devunwired/custom-touch-examples</a></li>
+<li><a href="http://www.cnblogs.com/linjzong/p/4191891.html" target="_blank" rel="external">http://www.cnblogs.com/linjzong/p/4191891.html</a></li>
+<li><a href="http://blog.csdn.net/yanbober/article/details/45887547" target="_blank" rel="external">http://blog.csdn.net/yanbober/article/details/45887547</a></li>
+</ol>
 </span>
       
     </div>
@@ -268,10 +289,6 @@
           
             <a href="/tags/Android/" rel="tag">#Android</a>
           
-            <a href="/tags/Git/" rel="tag">#Git</a>
-          
-            <a href="/tags/gitattribute/" rel="tag">#gitattribute</a>
-          
         </div>
       
 
@@ -279,13 +296,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2015/10/25/custom-view-summary/" rel="next" title="自定义View梳理">
+                <i class="fa fa-chevron-left"></i> 自定义View梳理
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/05/06/original-package/" rel="prev" title="original-package标签使用">
-                original-package标签使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -310,8 +327,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/04/29/auto-merge/"
-                   data-title="Git技巧--自动Merge逻辑(.gitattribute配置)" data-url="http://opticalix.github.com/2015/04/29/auto-merge/">
+              <div class="ds-thread" data-thread-key="2015/10/31/touch-event/"
+                   data-title="TouchEvent场景简要分析和理解" data-url="http://opticalix.github.com/2015/10/31/touch-event/">
               </div>
             
           </div>

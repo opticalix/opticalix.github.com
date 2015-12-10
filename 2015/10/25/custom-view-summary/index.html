@@ -45,15 +45,19 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="Keep going">
+<meta name="description" content="##引有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。
+##UI绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–onMeasure，onLayout，onDraw。作用分别为：    onMeasure，用于">
 <meta property="og:type" content="article">
-<meta property="og:title" content="custom-view-summary">
+<meta property="og:title" content="自定义View梳理">
 <meta property="og:url" content="http://opticalix.github.com/2015/10/25/custom-view-summary/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="Keep going">
+<meta property="og:description" content="##引有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。
+##UI绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–onMeasure，onLayout，onDraw。作用分别为：    onMeasure，用于">
+<meta property="og:image" content="http://i11.tietuku.com/193e7f6ed98a02a6.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="custom-view-summary">
-<meta name="twitter:description" content="Keep going">
+<meta name="twitter:title" content="自定义View梳理">
+<meta name="twitter:description" content="##引有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。
+##UI绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–onMeasure，onLayout，onDraw。作用分别为：    onMeasure，用于">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -65,7 +69,7 @@
 
 
 
-  <title> custom-view-summary | Opticalix Blog </title>
+  <title> 自定义View梳理 | Opticalix Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -200,7 +204,7 @@
             
             
               
-                custom-view-summary
+                自定义View梳理
               
             
           </h1>
@@ -255,7 +259,61 @@
       
 
       
-        <span itemprop="articleBody"></span>
+        <span itemprop="articleBody"><p>##引<br>有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。</p>
+<p>##UI<br>绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–onMeasure，onLayout，onDraw。作用分别为：<br>    onMeasure，用于本View宽高的测量，布局复杂时可能触发多次。官档所说如下：这是一个parentViews告知该View能够使用多大空间的时间点，也是该View有机会向父布局告知自己desireSize的时机。此处应有用户自行协商并调用setMeasuredDimension确定实际大小。ViewGroup的onMeasure则负责处理它children的测量工作。<br>    onLayout，常复写于viewGroup的自定义子类。它有责任对它内部所有children进行处理，告知childrenView的ltrb，以正确摆放。<br>    onDraw，UI最终呈现的过程，用户使用Paint（What to draw）、Canvas(How to draw)两个类完成自定义画面。</p>
+<p>###onMeasure<br>官方教程对onMeasure给了示例，tips给了以下三点：</p>
+<pre><code><span class="number">1</span>. resolveSizeAndState() help <span class="function"><span class="keyword">method</span>.
+2. <span class="title">remember</span> <span class="title">call</span> <span class="title">setMeasuredDimension</span><span class="params">()</span>.
+3. <span class="title">should</span> <span class="title">consider</span> <span class="title">padding</span>.</span>
+</code></pre><p>一个一个分析，首先使用View类中提供的工具方法resolveSizeAndState，可以较好的实现“父类的限制”和“本子类需求”协商过程。初学自定义View时最头疼的就是onMeasure中measureSpec类以及它的三种模式。其实看看resolveSizeAndState方法，或stackoverflow上大牛的回答（参考<a href="http://stackoverflow.com/questions/12266899/onmeasure-custom-view-explanation" target="_blank" rel="external">http://stackoverflow.com/questions/12266899/onmeasure-custom-view-explanation</a>），不难发现协商测量过程的规律。MeasureSpec就是一个工具类，利用位运算的特点将size和mode整合在一起。父亲对子类有限制，无限制和强制，分别对应AT_MOST、UNSPECIFIED、EXACTLY。需要注意的是resolveSizeAndState方法第三个参数childMeasuredState，找了些资料也没能完全明白它的用途，应该是自定义viewGroup时才使用用于记录children测量状态的，一般自定义View传0即可（参考<a href="http://stackoverflow.com/questions/13650903/whats-the-utility-of-the-third-argument-of-view-resolvesizeandstate" target="_blank" rel="external">http://stackoverflow.com/questions/13650903/whats-the-utility-of-the-third-argument-of-view-resolvesizeandstate</a>）。<br>onMeasure方法没有返回值，所以测量的结果应该通过setMeasuredDimension方法告知系统。<br>最后关于padding。网上讲自定义view padding的并不多，与margin不同，padding是属于本View的属性，不同于margin（不需要自定义时做处理系统就能很好的使用margin），所以要在测量绘图时考虑它。我通常这么处理：</p>
+<ul>
+<li>测量时：desireSize=实际所需size+相应方向的padding。</li>
+<li>绘图时：考虑padding，做相应的位移。</li>
+</ul>
+<p>一段简单的示例代码如下：</p>
+<pre><code>@<span class="function">Override
+<span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>{
+    LogUtils.d(<span class="keyword">this</span>, <span class="string">"parent wMode="</span> + MeasureSpec.getMode(widthMeasureSpec) + <span class="string">", parent hMode="</span> + MeasureSpec.getMode(heightMeasureSpec));
+    LogUtils.d(<span class="keyword">this</span>, <span class="string">"parent wSize="</span> + MeasureSpec.getSize(widthMeasureSpec) + <span class="string">", parent hSize="</span> + MeasureSpec.getSize(heightMeasureSpec));
+
+    <span class="comment">//third param. usually 0. http://stackoverflow.com/questions/13650903/whats-the-utility-of-the-third-argument-of-view-resolvesizeandstate</span>
+    <span class="keyword">int</span> w = resolveSizeAndState(getDesireW(), widthMeasureSpec, <span class="number">0</span>);
+    <span class="keyword">int</span> h = resolveSizeAndState(getDesireH(), heightMeasureSpec, <span class="number">0</span>);
+    LogUtils.d(<span class="keyword">this</span>, <span class="string">"resolve W="</span> + MeasureSpec.getSize(w) + <span class="string">", resolve H="</span> + MeasureSpec.getSize(h));
+
+    setMeasuredDimension(MeasureSpec.getSize(w), MeasureSpec.getSize(h));
+}
+</code></pre><p>Draw时考虑padding：</p>
+<pre><code><span class="tag">canvas</span><span class="class">.drawRect</span>(<span class="function">getPaddingLeft</span>(), <span class="function">getPaddingTop</span>(), <span class="function">getMeasuredWidth</span>() - <span class="function">getPaddingRight</span>(), <span class="function">getMeasuredHeight</span>() - <span class="function">getPaddingBottom</span>(), mPaint);
+</code></pre><p>###onLayout<br>ViewGroup中onLayout是抽象方法必须复写，这是children位置能正确摆放的保证。依靠mLeft，mTop，mRight，mBottom这四个值，以坐上为原点，这四个值分别为对应边到原点的距离。最后和onMeasure一样，记得调用child.layout()方法。</p>
+<p>###onDraw<br>一般都是在该View构造时创建画笔paint，因为如果在onDraw中新建过多对象会严重影响绘制速度。paint决定了画的风格：实心、空心、颜色、抗锯齿，这个具体看paint类。Canvas可以画矩形、圆形、椭圆、线、路径等，还可以画Bitmap，画字体。其中字体的绘制大有门道，包括自定义typeface（assets中读取font资源）、字体对齐、字体居中等，（参考<a href="http://blog.csdn.net/hursing/article/details/18703599" target="_blank" rel="external">http://blog.csdn.net/hursing/article/details/18703599</a>），不在此赘述。<br>注意，绘制动态View时往往要多次调用重绘invalidate。所以onDraw方法应足够解耦和完整，保证一次invalidate能够正常工作，仅依赖少量可变的参数。</p>
+<p>###其他方法<br>官档一张图很能说明问题。<br><img src="http://i11.tietuku.com/193e7f6ed98a02a6.png" alt=""></p>
+<p>##自定义Attributes<br>Google提供了自定义属性方便自定义View更好的定制。个人感觉这部分代码多为复制粘贴，记住有这么个路子并能够熟练使用就好，尤其自定义控件开发时自定义属性的抽取优先级应当放的最低。</p>
+<p>##Touch处理<br>自定义View的时候也经常需要考虑点击事件的分发，所以打算把TouchEvent的处理注意事项也写下来，便于加强记忆。见下篇。</p>
+<p>##其他</p>
+<p>###Mask<br>看View源码时发现使用掩码位运算的例子很多，其实学过来用在自己的项目中能够提升一定的效率和逼格。<br>Flag多是多种状态的集合，杂乱且不具有可读性。必须借助Mask的筛选，来分离出感兴趣的位置，从而得知状态。这部分笔记比较乱，待整理TODO。</p>
+<pre><code><span class="list">(<span class="keyword">mViewFlags</span> &amp; VISIBILITY_MASK)</span> == GONE
+</code></pre><p>flag和mask的基本用法。位与后知道当前关心的某属性。</p>
+<pre><code><span class="title">int</span> old = mViewFlags;
+<span class="title">mViewFlags</span> = (mViewFlags &amp; ~mask) | (flags &amp; mask);
+<span class="title">int</span> changed = mViewFlags<span class="regexp"> ^</span> old;
+</code></pre><p>这里是setFlags(int flags, int mask)的方法。<br>(mViewFlags &amp; ~mask)：取当前flag的mask之外所有位。<br>(flags &amp; mask)：mask过滤取当前作用位。最后或运算合并。<br>changed：异或，将修改的位置1。</p>
+<pre><code>if <span class="list">(<span class="list">(<span class="keyword">changed</span> &amp; DRAWING_CACHE_QUALITY_MASK)</span> != <span class="number">0</span>)</span>
+</code></pre><p>mask保证筛选出自己关心的标志位，然后根据是否修改来更新View。</p>
+<p>总之位运算性能优，而且只需一个flag便可知晓所有state，便于统一管理。比如我在项目中曾经需要封装sdk，从调用者的Actvity-A打开sdk中的Activity-B，遇到错误时Bfinish掉，并返回错误代码在onActivityResult中处理。这时将出错逻辑交给调用者处理最佳，但是发现错误代码+其他应返回的有用信息零零散散一堆，最终封成一个flag返回，结合mask解出有用信息即可。</p>
+<p>eg：</p>
+<pre><code><span class="keyword">public</span> <span class="function"><span class="keyword">boolean</span> <span class="title">isEnabledNextPtrAtOnce</span><span class="params">()</span> </span>{
+    <span class="keyword">return</span> (mFlag &amp; FLAG_ENABLE_NEXT_PTR_AT_ONCE) &gt; <span class="number">0</span>;
+}
+
+<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">setEnabledNextPtrAtOnce</span><span class="params">(<span class="keyword">boolean</span> enable)</span> </span>{
+    <span class="keyword">if</span> (enable) {
+        mFlag = mFlag | FLAG_ENABLE_NEXT_PTR_AT_ONCE;
+    } <span class="keyword">else</span> {
+        mFlag = mFlag &amp; ~FLAG_ENABLE_NEXT_PTR_AT_ONCE;
+    }
+}
+</code></pre></span>
       
     </div>
 
@@ -279,6 +337,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/31/touch-event/" rel="prev" title="TouchEvent场景简要分析和理解">
+                TouchEvent场景简要分析和理解 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -304,7 +366,7 @@
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/10/25/custom-view-summary/"
-                   data-title="custom-view-summary" data-url="http://opticalix.github.com/2015/10/25/custom-view-summary/">
+                   data-title="自定义View梳理" data-url="http://opticalix.github.com/2015/10/25/custom-view-summary/">
               </div>
             
           </div>
@@ -347,7 +409,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
