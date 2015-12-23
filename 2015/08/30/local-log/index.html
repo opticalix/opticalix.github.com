@@ -59,7 +59,7 @@
 
 单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。
 文件读写操作">
-<meta property="og:image" content="http://i3.tietuku.com/2481c20bc2096a8a.png">
+<meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/local-log-stacktrace.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="可保存Log到本地的模块">
 <meta name="twitter:description" content="##简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
@@ -318,7 +318,7 @@
 </code></pre><p>可以看出，isDebug、isLogUpload和externalStorageExist都是日志是否输出的先决条件。这些boolean值在Application中初始化，externalStorageExist可自行判断，不再赘述。<br>感兴趣的地方有三：</p>
 <h5 id="1-_getCallerLineNumber&amp;getCallerFilename。">1. getCallerLineNumber&amp;getCallerFilename。</h5><p>顾名思义，这些信息其实可以在当前线程的堆栈信息中取到:</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Thread.<span class="function"><span class="title">currentThread</span><span class="params">()</span></span>.<span class="function"><span class="title">getStackTrace</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-<p>上述方法返回StackTrace数组。有意思的是，调用打印log这句代码的信息是固定在第5个。如图：<br><img src="http://i3.tietuku.com/2481c20bc2096a8a.png" alt=""></p>
+<p>上述方法返回StackTrace数组。有意思的是，调用打印log这句代码的信息是固定在第5个。如图：<br><img src="http://7xp2qc.com1.z0.glb.clouddn.com/local-log-stacktrace.png" alt=""></p>
 <p>于是便变得简单。</p>
 <pre><code><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">getCallerLineNumber</span><span class="params">()</span> </span>{
     <span class="keyword">return</span> Thread.currentThread().getStackTrace()[<span class="number">4</span>].getLineNumber();

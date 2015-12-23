@@ -51,8 +51,8 @@
 <meta property="og:url" content="http://opticalix.github.com/2015/06/23/dialog-fragment/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
 <meta property="og:description" content="##初识DialogFragmentDialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由FragmentManager控制，当遇到特殊情况，例如转屏后，传统Dialog将会消失，而使用D">
-<meta property="og:image" content="http://img.my.csdn.net/uploads/201210/23/1350998205_2002.png">
-<meta property="og:image" content="http://i1.tietuku.com/b8a3d5a9a0078aaf.png">
+<meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/dialog_frg_flows.png">
+<meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/dialog_frg_tips.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DialogFragment的简单分析和封装使用">
 <meta name="twitter:description" content="##初识DialogFragmentDialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由FragmentManager控制，当遇到特殊情况，例如转屏后，传统Dialog将会消失，而使用D">
@@ -258,7 +258,8 @@
 
       
         <span itemprop="articleBody"><p>##初识DialogFragment<br>DialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由FragmentManager控制，当遇到特殊情况，例如转屏后，传统Dialog将会消失，而使用DialogFragment，onCreate方法重新调用，并获取arguments。这种方式创建的对话框会再次生成。</p>
-<p>##DialogFragment的生命周期<br>首先，Fragment生命周期参考此图，不再赘述。<br><img src="http://img.my.csdn.net/uploads/201210/23/1350998205_2002.png" alt="Fragment生命周期"><br>其实DialogFragment作为其子类，生命周期类似，重点是多了一个onCreateDialog方法，经过Log输出，确定创建时调用顺序为：</p>
+<p>##DialogFragment的生命周期<br>首先，Fragment生命周期参考此图，不再赘述。<br><img src="http://7xp2qc.com1.z0.glb.clouddn.com/dialog_frg_flows.png" alt="Fragment生命周期"></p>
+<p>其实DialogFragment作为其子类，生命周期类似，重点是多了一个onCreateDialog方法，经过Log输出，确定创建时调用顺序为：</p>
 <blockquote>
 <p>onCreate –&gt; onCreateDialog –&gt; onCreateView</p>
 </blockquote>
@@ -456,7 +457,7 @@
     mDialogFragment.show(getSupportFragmentManager(), <span class="string">"dialog"</span>);
 
 }
-</code></pre><p><strong>效果如图：</strong><br><img src="http://i1.tietuku.com/b8a3d5a9a0078aaf.png" alt="UniDialogFragment show"></p>
+</code></pre><p><strong>效果如图：</strong><br><img src="http://7xp2qc.com1.z0.glb.clouddn.com/dialog_frg_tips.png" alt="UniDialogFragment show"></p>
 </span>
       
     </div>
