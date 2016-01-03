@@ -202,6 +202,108 @@
             
             
               
+                <a class="post-title-link" href="/2016/01/03/gson-skill/" itemprop="url">
+                  Gson使用技巧小结
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-03T10:08:31+08:00" content="2016-01-03">
+              2016-01-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/03/gson-skill/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/03/gson-skill/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+            Gson使用技巧小结背景json格式在移动端开发中再熟悉不过了，相较xml等格式，json有易读、体积小等优点。在解析json格式时，个人比较习惯使用Google的gson工具包，之前看过gson和阿里fastjson的性能比较，貌似gson在数据量不大时性能更好。目前项目级别使用gson完全能够胜
+            ...
+          </span>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/03/gson-skill/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
                 <a class="post-title-link" href="/2015/10/31/touch-event/" itemprop="url">
                   TouchEvent场景简要分析和理解
                 </a>
@@ -262,9 +364,8 @@
         
           <span itemprop="articleBody">
             
-            #TouchEvent
-##简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。
-##Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中
+            TouchEvent简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。
+Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置View
             ...
           </span>
           <div class="post-more-link text-center">
@@ -366,8 +467,8 @@
         
           <span itemprop="articleBody">
             
-            ##引有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。
-##UI绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout
+            引有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。
+UI绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–on
             ...
           </span>
           <div class="post-more-link text-center">
@@ -469,10 +570,10 @@
         
           <span itemprop="articleBody">
             
-            ##简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+            简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
 棘手的问题主要有：
 
-单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地lo
+单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文
             ...
           </span>
           <div class="post-more-link text-center">
@@ -574,12 +675,11 @@
         
           <span itemprop="articleBody">
             
-            ##基本概念
-
+            基本概念
 内存泄露，即MemeryLeak，是平时Coding非常容易忽视的点..像我之前对泄露的认识和针对性都不强，写的代码马马虎虎就可以，毕竟Leak并不像OOM那样，小白都可以轻易发现且容忍度为0。对泄露的定义，参考Wiki：
 
 
-内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内
+内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。内
             ...
           </span>
           <div class="post-more-link text-center">
@@ -681,16 +781,16 @@
         
           <span itemprop="articleBody">
             
-            ##引本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：
+            引本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：
 
 脱离JVM，运行效率高。
 安全性强，核心代码不易破解。
 代码可移植性强，此次核心代码就共用于IOS和Android。
 
-##实现
-
+实现
 写native方法。
-public class NdkEngine 
+public class NdkEngine {
+   
             ...
           </span>
           <div class="post-more-link text-center">
@@ -792,7 +892,7 @@ public class NdkEngine
         
           <span itemprop="articleBody">
             
-            ##初识DialogFragmentDialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且
+            初识DialogFragmentDialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由F
             ...
           </span>
           <div class="post-more-link text-center">
@@ -894,7 +994,7 @@ public class NdkEngine
         
           <span itemprop="articleBody">
             
-            ##问题引入乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为bui
+            问题引入乱码问题虽小但遇到的可能性非常大。项目初期，没发现最初引入的library-project是GBK编码的，而主项目则是UTF-8码。在library中加入部分文字注释后，会发现不论怎么改project的编码格式都不能照顾所有文件正常显示。这在eclipse中问题并不突出，可能是因为build
             ...
           </span>
           <div class="post-more-link text-center">
@@ -996,8 +1096,8 @@ public class NdkEngine
         
           <span itemprop="articleBody">
             
-            ##需求同”Git技巧–自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。
-##属性介绍关于的original-package标签的资料大多如出一辙，这
+            需求同”Git技巧–自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。
+属性介绍关于的original-package标签的资料大多如出一辙，这里简单讲
             ...
           </span>
           <div class="post-more-link text-center">
@@ -1097,7 +1197,7 @@ public class NdkEngine
 
       
         
-          <p>##问题引入<br>这是在创建子App时引出的问题，目前公司的项目需要分支出多个子项目，只需要更换图标和主体色彩（即更换res文件下内容），因此需要拉不同的branch，而当版本迭代时希望通过只修改master分支的业务逻辑，再合并到branch的方法来完成。这样保证了各子项目保持最新，但问题是也会把master分支的资源文件引入到各个branch，造成混乱，因此考虑通过配置<strong>.gitattribute</strong>以完成merge过程中conflict时以本分支优先，即auto-merge。<br>
+          <h2 id="问题引入">问题引入</h2><p>这是在创建子App时引出的问题，目前公司的项目需要分支出多个子项目，只需要更换图标和主体色彩（即更换res文件下内容），因此需要拉不同的branch，而当版本迭代时希望通过只修改master分支的业务逻辑，再合并到branch的方法来完成。这样保证了各子项目保持最新，但问题是也会把master分支的资源文件引入到各个branch，造成混乱，因此考虑通过配置<strong>.gitattribute</strong>以完成merge过程中conflict时以本分支优先，即auto-merge。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/04/29/auto-merge/#more" rel="contents">
               阅读全文 &raquo;
@@ -1159,7 +1259,7 @@ public class NdkEngine
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1173,7 +1273,7 @@ public class NdkEngine
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -1227,8 +1327,8 @@ public class NdkEngine
     <footer id="footer" class="footer">
       <div class="footer-inner"> <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2015</span>
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

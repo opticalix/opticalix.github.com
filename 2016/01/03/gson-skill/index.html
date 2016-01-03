@@ -1,0 +1,880 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  
+    <link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
+
+
+    <meta name="description" content="Keep going" />
+
+
+
+  <meta name="keywords" content="Android,Gson," />
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+<meta name="description" content="Gson使用技巧小结背景json格式在移动端开发中再熟悉不过了，相较xml等格式，json有易读、体积小等优点。在解析json格式时，个人比较习惯使用Google的gson工具包，之前看过gson和阿里fastjson的性能比较，貌似gson在数据量不大时性能更好。目前项目级别使用gson完全能够胜任。开始的时候使用gson只是简单的新建Gson实例，调用from方法解析成对应model类。随着业">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gson使用技巧小结">
+<meta property="og:url" content="http://opticalix.github.com/2016/01/03/gson-skill/index.html">
+<meta property="og:site_name" content="Opticalix Blog">
+<meta property="og:description" content="Gson使用技巧小结背景json格式在移动端开发中再熟悉不过了，相较xml等格式，json有易读、体积小等优点。在解析json格式时，个人比较习惯使用Google的gson工具包，之前看过gson和阿里fastjson的性能比较，貌似gson在数据量不大时性能更好。目前项目级别使用gson完全能够胜任。开始的时候使用gson只是简单的新建Gson实例，调用from方法解析成对应model类。随着业">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gson使用技巧小结">
+<meta name="twitter:description" content="Gson使用技巧小结背景json格式在移动端开发中再熟悉不过了，相较xml等格式，json有易读、体积小等优点。在解析json格式时，个人比较习惯使用Google的gson工具包，之前看过gson和阿里fastjson的性能比较，貌似gson在数据量不大时性能更好。目前项目级别使用gson完全能够胜任。开始的时候使用gson只是简单的新建Gson实例，调用from方法解析成对应model类。随着业">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: 'always'
+  };
+</script>
+
+
+
+  <title> Gson使用技巧小结 | Opticalix Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?d50c44f5601b9803866eae950e2db8f2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Opticalix Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Gson使用技巧小结
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2016-01-03T10:08:31+08:00" content="2016-01-03">
+              2016-01-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/03/gson-skill/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/03/gson-skill/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h1 id="Gson使用技巧小结">Gson使用技巧小结</h1><h2 id="背景">背景</h2><p>json格式在移动端开发中再熟悉不过了，相较xml等格式，json有易读、体积小等优点。在解析json格式时，个人比较习惯使用Google的gson工具包，之前看过gson和阿里fastjson的性能比较，貌似gson在数据量不大时性能更好。目前项目级别使用gson完全能够胜任。<br>开始的时候使用gson只是简单的新建Gson实例，调用from方法解析成对应model类。随着业务发展和http模块的升级，简单的toJson和from方法已经不能满足需求了。因为接口返回数据的差异性，不同情形下可能使用不同的解析策略，最简单的方法当然是针对每个接口返回的数据使用相对应的model，但这样很容易造成model对象过多过杂难以管理和分辨。另外接口返回数据命名策略也可能因人而异，下划线和驼峰式都有可能，为了保证Application端代码的一致性，就要想办法把下划线风格的转为驼峰式风格。这些需求gson通通能够解决。</p>
+<h2 id="Gson基础">Gson基础</h2><p>from和toJson方法，分别用于json格式字符串转为Model对象、对象转json。很好理解。</p>
+<pre><code><span class="keyword">public</span> static void baseGson() {
+    <span class="built_in">String</span> json = <span class="string">"{\"</span>name\<span class="string">":\"</span>gson\<span class="string">",\"</span><span class="built_in">date</span>\<span class="string">":\"</span><span class="number">2015</span>/<span class="number">12</span>/<span class="number">29</span>\<span class="string">"}"</span>;
+    BaseGson fromJson = getSimpleGson().fromJson(json, BaseGson.<span class="keyword">class</span>);
+
+    <span class="built_in">String</span> toJson = getSimpleGson().toJson(fromJson);
+}
+
+static <span class="keyword">class</span> BaseGson {
+    <span class="keyword">public</span> <span class="built_in">String</span> name;
+    <span class="keyword">public</span> <span class="built_in">String</span> <span class="built_in">date</span>;
+
+    @Override
+    <span class="keyword">public</span> <span class="built_in">String</span> toString() {
+        return <span class="string">"BaseGson{"</span> +
+                <span class="string">"name='"</span> + name + <span class="comment">'\'' +</span>
+                <span class="string">", date='"</span> + <span class="built_in">date</span> + <span class="comment">'\'' +</span>
+                <span class="comment">'}';</span>
+    }
+}
+</code></pre><p>注意这里的fromJson方法后可以跟type类型或class类型。解析List时多用TypeToken，如下：</p>
+<pre><code><span class="tag">new</span> <span class="tag">TypeToken</span>&lt;<span class="tag">List</span>&lt;<span class="tag">BaseGson</span>&gt;&gt;()<span class="rules">{}</span><span class="class">.getType</span>()；
+</code></pre><h2 id="Gson注解">Gson注解</h2><p>介绍下常用几个注解，Expose和SerializedName。</p>
+<ul>
+<li>SerializedName</li>
+</ul>
+<p>举个例子，解决接口和本地model风格差异问题，比如返回的字段<code>mobile_phone</code>要解析为<code>mobilePhone</code>，只需在本地model类中添加注解<code>@SerializedName(&quot;mobile_phone&quot;)</code>即可，代码如下：</p>
+<pre><code><span class="keyword">public</span> static void annotataionGson(){
+    <span class="built_in">String</span> json = <span class="string">"{\"</span>name\<span class="string">":\"</span>gson\<span class="string">",\"</span><span class="built_in">date</span>\<span class="string">":\"</span><span class="number">2015</span>/<span class="number">12</span>/<span class="number">29</span>\<span class="string">", \"</span>mobile_phone\<span class="string">":\"</span><span class="number">13111111111</span>\<span class="string">"}"</span>;
+    BaseGson fromJson = getSimpleGson().fromJson(json, BaseGson.<span class="keyword">class</span>);
+
+    <span class="built_in">Log</span>.d(<span class="string">"Gson"</span>, fromJson.toString());
+}
+
+static <span class="keyword">class</span> BaseGson {
+    <span class="keyword">public</span> <span class="built_in">String</span> name;
+    <span class="keyword">public</span> <span class="built_in">String</span> <span class="built_in">date</span>;
+    @SerializedName(<span class="string">"mobile_phone"</span>)
+    <span class="keyword">public</span> <span class="built_in">String</span> mobilePhone;
+
+    @Override
+    <span class="keyword">public</span> <span class="built_in">String</span> toString() {
+        return <span class="string">"BaseGson{"</span> +
+                <span class="string">"name='"</span> + name + <span class="comment">'\'' +</span>
+                <span class="string">", date='"</span> + <span class="built_in">date</span> + <span class="comment">'\'' +</span>
+                <span class="string">", mobilePhone='"</span> + mobilePhone + <span class="comment">'\'' +</span>
+                <span class="comment">'}';</span>
+    }
+}
+</code></pre><p>输出为</p>
+<pre><code><span class="number">12-29 05:59</span>:<span class="number">27.490 152</span><span class="number">45-15245</span>/? D/Gson: BaseGson{name='gson', date='<span class="number">2015/12/29</span>', mobilePhone='<span class="number">13111111111</span>'}
+</code></pre><p>相当方便吧，SerializedName后跟的字段就是转化后/被转化前json字符串时显示的字段。此外，除了注解Gson还提供Builder方式建造不同策略的gson对象，例如</p>
+<pre><code>Gson policyGson = <span class="keyword">new</span> GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .<span class="keyword">create</span>();
+</code></pre><p>使用这样的policyGson，toJson时会按照“小写下划线”格式输出(toJson)。不过对<code>@SerializedName</code>不生效，即优先级小于<code>@SerializedName</code>。</p>
+<ul>
+<li>Expose</li>
+</ul>
+<p>用来标示toJson时输出的字段。<br>比如对name字段使用<code>Expose</code>。同时开启<code>excludeFieldsWithoutExposeAnnotation</code>。代码如下：</p>
+<pre><code><span class="keyword">public</span> static void annotataionGson(){
+    <span class="built_in">String</span> json = <span class="string">"{\"</span>name\<span class="string">":\"</span>gson\<span class="string">",\"</span><span class="built_in">date</span>\<span class="string">":\"</span><span class="number">2015</span>/<span class="number">12</span>/<span class="number">29</span>\<span class="string">", \"</span>mobile_phone\<span class="string">":\"</span><span class="number">13111111111</span>\<span class="string">"}"</span>;
+    Gson g = <span class="keyword">new</span> GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+    BaseGson fromJson = g.fromJson(json, BaseGson.<span class="keyword">class</span>);
+
+    <span class="built_in">Log</span>.d(<span class="string">"Gson"</span>, fromJson.toString());
+
+    <span class="built_in">Log</span>.d(<span class="string">"Gson"</span>, g.toJson(fromJson));
+}
+
+static <span class="keyword">class</span> BaseGson {
+    @Expose
+    <span class="keyword">public</span> <span class="built_in">String</span> name;
+    <span class="keyword">public</span> <span class="built_in">String</span> <span class="built_in">date</span>;
+    @SerializedName(<span class="string">"mobile_phone"</span>)
+    <span class="keyword">public</span> <span class="built_in">String</span> mobilePhone;
+
+    @Override
+    <span class="keyword">public</span> <span class="built_in">String</span> toString() {
+        return <span class="string">"BaseGson{"</span> +
+                <span class="string">"name='"</span> + name + <span class="comment">'\'' +</span>
+                <span class="string">", date='"</span> + <span class="built_in">date</span> + <span class="comment">'\'' +</span>
+                <span class="string">", mobilePhone='"</span> + mobilePhone + <span class="comment">'\'' +</span>
+                <span class="comment">'}';</span>
+    }
+}
+</code></pre><p>则输出</p>
+<pre><code><span class="number">12</span>-<span class="number">29</span> <span class="number">08</span>:<span class="number">02</span>:<span class="number">08.922</span> <span class="number">26266</span>-<span class="number">26266</span><span class="regexp">/? D/</span><span class="string">Gson:</span> BaseGson{name=<span class="string">'gson'</span>, date=<span class="string">'null'</span>, mobilePhone=<span class="string">'null'</span>}
+<span class="number">12</span>-<span class="number">29</span> <span class="number">08</span>:<span class="number">02</span>:<span class="number">08.926</span> <span class="number">26266</span>-<span class="number">26266</span><span class="regexp">/? D/</span><span class="string">Gson:</span> {<span class="string">"name"</span>:<span class="string">"gson"</span>}
+</code></pre><p>除此，还有根据关键字来筛选序列化、反序列化时要忽略的字段，<code>new GsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();</code>这样transient修饰的字段就会被忽略啦。</p>
+<h2 id="Gson的TypeAdapter">Gson的TypeAdapter</h2><p>typeAdapter是灵活使用Gson的一大利器，使用场景：服务器的小伙伴传来的json为（这里使用了<a href="http://httpbin.org/" target="_blank" rel="external">测试站Get数据</a>）</p>
+<pre><code>{
+  "<span class="attribute">args</span>": <span class="value">{
+    "<span class="attribute">intValue</span>": <span class="value"><span class="string">"123"</span></span>, 
+    "<span class="attribute">name</span>": <span class="value"><span class="string">"test"</span>
+  </span>}</span>, 
+  "<span class="attribute">headers</span>": <span class="value">{
+    "<span class="attribute">Accept</span>": <span class="value"><span class="string">"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"</span></span>, 
+    "<span class="attribute">Accept-Encoding</span>": <span class="value"><span class="string">"gzip, deflate, sdch"</span></span>, 
+    "<span class="attribute">Accept-Language</span>": <span class="value"><span class="string">"zh-CN,zh;q=0.8"</span></span>, 
+    "<span class="attribute">Cookie</span>": <span class="value"><span class="string">"_ga=GA1.2.867290806.1451279087"</span></span>, 
+    "<span class="attribute">Host</span>": <span class="value"><span class="string">"httpbin.org"</span></span>, 
+    "<span class="attribute">Upgrade-Insecure-Requests</span>": <span class="value"><span class="string">"1"</span></span>, 
+    "<span class="attribute">User-Agent</span>": <span class="value"><span class="string">"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"</span>
+  </span>}</span>, 
+  "<span class="attribute">origin</span>": <span class="value"><span class="string">"123.126.22.222"</span></span>, 
+  "<span class="attribute">url</span>": <span class="value"><span class="string">"http://httpbin.org/get?name=test&amp;intValue=123"</span>
+</span>}
+</code></pre><p>很不幸本地model类没有考虑这么复杂，所有字段均为String类型，且并不需要嵌套过深过细的数据结构。要是能转化为以下数据结构对应的model就好了。</p>
+<pre><code>{
+  "<span class="attribute">args</span>": <span class="value"><span class="string">"xx"</span></span>, 
+  "<span class="attribute">headers</span>": <span class="value"><span class="string">"xx"</span></span>, 
+  "<span class="attribute">origin</span>": <span class="value"><span class="string">"123.126.22.222"</span></span>, 
+  "<span class="attribute">url</span>": <span class="value"><span class="string">"http://httpbin.org/get?name=test&amp;intValue=123"</span>
+</span>}
+</code></pre><p>使用typeAdapter就可以自定义解析格式。首先要自己新建TypeAdapter的子类，有点类似于实现Parcelable接口，需要实现write和read方法。</p>
+<pre><code><span class="comment">/**
+ * Created by opticalix@gmail.com on 15/12/28.
+ */</span>
+public <span class="keyword">class</span> HttpBinTypeAdapter <span class="keyword">extends</span> TypeAdapter&lt;HttpBinModel&gt; {
+    @Override
+    public <span class="keyword">void</span> write(JsonWriter <span class="keyword">out</span>, HttpBinModel <span class="keyword">value</span>) <span class="annotation">throws</span> IOException {
+        <span class="comment">//value write to json</span>
+        <span class="keyword">if</span> (<span class="keyword">value</span> == null) {
+            <span class="keyword">out</span>.nullValue();
+        } <span class="keyword">else</span> {
+            <span class="keyword">out</span>.beginObject();
+            <span class="keyword">out</span>.name(<span class="string">"args"</span>).<span class="keyword">value</span>(<span class="keyword">value</span>.args);
+            <span class="keyword">out</span>.name(<span class="string">"headers"</span>).<span class="keyword">value</span>(<span class="keyword">value</span>.headers);
+            <span class="keyword">out</span>.name(<span class="string">"origin"</span>).<span class="keyword">value</span>(<span class="keyword">value</span>.origin);
+            <span class="keyword">out</span>.name(<span class="string">"url"</span>).<span class="keyword">value</span>(<span class="keyword">value</span>.url);
+            <span class="keyword">out</span>.endObject();
+        }
+    }
+    @Override
+    public HttpBinModel read(JsonReader <span class="keyword">in</span>) <span class="annotation">throws</span> IOException {
+        <span class="comment">//read json, return model</span>
+        <span class="keyword">if</span> (<span class="keyword">in</span>.peek() == JsonToken.NULL) {
+            <span class="keyword">return</span> null;
+        } <span class="keyword">else</span> {
+            <span class="keyword">in</span>.beginObject();
+            HttpBinModel model = <span class="keyword">new</span> HttpBinModel();
+            <span class="keyword">if</span> (<span class="keyword">in</span>.nextName().equals(<span class="string">"args"</span>)) {
+                <span class="keyword">in</span>.beginObject();
+                String args = <span class="string">""</span>;
+                <span class="keyword">while</span> (<span class="keyword">in</span>.hasNext()) {
+                    <span class="keyword">if</span> (!TextUtils.isEmpty(args)) args += <span class="string">", "</span>;
+                    args += <span class="keyword">in</span>.nextName() + <span class="string">"="</span> + <span class="keyword">in</span>.nextString();
+                }
+                model.args = args;
+                <span class="keyword">in</span>.endObject();
+            }
+            <span class="keyword">if</span> (<span class="keyword">in</span>.nextName().equals(<span class="string">"headers"</span>)) {
+                <span class="keyword">in</span>.beginObject();
+                String headers = <span class="string">""</span>;
+                <span class="keyword">while</span> (<span class="keyword">in</span>.hasNext()) {
+                    <span class="keyword">if</span> (!TextUtils.isEmpty(headers)) headers += <span class="string">", "</span>;
+                    headers += <span class="keyword">in</span>.nextName() + <span class="string">"="</span> + <span class="keyword">in</span>.nextString();
+                }
+                model.headers = headers;
+                <span class="keyword">in</span>.endObject();
+            }
+            <span class="keyword">if</span> (<span class="keyword">in</span>.nextName().equals(<span class="string">"origin"</span>)) {
+                model.origin = <span class="keyword">in</span>.nextString();
+            }
+            <span class="keyword">if</span> (<span class="keyword">in</span>.nextName().equals(<span class="string">"url"</span>)) {
+                model.url = <span class="keyword">in</span>.nextString();
+            }
+            <span class="keyword">in</span>.endObject();
+            <span class="keyword">return</span> model;
+        }
+    }
+}
+</code></pre><p>write比较简单，如果model不为空，则输出model中各个字段到JsonWriter。注意<code>out.beginObject();</code>和<code>out.endObject();</code>，它处理的是json中的大小括号。<br>read方法，实现的是从reader中恢复model的过程，关键代码在于</p>
+<pre><code><span class="keyword">while</span> (<span class="keyword">in</span>.hasNext<span class="literal">()</span>) {
+    <span class="keyword">if</span> (!<span class="type">TextUtils</span>.isEmpty(args)) args += <span class="string">", "</span>;
+    args += <span class="keyword">in</span>.nextName<span class="literal">()</span> + <span class="string">"="</span> + <span class="keyword">in</span>.nextString<span class="literal">()</span>;
+}
+</code></pre><p>由于我们不希望Gson死板地解析args为一个jsonObject，这就需要手动空读‘{’即<code>in.beginObject();</code>，循环读args中子字段但都只做拼接操作，最终将拼接好的String赋值给本地model：</p>
+<pre><code>model.<span class="keyword">args</span> = <span class="keyword">args</span>;
+<span class="keyword">in</span>.endObject();
+</code></pre><p>最后别忘了返回model。</p>
+<h2 id="总结">总结</h2><p>Gson用法远比我之前想象的灵活（才学疏浅 - -），Gson建造者模式能够创建出各式各样策略的gson对象，本文也只是总结自己项目中用到的一些点，像复杂map的解析什么的都没有涉及，日后可以补充。</p>
+<h2 id="参考">参考</h2><p><a href="http://www.javacreed.com/gson-typeadapter-example/" target="_blank" rel="external">http://www.javacreed.com/gson-typeadapter-example/</a></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/Gson/" rel="tag">#Gson</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/10/31/touch-event/" rel="next" title="TouchEvent场景简要分析和理解">
+                <i class="fa fa-chevron-left"></i> TouchEvent场景简要分析和理解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2016/01/03/gson-skill/"
+                   data-title="Gson使用技巧小结" data-url="http://opticalix.github.com/2016/01/03/gson-skill/">
+              </div>
+            
+          </div>
+        
+      </div>
+
+      
+        
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">Opticalix</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">Keep going</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            
+              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-name">分类</span>
+              
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/opticalix" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/opticalix" target="_blank">
+                  <i class="fa fa-zhihu"></i> ZhiHu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gson使用技巧小结"><span class="nav-number">1.</span> <span class="nav-text">Gson使用技巧小结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gson基础"><span class="nav-number">1.2.</span> <span class="nav-text">Gson基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gson注解"><span class="nav-number">1.3.</span> <span class="nav-text">Gson注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gson的TypeAdapter"><span class="nav-number">1.4.</span> <span class="nav-text">Gson的TypeAdapter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.6.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+      
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Opticalix</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"opticalix"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>

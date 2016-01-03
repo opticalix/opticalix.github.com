@@ -45,28 +45,28 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="##简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+<meta name="description" content="简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
 棘手的问题主要有：
 
 单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。
-文件读写操作">
+文件读写操作和管">
 <meta property="og:type" content="article">
 <meta property="og:title" content="可保存Log到本地的模块">
 <meta property="og:url" content="http://opticalix.github.com/2015/08/30/local-log/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="##简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+<meta property="og:description" content="简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
 棘手的问题主要有：
 
 单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。
-文件读写操作">
+文件读写操作和管">
 <meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/local-log-stacktrace.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="可保存Log到本地的模块">
-<meta name="twitter:description" content="##简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
+<meta name="twitter:description" content="简介Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。
 棘手的问题主要有：
 
 单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。
-文件读写操作">
+文件读写操作和管">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -268,7 +268,7 @@
       
 
       
-        <span itemprop="articleBody"><p>##简介<br>Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。</p>
+        <span itemprop="articleBody"><h2 id="简介">简介</h2><p>Log是常用的调试手段，项目上线后发现有莫名其妙的问题，这时除了单纯的Crash收集外，还想到能够收集到用户本地的Log信息。这就要求增加可输出Log日志到本地的模块。</p>
 <p>棘手的问题主要有：</p>
 <ol>
 <li>单条日志如何高效组织，并包含基本的Line、Method信息。如果单条日志过长，则很容易撑大本地log文件，造成上传不便或者引起各类安全软件的注意；如果单条日志过简，又无法收集足够信息。</li>
@@ -279,8 +279,7 @@
 <li>LocalLog，用于在代码中调用各级别（debug、info、error等）log。</li>
 <li>LogWriteHelper，用于存储日志到本地。</li>
 </ol>
-<p>##详解</p>
-<p>###LocalLog.java<br>提供各级别静态方法。这个好理解，无非和平时Log.d一致。</p>
+<h2 id="详解">详解</h2><h3 id="LocalLog-java">LocalLog.java</h3><p>提供各级别静态方法。这个好理解，无非和平时Log.d一致。</p>
 <pre><code><span class="comment">/**
  * Reference : boolean : %b. byte, short, int, long, Integer,
  * Long : %d. NOTE %x for hex. String : %s. Object : %s, for this
@@ -624,7 +623,7 @@
     }
 
 }
-</code></pre><p>##总结<br>实测可用，如果程序没有Crash监测功能（例如Umeng），还可以通过UncaughtExceptionHandler来完成Crash信息的收集。<br>除此之外，这里没有写到如何上传LogFile到自己的服务器。因为每人使用的Http框架有所不同，Api也多种多样。总体上说就是利用multipart/form-data，使用Post请求携带file上传。记得上传前做Zip压缩工作，这样会使原本2mb的文件小到几十k，十分可观。</p>
+</code></pre><h2 id="总结">总结</h2><p>实测可用，如果程序没有Crash监测功能（例如Umeng），还可以通过UncaughtExceptionHandler来完成Crash信息的收集。<br>除此之外，这里没有写到如何上传LogFile到自己的服务器。因为每人使用的Http框架有所不同，Api也多种多样。总体上说就是利用multipart/form-data，使用Post请求携带file上传。记得上传前做Zip压缩工作，这样会使原本2mb的文件小到几十k，十分可观。</p>
 </span>
       
     </div>
@@ -723,7 +722,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -737,7 +736,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -785,7 +784,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-_getCallerLineNumber&getCallerFilename。"><span class="nav-number">1.</span> <span class="nav-text">1. getCallerLineNumber&getCallerFilename。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-_msgForTextLog。"><span class="nav-number">2.</span> <span class="nav-text">2. msgForTextLog。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-_writeToLog。"><span class="nav-number">3.</span> <span class="nav-text">3. writeToLog。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详解"><span class="nav-number">2.</span> <span class="nav-text">详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LocalLog-java"><span class="nav-number">2.1.</span> <span class="nav-text">LocalLog.java</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-_getCallerLineNumber&getCallerFilename。"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">1. getCallerLineNumber&getCallerFilename。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-_msgForTextLog。"><span class="nav-number">2.1.0.2.</span> <span class="nav-text">2. msgForTextLog。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-_writeToLog。"><span class="nav-number">2.1.0.3.</span> <span class="nav-text">3. writeToLog。</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -802,8 +801,8 @@
     <footer id="footer" class="footer">
       <div class="footer-inner"> <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2015</span>
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

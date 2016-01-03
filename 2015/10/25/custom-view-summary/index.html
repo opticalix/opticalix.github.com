@@ -45,19 +45,19 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="##引有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。
-##UI绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–onMeasure，onLayout，onDraw。作用分别为：    onMeasure，用于">
+<meta name="description" content="引有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。
+UI绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–onMeasure，onLayout，onDraw。作用分别为：    onMeasure，用于本Vie">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自定义View梳理">
 <meta property="og:url" content="http://opticalix.github.com/2015/10/25/custom-view-summary/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="##引有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。
-##UI绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–onMeasure，onLayout，onDraw。作用分别为：    onMeasure，用于">
+<meta property="og:description" content="引有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。
+UI绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–onMeasure，onLayout，onDraw。作用分别为：    onMeasure，用于本Vie">
 <meta property="og:image" content="http://i11.tietuku.com/193e7f6ed98a02a6.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自定义View梳理">
-<meta name="twitter:description" content="##引有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。
-##UI绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–onMeasure，onLayout，onDraw。作用分别为：    onMeasure，用于">
+<meta name="twitter:description" content="引有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。
+UI绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–onMeasure，onLayout，onDraw。作用分别为：    onMeasure，用于本Vie">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -259,9 +259,9 @@
       
 
       
-        <span itemprop="articleBody"><p>##引<br>有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。</p>
-<p>##UI<br>绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–onMeasure，onLayout，onDraw。作用分别为：<br>    onMeasure，用于本View宽高的测量，布局复杂时可能触发多次。官档所说如下：这是一个parentViews告知该View能够使用多大空间的时间点，也是该View有机会向父布局告知自己desireSize的时机。此处应有用户自行协商并调用setMeasuredDimension确定实际大小。ViewGroup的onMeasure则负责处理它children的测量工作。<br>    onLayout，常复写于viewGroup的自定义子类。它有责任对它内部所有children进行处理，告知childrenView的ltrb，以正确摆放。<br>    onDraw，UI最终呈现的过程，用户使用Paint（What to draw）、Canvas(How to draw)两个类完成自定义画面。</p>
-<p>###onMeasure<br>官方教程对onMeasure给了示例，tips给了以下三点：</p>
+        <span itemprop="articleBody"><h2 id="引">引</h2><p>有点顾不上Blog，一直在忙项目和琐事，还想着学其他语言..自定义View一直在用，但是缺少系统的总结，开发过程中也难免google，很多细节容易混淆。在此理一遍流程和需要注意的点。</p>
+<h2 id="UI">UI</h2><p>绘制UI，继承自View/ViewGroup后，一般还需要复写最基本的二/三个方法（除onLayout）–onMeasure，onLayout，onDraw。作用分别为：<br>    onMeasure，用于本View宽高的测量，布局复杂时可能触发多次。官档所说如下：这是一个parentViews告知该View能够使用多大空间的时间点，也是该View有机会向父布局告知自己desireSize的时机。此处应有用户自行协商并调用setMeasuredDimension确定实际大小。ViewGroup的onMeasure则负责处理它children的测量工作。<br>    onLayout，常复写于viewGroup的自定义子类。它有责任对它内部所有children进行处理，告知childrenView的ltrb，以正确摆放。<br>    onDraw，UI最终呈现的过程，用户使用Paint（What to draw）、Canvas(How to draw)两个类完成自定义画面。</p>
+<h3 id="onMeasure">onMeasure</h3><p>官方教程对onMeasure给了示例，tips给了以下三点：</p>
 <pre><code><span class="number">1</span>. resolveSizeAndState() help <span class="function"><span class="keyword">method</span>.
 2. <span class="title">remember</span> <span class="title">call</span> <span class="title">setMeasuredDimension</span><span class="params">()</span>.
 3. <span class="title">should</span> <span class="title">consider</span> <span class="title">padding</span>.</span>
@@ -285,13 +285,12 @@
 }
 </code></pre><p>Draw时考虑padding：</p>
 <pre><code><span class="tag">canvas</span><span class="class">.drawRect</span>(<span class="function">getPaddingLeft</span>(), <span class="function">getPaddingTop</span>(), <span class="function">getMeasuredWidth</span>() - <span class="function">getPaddingRight</span>(), <span class="function">getMeasuredHeight</span>() - <span class="function">getPaddingBottom</span>(), mPaint);
-</code></pre><p>###onLayout<br>ViewGroup中onLayout是抽象方法必须复写，这是children位置能正确摆放的保证。依靠mLeft，mTop，mRight，mBottom这四个值，以坐上为原点，这四个值分别为对应边到原点的距离。最后和onMeasure一样，记得调用child.layout()方法。</p>
-<p>###onDraw<br>一般都是在该View构造时创建画笔paint，因为如果在onDraw中新建过多对象会严重影响绘制速度。paint决定了画的风格：实心、空心、颜色、抗锯齿，这个具体看paint类。Canvas可以画矩形、圆形、椭圆、线、路径等，还可以画Bitmap，画字体。其中字体的绘制大有门道，包括自定义typeface（assets中读取font资源）、字体对齐、字体居中等，（参考<a href="http://blog.csdn.net/hursing/article/details/18703599" target="_blank" rel="external">http://blog.csdn.net/hursing/article/details/18703599</a>），不在此赘述。<br>注意，绘制动态View时往往要多次调用重绘invalidate。所以onDraw方法应足够解耦和完整，保证一次invalidate能够正常工作，仅依赖少量可变的参数。</p>
-<p>###其他方法<br>官档一张图很能说明问题。<br><img src="http://i11.tietuku.com/193e7f6ed98a02a6.png" alt=""></p>
-<p>##自定义Attributes<br>Google提供了自定义属性方便自定义View更好的定制。个人感觉这部分代码多为复制粘贴，记住有这么个路子并能够熟练使用就好，尤其自定义控件开发时自定义属性的抽取优先级应当放的最低。</p>
-<p>##Touch处理<br>自定义View的时候也经常需要考虑点击事件的分发，所以打算把TouchEvent的处理注意事项也写下来，便于加强记忆。见下篇。</p>
-<p>##其他</p>
-<p>###Mask<br>看View源码时发现使用掩码位运算的例子很多，其实学过来用在自己的项目中能够提升一定的效率和逼格。<br>Flag多是多种状态的集合，杂乱且不具有可读性。必须借助Mask的筛选，来分离出感兴趣的位置，从而得知状态。这部分笔记比较乱，待整理TODO。</p>
+</code></pre><h3 id="onLayout">onLayout</h3><p>ViewGroup中onLayout是抽象方法必须复写，这是children位置能正确摆放的保证。依靠mLeft，mTop，mRight，mBottom这四个值，以坐上为原点，这四个值分别为对应边到原点的距离。最后和onMeasure一样，记得调用child.layout()方法。</p>
+<h3 id="onDraw">onDraw</h3><p>一般都是在该View构造时创建画笔paint，因为如果在onDraw中新建过多对象会严重影响绘制速度。paint决定了画的风格：实心、空心、颜色、抗锯齿，这个具体看paint类。Canvas可以画矩形、圆形、椭圆、线、路径等，还可以画Bitmap，画字体。其中字体的绘制大有门道，包括自定义typeface（assets中读取font资源）、字体对齐、字体居中等，（参考<a href="http://blog.csdn.net/hursing/article/details/18703599" target="_blank" rel="external">http://blog.csdn.net/hursing/article/details/18703599</a>），不在此赘述。<br>注意，绘制动态View时往往要多次调用重绘invalidate。所以onDraw方法应足够解耦和完整，保证一次invalidate能够正常工作，仅依赖少量可变的参数。</p>
+<h3 id="其他方法">其他方法</h3><p>官档一张图很能说明问题。<br><img src="http://i11.tietuku.com/193e7f6ed98a02a6.png" alt=""></p>
+<h2 id="自定义Attributes">自定义Attributes</h2><p>Google提供了自定义属性方便自定义View更好的定制。个人感觉这部分代码多为复制粘贴，记住有这么个路子并能够熟练使用就好，尤其自定义控件开发时自定义属性的抽取优先级应当放的最低。</p>
+<h2 id="Touch处理">Touch处理</h2><p>自定义View的时候也经常需要考虑点击事件的分发，所以打算把TouchEvent的处理注意事项也写下来，便于加强记忆。见下篇。</p>
+<h2 id="其他">其他</h2><h3 id="Mask">Mask</h3><p>看View源码时发现使用掩码位运算的例子很多，其实学过来用在自己的项目中能够提升一定的效率和逼格。<br>Flag多是多种状态的集合，杂乱且不具有可读性。必须借助Mask的筛选，来分离出感兴趣的位置，从而得知状态。这部分笔记比较乱，待整理TODO。</p>
 <pre><code><span class="list">(<span class="keyword">mViewFlags</span> &amp; VISIBILITY_MASK)</span> == GONE
 </code></pre><p>flag和mask的基本用法。位与后知道当前关心的某属性。</p>
 <pre><code><span class="title">int</span> old = mViewFlags;
@@ -409,7 +408,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -423,7 +422,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -471,7 +470,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引"><span class="nav-number">1.</span> <span class="nav-text">引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI"><span class="nav-number">2.</span> <span class="nav-text">UI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#onMeasure"><span class="nav-number">2.1.</span> <span class="nav-text">onMeasure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onLayout"><span class="nav-number">2.2.</span> <span class="nav-text">onLayout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onDraw"><span class="nav-number">2.3.</span> <span class="nav-text">onDraw</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他方法"><span class="nav-number">2.4.</span> <span class="nav-text">其他方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义Attributes"><span class="nav-number">3.</span> <span class="nav-text">自定义Attributes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Touch处理"><span class="nav-number">4.</span> <span class="nav-text">Touch处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">5.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mask"><span class="nav-number">5.1.</span> <span class="nav-text">Mask</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -488,8 +487,8 @@
     <footer id="footer" class="footer">
       <div class="footer-inner"> <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2015</span>
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

@@ -45,18 +45,18 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="##需求同”Git技巧–自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。
-##属性介绍关于的original-package标签的资料大多如出一辙，这里简单讲讲我的看法。AndroidManifest中的和标签相似，其中package代表进程名，代表">
+<meta name="description" content="需求同”Git技巧–自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。
+属性介绍关于的original-package标签的资料大多如出一辙，这里简单讲讲我的看法。AndroidManifest中的和标签相似，其中package代表进程名，代表app唯">
 <meta property="og:type" content="article">
 <meta property="og:title" content="original-package标签使用">
 <meta property="og:url" content="http://opticalix.github.com/2015/05/06/original-package/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="##需求同”Git技巧–自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。
-##属性介绍关于的original-package标签的资料大多如出一辙，这里简单讲讲我的看法。AndroidManifest中的和标签相似，其中package代表进程名，代表">
+<meta property="og:description" content="需求同”Git技巧–自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。
+属性介绍关于的original-package标签的资料大多如出一辙，这里简单讲讲我的看法。AndroidManifest中的和标签相似，其中package代表进程名，代表app唯">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="original-package标签使用">
-<meta name="twitter:description" content="##需求同”Git技巧–自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。
-##属性介绍关于的original-package标签的资料大多如出一辙，这里简单讲讲我的看法。AndroidManifest中的和标签相似，其中package代表进程名，代表">
+<meta name="twitter:description" content="需求同”Git技巧–自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。
+属性介绍关于的original-package标签的资料大多如出一辙，这里简单讲讲我的看法。AndroidManifest中的和标签相似，其中package代表进程名，代表app唯">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -258,9 +258,9 @@
       
 
       
-        <span itemprop="articleBody"><p>##需求<br>同”Git技巧–自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。</p>
-<p>##属性介绍<br>关于的original-package标签的资料大多如出一辙，这里简单讲讲我的看法。<br>AndroidManifest中的<package>和<original-package>标签相似，其中package代表进程名，代表app唯一的标识，不同app的package必须不一样，另外package的值与R文件息息相关，R文件生成只依赖于package标签；original-package设置的是源码级别包名，也就是要与包结构一致。</original-package></package></p>
-<p>##使用方法<br>知道以上这些就足够，例如我这里有开发好的原app–“<strong>test</strong>”。这时需要发布的新的一套resouce的app–“<strong>other_test</strong>”，他们的package分别为“test”和“other_test”。使用Git版本控制，只需要从我们原分支test上拉一条新分支（或者从master），然后将其package标签更名为other_test（可利用全局替换replace in path）。此时项目肯定会因为R文件丢失而报错，因为包名和源码路径已经不一致，这时我们在新项目的Manifest文件中手工添加original-package标签，如下：</p>
+        <span itemprop="articleBody"><h2 id="需求">需求</h2><p>同”Git技巧–自动Merge逻辑(.gitattribute配置)”，为了生成多个逻辑一致但resource有些许差别的系列apps。利用original-package能够在不更改源码结构的条件下更改项目包名。</p>
+<h2 id="属性介绍">属性介绍</h2><p>关于的original-package标签的资料大多如出一辙，这里简单讲讲我的看法。<br>AndroidManifest中的<package>和<original-package>标签相似，其中package代表进程名，代表app唯一的标识，不同app的package必须不一样，另外package的值与R文件息息相关，R文件生成只依赖于package标签；original-package设置的是源码级别包名，也就是要与包结构一致。</original-package></package></p>
+<h2 id="使用方法">使用方法</h2><p>知道以上这些就足够，例如我这里有开发好的原app–“<strong>test</strong>”。这时需要发布的新的一套resouce的app–“<strong>other_test</strong>”，他们的package分别为“test”和“other_test”。使用Git版本控制，只需要从我们原分支test上拉一条新分支（或者从master），然后将其package标签更名为other_test（可利用全局替换replace in path）。此时项目肯定会因为R文件丢失而报错，因为包名和源码路径已经不一致，这时我们在新项目的Manifest文件中手工添加original-package标签，如下：</p>
 <pre><code>&lt;manifest <span class="string">xmlns:</span>android=<span class="string">"http://schemas.android.com/apk/res/android"</span>
 <span class="keyword">package</span>=<span class="string">"com.other_test"</span>&gt;
 
@@ -365,7 +365,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -379,7 +379,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -427,7 +427,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#需求"><span class="nav-number">1.</span> <span class="nav-text">需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性介绍"><span class="nav-number">2.</span> <span class="nav-text">属性介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用方法"><span class="nav-number">3.</span> <span class="nav-text">使用方法</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -444,8 +444,8 @@
     <footer id="footer" class="footer">
       <div class="footer-inner"> <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2015</span>
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

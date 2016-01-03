@@ -45,31 +45,28 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="##基本概念
-
+<meta name="description" content="基本概念
 内存泄露，即MemeryLeak，是平时Coding非常容易忽视的点..像我之前对泄露的认识和针对性都不强，写的代码马马虎虎就可以，毕竟Leak并不像OOM那样，小白都可以轻易发现且容忍度为0。对泄露的定义，参考Wiki：
 
 
-内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之">
+内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之前就失">
 <meta property="og:type" content="article">
 <meta property="og:title" content="内存泄露及LeakCanary的使用">
 <meta property="og:url" content="http://opticalix.github.com/2015/08/23/memery-leak/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="##基本概念
-
+<meta property="og:description" content="基本概念
 内存泄露，即MemeryLeak，是平时Coding非常容易忽视的点..像我之前对泄露的认识和针对性都不强，写的代码马马虎虎就可以，毕竟Leak并不像OOM那样，小白都可以轻易发现且容忍度为0。对泄露的定义，参考Wiki：
 
 
-内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之">
+内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之前就失">
 <meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/leak-example.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内存泄露及LeakCanary的使用">
-<meta name="twitter:description" content="##基本概念
-
+<meta name="twitter:description" content="基本概念
 内存泄露，即MemeryLeak，是平时Coding非常容易忽视的点..像我之前对泄露的认识和针对性都不强，写的代码马马虎虎就可以，毕竟Leak并不像OOM那样，小白都可以轻易发现且容忍度为0。对泄露的定义，参考Wiki：
 
 
-内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之">
+内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之前就失">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -271,15 +268,14 @@
       
 
       
-        <span itemprop="articleBody"><p>##基本概念</p>
-<ul>
+        <span itemprop="articleBody"><h2 id="基本概念">基本概念</h2><ul>
 <li>内存泄露，即MemeryLeak，是平时Coding非常容易忽视的点..像我之前对泄露的认识和针对性都不强，写的代码马马虎虎就可以，毕竟Leak并不像OOM那样，小白都可以轻易发现且容忍度为0。对泄露的定义，参考Wiki：</li>
 </ul>
 <blockquote>
 <p>内存泄漏指由于疏忽或错误造成程序未能释放已经不再使用的内存。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，导致在释放该段内存之前就失去了对该段内存的控制，从而造成了内存的浪费。</p>
 </blockquote>
 <ul>
-<li>应该说优秀的程序设计完全可以避免内存泄露。以下是我对Android中内存泄露的简单理解和常见情景分析。<br>##简单举例</li>
+<li>应该说优秀的程序设计完全可以避免内存泄露。以下是我对Android中内存泄露的简单理解和常见情景分析。<h2 id="简单举例">简单举例</h2></li>
 <li><p>类描述如下</p>
 <pre><code><span class="label">class</span> A{
     <span class="keyword">B </span><span class="keyword">b;
@@ -292,8 +288,8 @@
 </span>
 }
 </code></pre></li>
-<li><p>A可以通过setB方法，持有B的引用。这时B对象若要销毁，但因为A还保存着B的强引用，所以GC无法回收，内存（对象B）泄露。<br>##容易Leak的场景</p>
-</li>
+<li><p>A可以通过setB方法，持有B的引用。这时B对象若要销毁，但因为A还保存着B的强引用，所以GC无法回收，内存（对象B）泄露。</p>
+<h2 id="容易Leak的场景">容易Leak的场景</h2></li>
 <li>Context<ul>
 <li>Android开发中许多场景都要用到Context，但是Context由于占用内存大/传递频繁，所以是造成内存泄露的大户。比如一后台Service需要拿到Context，传入当前Activity，但是由于Service的生命周期往往大于Activity，当退出该Activity时这部分内存无法回收，造成泄露。</li>
 </ul>
@@ -333,7 +329,7 @@ public static <span class="class"><span class="keyword">class</span> <span class
 <li>心得<ul>
 <li>使用匿名内部类时要记住，内部类生命周期一定要小于外部类。</li>
 <li>使用Context时尽量考虑使用ApplicationContext，它的生命周期和整个进程所绑定。</li>
-<li>使用Weakreference持有引用，这样不会影响GC。<br>##使用LeakCanary</li>
+<li>使用Weakreference持有引用，这样不会影响GC。<h2 id="使用LeakCanary">使用LeakCanary</h2></li>
 </ul>
 </li>
 <li><p>Square出品，见<a href="https://github.com/square/leakcanary" title="leakcanary" target="_blank" rel="external">https://github.com/square/leakcanary</a>，使用起来超级方便。只需要在Application中onCreate添加一句话：</p>
@@ -525,7 +521,7 @@ public static <span class="class"><span class="keyword">class</span> <span class
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -539,7 +535,7 @@ public static <span class="class"><span class="keyword">class</span> <span class
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -587,7 +583,7 @@ public static <span class="class"><span class="keyword">class</span> <span class
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单举例"><span class="nav-number">2.</span> <span class="nav-text">简单举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容易Leak的场景"><span class="nav-number">3.</span> <span class="nav-text">容易Leak的场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用LeakCanary"><span class="nav-number">4.</span> <span class="nav-text">使用LeakCanary</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -604,8 +600,8 @@ public static <span class="class"><span class="keyword">class</span> <span class
     <footer id="footer" class="footer">
       <div class="footer-inner"> <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2015</span>
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
