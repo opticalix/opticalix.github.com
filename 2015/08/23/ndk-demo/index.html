@@ -52,12 +52,10 @@
 代码可移植性强，此次核心代码就共用于IOS和Android。
 
 实现
-写native方法。
+1.写native方法。
 public class NdkEngine {
     public static native int nativeCalc(int n);
-}
-
-命令">
+}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NDK开发在AS上实现的简易流程">
 <meta property="og:url" content="http://opticalix.github.com/2015/08/23/ndk-demo/index.html">
@@ -69,12 +67,10 @@ public class NdkEngine {
 代码可移植性强，此次核心代码就共用于IOS和Android。
 
 实现
-写native方法。
+1.写native方法。
 public class NdkEngine {
     public static native int nativeCalc(int n);
-}
-
-命令">
+}">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NDK开发在AS上实现的简易流程">
 <meta name="twitter:description" content="引本次广州出差，有机会接触到NDK开发，当然还只是习得皮毛。个人认为C/C++实现优点有三：
@@ -84,12 +80,10 @@ public class NdkEngine {
 代码可移植性强，此次核心代码就共用于IOS和Android。
 
 实现
-写native方法。
+1.写native方法。
 public class NdkEngine {
     public static native int nativeCalc(int n);
-}
-
-命令">
+}">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -297,53 +291,41 @@ public class NdkEngine {
 <li>安全性强，核心代码不易破解。</li>
 <li>代码可移植性强，此次核心代码就共用于IOS和Android。</li>
 </ol>
-<h2 id="实现">实现</h2><ol>
-<li><p>写native方法。</p>
+<h2 id="实现">实现</h2><ul>
+<li><p><strong>1.写native方法。</strong></p>
 <pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NdkEngine</span> </span>{
     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">nativeCalc</span><span class="params">(<span class="keyword">int</span> n)</span></span>;
 }
 </code></pre></li>
-<li><p>命令行中通过javah生成对应头文件。</p>
-<pre><code>D:<span class="command">\workspace</span>\20150310<span class="command">\demo</span><span class="command">\app</span>&gt;javah -classpath D:<span class="command">\workspace</span>\20150310<span class="command">\demo</span><span class="command">\app</span><span class="command">\build</span><span class="command">\intermediates</span><span class="command">\classes</span><span class="command">\debug</span> -d jni com.felix.opticalixdemo.demo.ndk.NdkEngine
+<li><p><strong>2.命令行中通过javah生成对应头文件。</strong></p>
+<pre><code>D:<span class="command">\workspace</span>\20150310<span class="command">\demo</span><span class="command">\app</span>&gt;javah -classpath
+D:<span class="command">\workspace</span>\20150310<span class="command">\demo</span><span class="command">\app</span><span class="command">\build</span><span class="command">\intermediates</span><span class="command">\classes</span><span class="command">\debug</span> -d jni com.felix.opticalixdemo.demo.ndk.NdkEngine
 </code></pre></li>
-<li><p>粘合层c代码实现。</p>
-<ol>
-<li>com_felix_opticalixdemo_demo_ndk_NdkEngine.c</li>
-</ol>
+<li><p><strong>3.粘合层c代码实现。</strong><br>  com_felix_opticalixdemo_demo_ndk_NdkEngine.c</p>
 </li>
-</ol>
+</ul>
 <pre><code><span class="preprocessor">#<span class="keyword">include</span> <span class="string">"com_felix_opticalixdemo_demo_ndk_NdkEngine.h"</span></span>
 <span class="preprocessor">#<span class="keyword">include</span> <span class="string">"calc.h"</span></span>
-
-<span class="function">JNIEXPORT jint JNICALL <span class="title">Java_com_felix_opticalixdemo_demo_ndk_NdkEngine_nativeCalc</span>
-<span class="params">(JNIEnv *env, jclass clazz, jint n)</span></span>{
-    <span class="keyword">return</span> calc(n);
+<span class="function">JNIEXPORT jint JNICALL <span class="title">Java_com_felix_opticalixdemo_demo_ndk_NdkEngine_nativeCalc</span><span class="params">(JNIEnv *env, jclass clazz, jint n)</span></span>{
+<span class="keyword">return</span> calc(n);
 }
-</code></pre><ol>
-<li>本地.h和.c代码实现(calc.h calc.c)。<ol>
-<li>calc.h</li>
-</ol>
-</li>
-</ol>
-<pre><code>        <span class="preprocessor">#<span class="keyword">ifndef</span> _CALC_H_</span>
-        <span class="preprocessor">#<span class="keyword">define</span> _CALC_H_</span>
+</code></pre><ul>
+<li><p><strong>4.本地.h和.c代码实现(calc.h calc.c)。</strong></p>
+<pre><code><span class="preprocessor">#<span class="keyword">ifndef</span> _CALC_H_</span>
+<span class="preprocessor">#<span class="keyword">define</span> _CALC_H_</span>
+<span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span>
+<span class="function"><span class="keyword">extern</span> uint64_t <span class="title">calc</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>;
+<span class="preprocessor">#<span class="keyword">endif</span></span>
 
-        <span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span>
-
-        <span class="function"><span class="keyword">extern</span> uint64_t <span class="title">calc</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> n)</span></span>;
-        <span class="preprocessor">#<span class="keyword">endif</span></span>
-
-<span class="number">2.</span> calc.c
-
-
-        <span class="preprocessor">#<span class="keyword">include</span> <span class="string">"calc.h"</span></span>
-
-        <span class="keyword">uint64_t</span> calc(<span class="keyword">unsigned</span> <span class="keyword">int</span> n){
-            <span class="keyword">return</span> n;<span class="comment">//do some calc</span>
-        }
-</code></pre><ol>
-<li><p>编写makeFile。</p>
-<ol>
+<span class="preprocessor">#<span class="keyword">include</span> <span class="string">"calc.h"</span></span>
+<span class="keyword">uint64_t</span> calc(<span class="keyword">unsigned</span> <span class="keyword">int</span> n){
+    <span class="keyword">return</span> n;<span class="comment">//do some calc</span>
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p><strong>5.编写makeFile。</strong></p>
+<ul>
 <li><p>Android.mk</p>
 <pre><code>LOCAL_PATH := $(<span class="operator"><span class="keyword">call</span> my-dir)
 <span class="keyword">include</span> $(CLEAR_VARS)
@@ -354,10 +336,10 @@ LOCAL_SRC_FILES := com_felix_opticalixdemo_demo_ndk_NdkEngine.<span class="keywo
 <li><p>Application.mk</p>
 <pre><code><span class="attribute">APP_ABI :</span>=<span class="string"> armeabi-v7a</span>
 </code></pre></li>
-</ol>
+</ul>
 </li>
-<li><p>gradle中添加ndk编译任务。</p>
-<ol>
+<li><p><strong>6.gradle中添加ndk编译任务。</strong></p>
+<ul>
 <li><p>注意先配置ndk环境。下载最新ndk，配置环境变量。并在local.properties中配置ndk路径。</p>
 <pre><code>ndk.<span class="keyword">dir</span>=<span class="keyword">D</span>\:\\android-ndk-r10e
 </code></pre></li>
@@ -388,16 +370,17 @@ tasks.withType(JavaCompile) {
     compileTask -&gt; compileTask.dependsOn ndkBuild
 }
 </code></pre></li>
-</ol>
+</ul>
 </li>
-<li>make Project。会自动将so文件导出到libs文件夹中。</li>
-<li>static代码块System.loadLibrary(“module_name”)。</li>
-<li>(待验证)使用ndk-stack调试ndk（或者利用gdb？ <a href="http://blog.csdn.net/xqhrs232/article/details/7532276" target="_blank" rel="external">http://blog.csdn.net/xqhrs232/article/details/7532276</a>）<ol>
+<li><p><strong>7.make Project。</strong>会自动将so文件导出到libs文件夹中。</p>
+</li>
+<li><strong>8.static代码块System.loadLibrary(“module_name”)。</strong></li>
+<li><strong>9.调试ndk</strong> (待验证)<br>使用ndk-stack调试ndk（或者利用gdb？ <a href="http://blog.csdn.net/xqhrs232/article/details/7532276" target="_blank" rel="external">http://blog.csdn.net/xqhrs232/article/details/7532276</a>）<ol>
 <li>运行终端，进入jni所在目录，输入adb logcat | ndk-stack -sym .（最后的.代表当前目录）</li>
 <li>这时再运行程序，如果native方法crash就会打印出c代码崩溃的位置。</li>
 </ol>
 </li>
-</ol>
+</ul>
 </span>
       
     </div>
