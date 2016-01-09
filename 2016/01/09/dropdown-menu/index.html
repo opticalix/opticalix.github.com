@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="Android," />
+  <meta name="keywords" content="Android,CustomView," />
 
 
 
@@ -45,21 +45,26 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="TouchEvent简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。
-Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouch">
+<meta name="description" content="背景我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。
+效果功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：
+代码分析
+思路本控件继承自RelativeLay">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TouchEvent场景简要分析和理解">
-<meta property="og:url" content="http://opticalix.github.com/2015/10/31/touch-event/index.html">
+<meta property="og:title" content="DropdownMenu的介绍和使用">
+<meta property="og:url" content="http://opticalix.github.com/2016/01/09/dropdown-menu/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="TouchEvent简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。
-Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouch">
-<meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/touch-1.png">
-<meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/touch-2.png">
-<meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/touch-3.png">
+<meta property="og:description" content="背景我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。
+效果功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：
+代码分析
+思路本控件继承自RelativeLay">
+<meta property="og:image" content="https://camo.githubusercontent.com/5ed3aef2888a20a22e8e642c771c9ac5d939d9de/687474703a2f2f3778703271632e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f64726f70646f776e5f64656d6f2e676966">
+<meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/dropdown-menu-flow.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TouchEvent场景简要分析和理解">
-<meta name="twitter:description" content="TouchEvent简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。
-Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouch">
+<meta name="twitter:title" content="DropdownMenu的介绍和使用">
+<meta name="twitter:description" content="背景我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。
+效果功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：
+代码分析
+思路本控件继承自RelativeLay">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -71,7 +76,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
 
 
 
-  <title> TouchEvent场景简要分析和理解 | Opticalix Blog </title>
+  <title> DropdownMenu的介绍和使用 | Opticalix Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -206,7 +211,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
             
             
               
-                TouchEvent场景简要分析和理解
+                DropdownMenu的介绍和使用
               
             
           </h1>
@@ -215,8 +220,8 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-10-31T12:21:13+08:00" content="2015-10-31">
-              2015-10-31
+            <time itemprop="dateCreated" datetime="2016-01-09T14:12:47+08:00" content="2016-01-09">
+              2016-01-09
             </time>
           </span>
 
@@ -241,8 +246,8 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/10/31/touch-event/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/31/touch-event/" itemprop="commentsCount"></span>
+                <a href="/2016/01/09/dropdown-menu/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/09/dropdown-menu/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -261,20 +266,70 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
       
 
       
-        <span itemprop="articleBody"><h1 id="TouchEvent">TouchEvent</h1><h2 id="简介">简介</h2><p>复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。</p>
-<h2 id="Test场景">Test场景</h2><p>从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouchEvent。</p>
-<h3 id="子View放弃">子View放弃</h3><p>子View放弃，事件又回到Activity，如图。<br><img src="http://7xp2qc.com1.z0.glb.clouddn.com/touch-1.png" alt=""><br>具体过程：ActionDown时，事件先经dispatch方法，再经onTouch方法，直到最子View表示对Down事件不感兴趣（return false），方法返回。由于Down事件是一系列事件的开始，也是是否show interest的标识，系统通过Down的一些列传递明了了“不感兴趣”的View群，于是以后的事件（Move/Up/…）便不会想下传递，这样也提高了效率。</p>
-<h3 id="子View感兴趣">子View感兴趣</h3><p><img src="http://7xp2qc.com1.z0.glb.clouddn.com/touch-2.png" alt=""><br>知道了一种模式其实其他的都差不多，只不过此时View的onTouch返回了true，系统知道哪一个View感兴趣，之后的事件就全部发送到这个View，通过dispatch-onTouch路径。</p>
-<h3 id="子ViewGroup拦截">子ViewGroup拦截</h3><p><img src="http://7xp2qc.com1.z0.glb.clouddn.com/touch-3.png" alt=""><br>这类case要求ViewGroup复写onInterceptTouchEvent并return true，实际测试结果和图中有少许出入，dispatch的时候发现哪一层intercept了，就停止继续传递touch事件，直接传给该层的onTouch方法。也比较好理解。<br>以上只是简单测试，不过已覆盖了很多使用的场景，通过查看源码我们还可发掘更多dispatch/onTouch方法的纠葛..</p>
-<h2 id="DispatchTouchEvent">DispatchTouchEvent</h2><p>ViewGroup的dispatch方法才真正有意义，View的dispatch方式主要是分发事件给它本身去调用onTouchEvent，而ViewGroup则是分发给其children，且分发过程是递归执行，遇到ViewGroup会向更深处分发。在这个分发链上一旦遇到dispatchTouchEvent返回true，则终止这个序列。（<a href="http://www.cnblogs.com/linjzong/p/4191891.html）" target="_blank" rel="external">http://www.cnblogs.com/linjzong/p/4191891.html）</a><br>此外，dispatch方法其实感兴趣的是ACTION_DOWN，作为事件的开始，通过dispatch分发并测出target，以后的事件（MOVE/UP/..）就直接传递到target。</p>
-<h2 id="OnTouchListener">OnTouchListener</h2><p>OnTouchListener优先于onTouchEvent对事件进行消费。而且OnTouchListener多给使用该View的人使用，onTouchEvent则是实现该View的内部触摸逻辑。</p>
-<h2 id="总结">总结</h2><p>传递流程描述，ViewGroups和Views构成树形结构，可以看做Event是从根部向下传递（通过dispatch方法）。其中，遇View会转调onTouchEvent，而它的返回结果决定了dispatch的结果，true代表该View已完全处理，这将导致dispatch链中断；遇ViewGroups则递归调用，直到遇到View为止。<br>对于ViewGroup来说，它的onTouchEvent只有在其所有child的onTouchEvent返回false（表示都未处理，而onTouchEvent的结果与该View的dispatchTouchEvent返回值一致）、或没有child时，才会被调用（通过super.dispatch，只因为它也是View的子类..）。<br>关于onIntercept。//TODO<br>关于onTouchListener和onClickListener。//TODO<br>对一般自定义View，复写onTouchEvent一般就足够，毕竟这是事件最终目的地和处理的地方。对于ViewGroup得分情况考虑，大多数自定义View继承自现有XXLayout比如自定义一个RelativeLayout，那么一般只需要考虑分到它上面的事件如何处理即可，因此继承onTouchEvent；如果想要更高级别的控制、赶在child处理之前处理事件，可以复写dispatchTouchEvent，毕竟它的onTouchEvent只有在大家都不要时才执行..</p>
-<h2 id="Reference">Reference</h2><ol>
-<li><a href="https://github.com/devunwired/custom-touch-examples" target="_blank" rel="external">https://github.com/devunwired/custom-touch-examples</a></li>
-<li><a href="http://www.cnblogs.com/linjzong/p/4191891.html" target="_blank" rel="external">http://www.cnblogs.com/linjzong/p/4191891.html</a></li>
-<li><a href="http://blog.csdn.net/yanbober/article/details/45887547" target="_blank" rel="external">http://blog.csdn.net/yanbober/article/details/45887547</a></li>
-</ol>
-</span>
+        <span itemprop="articleBody"><h2 id="背景">背景</h2><p>我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。</p>
+<h2 id="效果">效果</h2><p>功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：<br><img src="https://camo.githubusercontent.com/5ed3aef2888a20a22e8e642c771c9ac5d939d9de/687474703a2f2f3778703271632e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f64726f70646f776e5f64656d6f2e676966" alt="DropdownMenu demo"></p>
+<h2 id="代码分析">代码分析</h2><ul>
+<li><p>思路<br>本控件继承自RelativeLayout，考虑到展开时的黑色背景要铺开，所以width和height均默认MATCH_PARENT。并没有做太复杂的layout和draw，只是放置对应N个TextView&amp;箭头drawable于顶部，以LinearLayout为container，组织成默认1：1的样式。这就要求控件在使用前提供几个必须的参数：listView的个数，相应的listView，以及相应的title。因此，在xml方式使用时，应提供足够的自定义参数。具体使用方式见使用指南。<br>核心是如何实现translate动画。如果使用ViewAnimation，画面上看起来移动但点击区域并没有位移。其实只要将listView实际位置设在title下方，动画开始就从-Y移动到0，点击时就没有问题。只不过我觉得既然3.0后属性动画已经引入，不如用性能更好的。所以该控件使用借助Scroller计算位移、通过对ListView设置translationY的方式完成位移效果。这样由于Scroller默认使用Viscous-Interpolator，效果也比匀速动画更官方范和美观。<br>还需要注意的是，该控件大致分为三个部分：Title，ListView以及黑色背景。这三者在addView的时候需要注意先后顺序，保证从顶至底为：Title-ListView-黑色背景。</p>
+</li>
+<li><p>简易流程<br>如下，由postDelay来实现循环判断：</p>
+</li>
+</ul>
+<p><img src="http://7xp2qc.com1.z0.glb.clouddn.com/dropdown-menu-flow.png" alt="流程图示意"></p>
+<p>其中startScroll负责初始化参数:</p>
+<pre><code><span class="keyword">if</span> (mDirection == MOVE_DOWN) {
+    mScroller.startScroll(<span class="number">0</span>, -mHeight, <span class="number">0</span>, mHeight, mDuration);
+} <span class="keyword">else</span> <span class="keyword">if</span> (mDirection == MOVE_UP) {
+    mScroller.startScroll(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, -mHeight, mDuration);
+}
+</code></pre><p>附Github地址：<a href="https://github.com/opticalix/android-dropdown-menu" target="_blank" rel="external">源码</a></p>
+<h2 id="使用指南">使用指南</h2><ul>
+<li><p>From xml</p>
+<pre><code>&lt;com.opticalix.dropdown_lib.DropdownView
+    xmlns:<span class="keyword">app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>
+    android:id=<span class="string">"@+id/dropdown_view"</span>
+    android:layout_width=<span class="string">"match_parent"</span>
+    android:layout_height=<span class="string">"match_parent"</span>
+    <span class="keyword">app</span>:drop_down_arrow_up=<span class="string">"@mipmap/ic_arrow_up"</span>
+    <span class="keyword">app</span>:drop_down_arrow_down=<span class="string">"@mipmap/ic_arrow_down"</span>
+    <span class="keyword">app</span>:drop_down_duration=<span class="string">"200"</span>
+    <span class="keyword">app</span>:drop_down_enable_dim=<span class="string">"true"</span>
+    <span class="keyword">app</span>:drop_down_list_count=<span class="string">"2"</span>
+    <span class="keyword">app</span>:drop_down_list_height=<span class="string">"150dp"</span>
+    <span class="keyword">app</span>:drop_down_title_background=<span class="string">"@android:color/white"</span>
+    <span class="keyword">app</span>:drop_down_title_drawable_padding=<span class="string">"10dp"</span>
+    <span class="keyword">app</span>:drop_down_title_padding_bottom=<span class="string">"7dp"</span>
+    <span class="keyword">app</span>:drop_down_title_padding_top=<span class="string">"7dp"</span>
+    <span class="keyword">app</span>:drop_down_title_text=<span class="string">"@array/drop_down_titles"</span>
+    <span class="keyword">app</span>:drop_down_title_text_color=<span class="string">"#444444"</span>
+    <span class="keyword">app</span>:drop_down_title_text_size=<span class="string">"10sp"</span>/&gt;
+</code></pre></li>
+</ul>
+<p>然后关联对应的ListView，通常还需要设置item的点击回调事件。</p>
+<pre><code>mDropdownView = (DropdownView) findViewById(R.id.dropdown_view);
+mDropdownView.setup(simpleListView1, simpleListView2);
+mDropdownView.setOnDropdownItemClickListener(<span class="keyword">new</span> DropdownView.OnDropdownItemClickListener() {
+    <span class="annotation">@Override</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onItemClick</span><span class="params">(View v, <span class="keyword">int</span> whichList, <span class="keyword">int</span> position)</span> </span>{
+        mDropdownView.setTitleText(whichList, whichList + <span class="string">"-"</span> + position);
+    }
+});
+</code></pre><ul>
+<li>From code<br>新建该控件，调用setup初始化必要参数。</li>
+</ul>
+<pre><code>DropdownView dropdownView = <span class="keyword">new</span> DropdownView(<span class="keyword">this</span>);
+        dropdownView.setup(<span class="number">3</span>, titles_arr, simpleListView1, simpleListView2, simpleListView3);
+
+<span class="comment">//config dropdownView...</span>
+
+<span class="comment">//remember to addView</span>
+root.addView(dropdownView);
+</code></pre><ul>
+<li>注意<br>在5.0以上手机有可能出现其他View覆盖本控件的现象，虽然明明是DropdownView最后添加，按理说应该处于最顶层…可能是引入MD风格后，Z轴方向加强管理而导致的覆盖机制变化。可通过setZ解决：</li>
+</ul>
+<pre><code><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {
+    mDropdownView.setZ(<span class="number">100</span>);<span class="comment">//larger than others</span>
+}
+</code></pre></span>
       
     </div>
 
@@ -284,6 +339,8 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
           
             <a href="/tags/Android/" rel="tag">#Android</a>
           
+            <a href="/tags/CustomView/" rel="tag">#CustomView</a>
+          
         </div>
       
 
@@ -291,17 +348,13 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/10/25/custom-view-summary/" rel="next" title="自定义View梳理">
-                <i class="fa fa-chevron-left"></i> 自定义View梳理
+              <a href="/2016/01/03/gson-skill/" rel="next" title="Gson使用技巧小结">
+                <i class="fa fa-chevron-left"></i> Gson使用技巧小结
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/03/gson-skill/" rel="prev" title="Gson使用技巧小结">
-                Gson使用技巧小结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -326,8 +379,8 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/10/31/touch-event/"
-                   data-title="TouchEvent场景简要分析和理解" data-url="http://opticalix.github.com/2015/10/31/touch-event/">
+              <div class="ds-thread" data-thread-key="2016/01/09/dropdown-menu/"
+                   data-title="DropdownMenu的介绍和使用" data-url="http://opticalix.github.com/2016/01/09/dropdown-menu/">
               </div>
             
           </div>
@@ -432,7 +485,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TouchEvent"><span class="nav-number">1.</span> <span class="nav-text">TouchEvent</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test场景"><span class="nav-number">1.2.</span> <span class="nav-text">Test场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#子View放弃"><span class="nav-number">1.2.1.</span> <span class="nav-text">子View放弃</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子View感兴趣"><span class="nav-number">1.2.2.</span> <span class="nav-text">子View感兴趣</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子ViewGroup拦截"><span class="nav-number">1.2.3.</span> <span class="nav-text">子ViewGroup拦截</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DispatchTouchEvent"><span class="nav-number">1.3.</span> <span class="nav-text">DispatchTouchEvent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OnTouchListener"><span class="nav-number">1.4.</span> <span class="nav-text">OnTouchListener</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">1.6.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">2.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码分析"><span class="nav-number">3.</span> <span class="nav-text">代码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用指南"><span class="nav-number">4.</span> <span class="nav-text">使用指南</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
