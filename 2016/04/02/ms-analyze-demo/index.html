@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="Android,Retrofit," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -45,15 +45,17 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="引项目中网络访问模块经历了从AsyncHttp -&amp;gt; OkHttp的变迁，目前方案是对OkHttp做了一层简单封装，主要是结合业务逻辑，完成错误处理、Json解析以及线程切换。现在看来有点惨不忍睹，没能做到高内聚和全面考虑扩展性…对Retrofit听闻好久，但一直未能完整地学习使用，希望借Retrofit完成更清晰的访问层实现。Retrofit是一套RESTful规范的Android客户端实">
+<meta name="description" content="引Microsoft(MS) Build 2016刚落幕，围观充值信仰后发现除了Hololens、Windows Shell外，还出了个Cognitive Services的东西，简单的来说是微软开放了图像识别领域的部分API给开发者把玩，直播中的美女演示了在台上拍了一张照片，通过MS server解析后识别出了desk等等信息，看起来蛮好玩的，闲的在家，玩一玩这一系列API，除了VISION系列">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Retrofit入门笔记">
-<meta property="og:url" content="http://opticalix.github.com/2016/04/02/retrofit-0/index.html">
+<meta property="og:title" content="玩玩Microsoft Cognitive Services">
+<meta property="og:url" content="http://opticalix.github.com/2016/04/02/ms-analyze-demo/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="引项目中网络访问模块经历了从AsyncHttp -&amp;gt; OkHttp的变迁，目前方案是对OkHttp做了一层简单封装，主要是结合业务逻辑，完成错误处理、Json解析以及线程切换。现在看来有点惨不忍睹，没能做到高内聚和全面考虑扩展性…对Retrofit听闻好久，但一直未能完整地学习使用，希望借Retrofit完成更清晰的访问层实现。Retrofit是一套RESTful规范的Android客户端实">
+<meta property="og:description" content="引Microsoft(MS) Build 2016刚落幕，围观充值信仰后发现除了Hololens、Windows Shell外，还出了个Cognitive Services的东西，简单的来说是微软开放了图像识别领域的部分API给开发者把玩，直播中的美女演示了在台上拍了一张照片，通过MS server解析后识别出了desk等等信息，看起来蛮好玩的，闲的在家，玩一玩这一系列API，除了VISION系列">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/7a8aed7bgw1exixcxfj12j20in0rsgp0.jpg">
+<meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/ms-vision-analyze-result.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Retrofit入门笔记">
-<meta name="twitter:description" content="引项目中网络访问模块经历了从AsyncHttp -&amp;gt; OkHttp的变迁，目前方案是对OkHttp做了一层简单封装，主要是结合业务逻辑，完成错误处理、Json解析以及线程切换。现在看来有点惨不忍睹，没能做到高内聚和全面考虑扩展性…对Retrofit听闻好久，但一直未能完整地学习使用，希望借Retrofit完成更清晰的访问层实现。Retrofit是一套RESTful规范的Android客户端实">
+<meta name="twitter:title" content="玩玩Microsoft Cognitive Services">
+<meta name="twitter:description" content="引Microsoft(MS) Build 2016刚落幕，围观充值信仰后发现除了Hololens、Windows Shell外，还出了个Cognitive Services的东西，简单的来说是微软开放了图像识别领域的部分API给开发者把玩，直播中的美女演示了在台上拍了一张照片，通过MS server解析后识别出了desk等等信息，看起来蛮好玩的，闲的在家，玩一玩这一系列API，除了VISION系列">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -65,7 +67,7 @@
 
 
 
-  <title> Retrofit入门笔记 | Opticalix Blog </title>
+  <title> 玩玩Microsoft Cognitive Services | Opticalix Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -200,7 +202,7 @@
             
             
               
-                Retrofit入门笔记
+                玩玩Microsoft Cognitive Services
               
             
           </h1>
@@ -209,7 +211,7 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-04-02T21:47:04+08:00" content="2016-04-02">
+            <time itemprop="dateCreated" datetime="2016-04-02T23:05:29+08:00" content="2016-04-02">
               2016-04-02
             </time>
           </span>
@@ -235,8 +237,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/04/02/retrofit-0/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/02/retrofit-0/" itemprop="commentsCount"></span>
+                <a href="/2016/04/02/ms-analyze-demo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/02/ms-analyze-demo/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -255,55 +257,116 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="引">引</h2><p>项目中网络访问模块经历了从AsyncHttp -&gt; OkHttp的变迁，目前方案是对OkHttp做了一层简单封装，主要是结合业务逻辑，完成错误处理、Json解析以及线程切换。现在看来有点惨不忍睹，没能做到高内聚和全面考虑扩展性…<br>对Retrofit听闻好久，但一直未能完整地学习使用，希望借Retrofit完成更清晰的访问层实现。<br>Retrofit是一套RESTful规范的Android客户端实现，RESTful常见于API设计，意思是“表现层状态转移”，要求URL全部名词化..（若难以理解，可移步<a href="https://www.zhihu.com/question/28557115" target="_blank" rel="external">REST解释</a>）。个人理解是，Retrofit将网络访问细节封装，将“去服务器请求数据”的过程转化为“通过接口方法获得数据”，因此Retrofit的使用主要是“请求接口”的定义。</p>
-<h2 id="使用">使用</h2><h3 id="依赖">依赖</h3><p>先引入Retrofit三方库到自己的项目，这里使用gradle方式，而且以Retrofit 2.0.0为主。另外，请求后的数据解析需要Converter来转换为Java对象，这里使用Square提供的GsonConverter。</p>
-<pre><code><span class="keyword">dependencies</span> {  
-<span class="comment">// Retrofit</span>
-<span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:retrofit:2.0.0'</span>
-<span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:converter-gson:2.0.0'</span>
-}
-</code></pre><p>注意从Retrofit 2开始，OkHttp就已经集成在里面了，而且不同于1.x支持各种网络引擎，OkHttp是唯一的HttpClient，因此从Retrofit 2包的体积也有所减少。</p>
-<h3 id="入门">入门</h3><p>推荐封装一个ServiceGenerator，便于根据日后为不同API所写的Intrface生成API实现类。</p>
-<pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServiceGenerator</span> </span>{
-
-<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String API_BASE_URL = <span class="string">"http://your.api-base.url"</span>;
-
-<span class="keyword">private</span> <span class="keyword">static</span> OkHttpClient.Builder httpClient = <span class="keyword">new</span> OkHttpClient.Builder();
-
-<span class="keyword">private</span> <span class="keyword">static</span> Retrofit.Builder builder =
-        <span class="keyword">new</span> Retrofit.Builder()
-                .baseUrl(API_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create());
-
-<span class="keyword">public</span> <span class="keyword">static</span> &lt;S&gt; S createService(<span class="class"><span class="keyword">Class</span>&lt;<span class="title">S</span>&gt; <span class="title">serviceClass</span>) </span>{
-    Retrofit retrofit = builder.client(httpClient.build()).build();
-    <span class="keyword">return</span> retrofit.create(serviceClass);
-}
-}
-</code></pre><p>可以看到，访问引擎为OkHttpClient，且支持自定义（超时、缓存设置等），使用默认的GsonConverter。createService方法则是为了生成独有API而使用，见下。<br>比如现在要请求Github仓库数据，url为</p>
+        <span itemprop="articleBody"><h2 id="引">引</h2><p>Microsoft(MS) Build 2016刚落幕，围观充值信仰后发现除了Hololens、Windows Shell外，还出了个Cognitive Services的东西，简单的来说是微软开放了图像识别领域的部分API给开发者把玩，直播中的美女演示了在台上拍了一张照片，通过MS server解析后识别出了desk等等信息，看起来蛮好玩的，闲的在家，玩一玩这一系列API，除了<strong>VISION</strong>系列外，还有包括<strong>Speech/Language/Knowledge/Search</strong>等一系列黑科技智能API..时间有限，只玩了图像识别–返回图中基本信息和机器识别后的description。</p>
+<h2 id="官方资料">官方资料</h2><p>官方地址：<a href="https://www.microsoft.com/cognitive-services" target="_blank" rel="external">cognitive-services</a><br>里面的文档很全，还有test console..比如<a href="https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fa" target="_blank" rel="external">Computer Vision API</a>和<a href="https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fe/console" target="_blank" rel="external">API Console</a><br>有了这些文档完全就可以开发Android Demo了！当然，你还需要微软提供的开发者身份id，即<strong>subscriptions</strong>，这货是要在发起请求时带在Header中的，千万别忘记申请(貌似免费给了一个月时间？)。<br>对了，MS还放了<a href="https://github.com/Microsoft/ProjectOxford-ClientSDK" target="_blank" rel="external">Github</a>，其中部分系列有Android Sample可以参考，并且给封装了API访问过程，方便使用。我这里是用Retrofit重新写了一遍算是对Retrofit初学的巩固…</p>
+<h2 id="开发流程">开发流程</h2><p>图像识别API，提供url和file两种方式去传递待分析图片。File的话就是利用Gallery-&gt;ContentResolver-&gt;拿到图片真正路径，multi-part上传…试了一下，上传有点慢，而且retrofit传multipart，接口总是返回415，放弃改玩url方式。<br>Http request如下：</p>
 <blockquote>
-<p><a href="https://api.github.com/repos/{owner}/{repo}/contributors" target="_blank" rel="external">https://api.github.com/repos/{owner}/{repo}/contributors</a></p>
+<p>POST <a href="https://api.projectoxford.ai/vision/v1.0/analyze?visualFeatures=Description,Tags,Categories,Faces,ImageType,Color,Adult" target="_blank" rel="external">https://api.projectoxford.ai/vision/v1.0/analyze?visualFeatures=Description,Tags,Categories,Faces,ImageType,Color,Adult</a> HTTP/1.1<br>Content-Type: application/json<br>Host: api.projectoxford.ai<br>Content-Length: 74<br>Ocp-Apim-Subscription-Key: ••••••••••••••••••••••••••••••••<br>{“url”:”<a href="http://ww4.sinaimg.cn/large/7a8aed7bgw1exixcxfj12j20in0rsgp0.jpg&quot;}" target="_blank" rel="external">http://ww4.sinaimg.cn/large/7a8aed7bgw1exixcxfj12j20in0rsgp0.jpg&quot;}</a></p>
 </blockquote>
-<p>创建该API对应访问接口：</p>
-<pre><code><span class="tag">public</span> <span class="tag">interface</span> <span class="tag">GitHubClient</span> {  
-<span class="variable">@GET</span>(<span class="string">"/repos/{owner}/{repo}/contributors"</span>)
-Call&lt;List&lt;Contributor&gt;&gt; <span class="function">contributors</span>(
-    <span class="variable">@Path</span>(<span class="string">"owner"</span>) String owner,
-    <span class="variable">@Path</span>(<span class="string">"repo"</span>) String repo
-);
-}
-</code></pre><p>可以看出，注解@GET指定了Http访问方式，后面的url是基于BASE_URL的相对路径，Retrofit会将他们拼接后访问。<br>再看contributors方法，不难看出<em>owner/repo</em>作为参数替换了相对路径中的<em>{owner}/{repo}</em>。当然，@PATH只是最简单的路径替换。更复杂的url拼接和Headers的定义Retrofit当然也可以胜任，下文会描述。<br>调用如下：</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String... args) {  
-<span class="comment">// Create a very simple REST adapter which points the GitHub API endpoint.</span>
-GitHubClient client = ServiceGenerator.createService(GitHubClient.<span class="keyword">class</span>);
-
-<span class="comment">// Fetch and print a list of the contributors to this library.</span>
-<span class="keyword">Call</span>&lt;List&lt;Contributor&gt;&gt; <span class="keyword">call</span> =
-    client.contributors(<span class="string">"fs_opensource"</span>, <span class="string">"android-boilerplate"</span>);
-</code></pre><p>最后执行，注意要求在子线程：</p>
-<pre><code>List&lt;Contributor&gt; contributors = <span class="built_in">call</span>.<span class="built_in">execute</span>().body()<span class="comment">;</span>
-</code></pre><p>关键在于得到Call对象，接着子线程执行execute方法即可完成网络访问，Gson负责将Response中实体内容解析并返回相应对象。</p>
-<h2 id="小结">小结</h2><p>以上，可以看出Retrofit使用注解方式定义API真是异常的方便，常用的annotation基本都有，结合RESTful规范使用能极大地减少了代码量，保证了API部分的清晰。<br>更多待补，英文系列教程可参考<a href="https://futurestud.io/blog/retrofit-getting-started-and-android-client" target="_blank" rel="external">Retrofit-Retrofit Series</a></p>
+<p>其中visualFeatures可选，见官方文档。Ocp-Apim-Subscription-Key是开发者id。request body是json格式的图片url，这图长这样：<br><img src="http://ww4.sinaimg.cn/large/7a8aed7bgw1exixcxfj12j20in0rsgp0.jpg" alt="to be analyze"><br>返回结果，你感受一下：</p>
+<pre><code>{
+  "<span class="attribute">categories</span>": <span class="value">[
+    {
+      "<span class="attribute">name</span>": <span class="value"><span class="string">"others_"</span></span>,
+      "<span class="attribute">score</span>": <span class="value"><span class="number">0.1015625</span>
+    </span>},
+    {
+      "<span class="attribute">name</span>": <span class="value"><span class="string">"outdoor_"</span></span>,
+      "<span class="attribute">score</span>": <span class="value"><span class="number">0.00390625</span>
+    </span>}
+  ]</span>,
+  "<span class="attribute">adult</span>": <span class="value">{
+    "<span class="attribute">isAdultContent</span>": <span class="value"><span class="literal">false</span></span>,
+    "<span class="attribute">isRacyContent</span>": <span class="value"><span class="literal">false</span></span>,
+    "<span class="attribute">adultScore</span>": <span class="value"><span class="number">0.11355701088905335</span></span>,
+    "<span class="attribute">racyScore</span>": <span class="value"><span class="number">0.13894116878509522</span>
+  </span>}</span>,
+  "<span class="attribute">tags</span>": <span class="value">[
+    {
+      "<span class="attribute">name</span>": <span class="value"><span class="string">"person"</span></span>,
+      "<span class="attribute">confidence</span>": <span class="value"><span class="number">0.999338686466217</span>
+    </span>},
+    {
+      "<span class="attribute">name</span>": <span class="value"><span class="string">"indoor"</span></span>,
+      "<span class="attribute">confidence</span>": <span class="value"><span class="number">0.97037023305892944</span>
+    </span>},
+    {
+      "<span class="attribute">name</span>": <span class="value"><span class="string">"window"</span></span>,
+      "<span class="attribute">confidence</span>": <span class="value"><span class="number">0.84870690107345581</span>
+    </span>},
+    {
+      "<span class="attribute">name</span>": <span class="value"><span class="string">"staring"</span></span>,
+      "<span class="attribute">confidence</span>": <span class="value"><span class="number">0.48543870449066162</span>
+    </span>}
+  ]</span>,
+  "<span class="attribute">description</span>": <span class="value">{
+    "<span class="attribute">tags</span>": <span class="value">[
+      <span class="string">"person"</span>,
+      <span class="string">"indoor"</span>,
+      <span class="string">"window"</span>,
+      <span class="string">"looking"</span>,
+      <span class="string">"front"</span>,
+      <span class="string">"standing"</span>,
+      <span class="string">"man"</span>,
+      <span class="string">"woman"</span>,
+      <span class="string">"staring"</span>,
+      <span class="string">"laptop"</span>,
+      <span class="string">"holding"</span>,
+      <span class="string">"table"</span>,
+      <span class="string">"black"</span>,
+      <span class="string">"sitting"</span>,
+      <span class="string">"shirt"</span>,
+      <span class="string">"computer"</span>,
+      <span class="string">"mirror"</span>,
+      <span class="string">"room"</span>,
+      <span class="string">"young"</span>,
+      <span class="string">"glasses"</span>,
+      <span class="string">"glass"</span>,
+      <span class="string">"wearing"</span>,
+      <span class="string">"screen"</span>,
+      <span class="string">"white"</span>,
+      <span class="string">"phone"</span>,
+      <span class="string">"umbrella"</span>
+    ]</span>,
+    "<span class="attribute">captions</span>": <span class="value">[
+      {
+        "<span class="attribute">text</span>": <span class="value"><span class="string">"person standing in front of a window"</span></span>,
+        "<span class="attribute">confidence</span>": <span class="value"><span class="number">0.31947672828769375</span>
+      </span>}
+    ]
+  </span>}</span>,
+  "<span class="attribute">requestId</span>": <span class="value"><span class="string">"8f80d6ad-561c-4bd8-851e-ffc108958ac9"</span></span>,
+  "<span class="attribute">faces</span>": <span class="value">[]</span>,
+  "<span class="attribute">color</span>": <span class="value">{
+    "<span class="attribute">dominantColorForeground</span>": <span class="value"><span class="string">"Black"</span></span>,
+    "<span class="attribute">dominantColorBackground</span>": <span class="value"><span class="string">"Black"</span></span>,
+    "<span class="attribute">dominantColors</span>": <span class="value">[
+      <span class="string">"Black"</span>,
+      <span class="string">"White"</span>,
+      <span class="string">"Grey"</span>
+    ]</span>,
+    "<span class="attribute">accentColor</span>": <span class="value"><span class="string">"424F59"</span></span>,
+    "<span class="attribute">isBWImg</span>": <span class="value"><span class="literal">false</span>
+  </span>}</span>,
+  "<span class="attribute">imageType</span>": <span class="value">{
+    "<span class="attribute">clipArtType</span>": <span class="value"><span class="number">0</span></span>,
+    "<span class="attribute">lineDrawingType</span>": <span class="value"><span class="number">0</span>
+  </span>}
+</span>}
+</code></pre><p>抽取<strong>captions</strong>作为玩点~<strong>confidence</strong>是机器判断的可信度。结果如图：</p>
+<p><img src="http://7xp2qc.com1.z0.glb.clouddn.com/ms-vision-analyze-result.png" alt="result"></p>
+<h2 id="代码">代码</h2><p>这Demo主要是API访问..放一下所有的接口，前提是懂Retrofit的基本使用。<br>MS Vision Analyze Interface：</p>
+<pre><code><span class="variable">@Headers</span>({<span class="string">"Content-Type: application/json"</span>})
+<span class="variable">@POST</span>(<span class="string">"vision/v1.0/analyze"</span>)
+Call&lt;VisionAnalyzeResult &gt; <span class="function">analyzeImgFromUrl</span>(<span class="variable">@Header</span>(<span class="string">"Ocp-Apim-Subscription-Key"</span>) String key, <span class="variable">@Query</span>(<span class="string">"visualFeatures"</span>) String visualFeatures,
+                              <span class="variable">@Body</span> Url url);
+</code></pre><p>其中：</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> API_BASE_URL = <span class="string">"https://api.projectoxford.ai/"</span>;
+<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> MS_VISION_SUBSCRIPTION = <span class="string">"xxx"</span><span class="comment">//yours;</span>
+</code></pre><p>还有<a href="http://gank.io/api" target="_blank" rel="external">gank.io</a>提供的图片API：</p>
+<pre><code>    <span class="variable">@GET</span>(<span class="string">"{random}/data/{type}/{count}"</span>)
+Call&lt;GankModelWrapper&lt;FuliModel&gt;&gt; <span class="function">getGankData</span>(<span class="variable">@Path</span>(<span class="string">"random"</span>) String random, <span class="variable">@Path</span>(<span class="string">"type"</span>) String type, <span class="variable">@Path</span>(<span class="string">"count"</span>) String count);
+</code></pre><h2 id="小结">小结</h2><p>感觉是在大公司光环之下喝点汤玩玩API…抛砖引玉，感觉可以做出更有big的App</p>
 </span>
       
     </div>
@@ -314,8 +377,6 @@ GitHubClient client = ServiceGenerator.createService(GitHubClient.<span class="k
           
             <a href="/tags/Android/" rel="tag">#Android</a>
           
-            <a href="/tags/Retrofit/" rel="tag">#Retrofit</a>
-          
         </div>
       
 
@@ -323,17 +384,13 @@ GitHubClient client = ServiceGenerator.createService(GitHubClient.<span class="k
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/09/dropdown-menu/" rel="next" title="DropdownMenu的介绍和使用">
-                <i class="fa fa-chevron-left"></i> DropdownMenu的介绍和使用
+              <a href="/2016/04/02/retrofit-0/" rel="next" title="Retrofit入门笔记">
+                <i class="fa fa-chevron-left"></i> Retrofit入门笔记
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/02/ms-analyze-demo/" rel="prev" title="玩玩Microsoft Cognitive Services">
-                玩玩Microsoft Cognitive Services <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -358,8 +415,8 @@ GitHubClient client = ServiceGenerator.createService(GitHubClient.<span class="k
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/04/02/retrofit-0/"
-                   data-title="Retrofit入门笔记" data-url="http://opticalix.github.com/2016/04/02/retrofit-0/">
+              <div class="ds-thread" data-thread-key="2016/04/02/ms-analyze-demo/"
+                   data-title="玩玩Microsoft Cognitive Services" data-url="http://opticalix.github.com/2016/04/02/ms-analyze-demo/">
               </div>
             
           </div>
@@ -464,7 +521,7 @@ GitHubClient client = ServiceGenerator.createService(GitHubClient.<span class="k
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引"><span class="nav-number">1.</span> <span class="nav-text">引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖"><span class="nav-number">2.1.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#入门"><span class="nav-number">2.2.</span> <span class="nav-text">入门</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引"><span class="nav-number">1.</span> <span class="nav-text">引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方资料"><span class="nav-number">2.</span> <span class="nav-text">官方资料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发流程"><span class="nav-number">3.</span> <span class="nav-text">开发流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
