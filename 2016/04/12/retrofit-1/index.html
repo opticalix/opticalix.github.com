@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="Android,CustomView," />
+  <meta name="keywords" content="Android," />
 
 
 
@@ -45,26 +45,24 @@
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="背景我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。
-效果功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：
-代码分析
-思路本控件继承自RelativeLay">
+<meta name="description" content="请求方式很简单，在API方法前加@GET，即说明该方法以get方式请求。HTTP/1.1协议中定义的八种方法都是支持的，灵活选用即可，此处不再赘述。
+URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参数完成按自己逻辑的拼装。除了上面的@PATH外，常用的还有：
+@QUERY用于拼装GET请求中请求参数，可以这么写（参考，下同）
+//url = BASE_HOST +">
 <meta property="og:type" content="article">
-<meta property="og:title" content="DropdownMenu的介绍和使用">
-<meta property="og:url" content="http://opticalix.github.com/2016/01/09/dropdown-menu/index.html">
+<meta property="og:title" content="Retrofit入门笔记二">
+<meta property="og:url" content="http://opticalix.github.com/2016/04/12/retrofit-1/index.html">
 <meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="背景我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。
-效果功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：
-代码分析
-思路本控件继承自RelativeLay">
-<meta property="og:image" content="https://camo.githubusercontent.com/5ed3aef2888a20a22e8e642c771c9ac5d939d9de/687474703a2f2f3778703271632e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f64726f70646f776e5f64656d6f2e676966">
-<meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/dropdown-menu-flow.png">
+<meta property="og:description" content="请求方式很简单，在API方法前加@GET，即说明该方法以get方式请求。HTTP/1.1协议中定义的八种方法都是支持的，灵活选用即可，此处不再赘述。
+URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参数完成按自己逻辑的拼装。除了上面的@PATH外，常用的还有：
+@QUERY用于拼装GET请求中请求参数，可以这么写（参考，下同）
+//url = BASE_HOST +">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="DropdownMenu的介绍和使用">
-<meta name="twitter:description" content="背景我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。
-效果功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：
-代码分析
-思路本控件继承自RelativeLay">
+<meta name="twitter:title" content="Retrofit入门笔记二">
+<meta name="twitter:description" content="请求方式很简单，在API方法前加@GET，即说明该方法以get方式请求。HTTP/1.1协议中定义的八种方法都是支持的，灵活选用即可，此处不再赘述。
+URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参数完成按自己逻辑的拼装。除了上面的@PATH外，常用的还有：
+@QUERY用于拼装GET请求中请求参数，可以这么写（参考，下同）
+//url = BASE_HOST +">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -76,7 +74,7 @@
 
 
 
-  <title> DropdownMenu的介绍和使用 | Opticalix Blog </title>
+  <title> Retrofit入门笔记二 | Opticalix Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -211,7 +209,7 @@
             
             
               
-                DropdownMenu的介绍和使用
+                Retrofit入门笔记二
               
             
           </h1>
@@ -220,8 +218,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2016-01-09T14:12:47+08:00" content="2016-01-09">
-              2016-01-09
+            <time itemprop="dateCreated" datetime="2016-04-12T22:09:09+08:00" content="2016-04-12">
+              2016-04-12
             </time>
           </span>
 
@@ -246,8 +244,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/01/09/dropdown-menu/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/09/dropdown-menu/" itemprop="commentsCount"></span>
+                <a href="/2016/04/12/retrofit-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/12/retrofit-1/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -266,70 +264,73 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="背景">背景</h2><p>我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。</p>
-<h2 id="效果">效果</h2><p>功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：<br><img src="https://camo.githubusercontent.com/5ed3aef2888a20a22e8e642c771c9ac5d939d9de/687474703a2f2f3778703271632e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f64726f70646f776e5f64656d6f2e676966" alt="DropdownMenu demo"></p>
-<h2 id="代码分析">代码分析</h2><ul>
-<li><p>思路<br>本控件继承自RelativeLayout，考虑到展开时的黑色背景要铺开，所以width和height均默认MATCH_PARENT。并没有做太复杂的layout和draw，只是放置对应N个TextView&amp;箭头drawable于顶部，以LinearLayout为container，组织成默认1：1的样式。这就要求控件在使用前提供几个必须的参数：listView的个数，相应的listView，以及相应的title。因此，在xml方式使用时，应提供足够的自定义参数。具体使用方式见使用指南。<br>核心是如何实现translate动画。如果使用ViewAnimation，画面上看起来移动但点击区域并没有位移。其实只要将listView实际位置设在title下方，动画开始就从-Y移动到0，点击时就没有问题。只不过我觉得既然3.0后属性动画已经引入，不如用性能更好的。所以该控件使用借助Scroller计算位移、通过对ListView设置translationY的方式完成位移效果。这样由于Scroller默认使用Viscous-Interpolator，效果也比匀速动画更官方范和美观。<br>还需要注意的是，该控件大致分为三个部分：Title，ListView以及黑色背景。这三者在addView的时候需要注意先后顺序，保证从顶至底为：Title-ListView-黑色背景。</p>
-</li>
-<li><p>简易流程<br>如下，由postDelay来实现循环判断：</p>
-</li>
-</ul>
-<p><img src="http://7xp2qc.com1.z0.glb.clouddn.com/dropdown-menu-flow.png" alt="流程图示意"></p>
-<p>其中startScroll负责初始化参数:</p>
-<pre><code><span class="keyword">if</span> (mDirection == MOVE_DOWN) {
-    mScroller.startScroll(<span class="number">0</span>, -mHeight, <span class="number">0</span>, mHeight, mDuration);
-} <span class="keyword">else</span> <span class="keyword">if</span> (mDirection == MOVE_UP) {
-    mScroller.startScroll(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, -mHeight, mDuration);
+        <span itemprop="articleBody"><h3 id="请求方式">请求方式</h3><p>很简单，在API方法前加@GET，即说明该方法以get方式请求。HTTP/1.1协议中定义的八种方法都是支持的，灵活选用即可，此处不再赘述。</p>
+<h3 id="URL拼装">URL拼装</h3><p>Retrofit提供了灵活定义request的方式，URL可使用注解+参数完成按自己逻辑的拼装。<br>除了上面的@PATH外，常用的还有：</p>
+<h4 id="@QUERY">@QUERY</h4><p>用于拼装GET请求中请求参数，可以这么写（<a href="https://futurestud.io/blog/retrofit-multiple-query-parameters-of-same-name" target="_blank" rel="external">参考</a>，下同）</p>
+<pre><code><span class="comment">//url = BASE_HOST + "/task?id=100"</span>
+<span class="variable">@GET</span>(<span class="string">"/task"</span>)
+Call&lt;Task&gt; <span class="function">getTask</span>(<span class="variable">@Query</span>(<span class="string">"id"</span>) long id);
+</code></pre><p>如果是多个id，则用list传参即可</p>
+<pre><code><span class="operator"><span class="keyword">Call</span>&lt;<span class="keyword">List</span>&lt;Task&gt;&gt; getTask(@<span class="keyword">Query</span>(<span class="string">"id"</span>) <span class="keyword">List</span>&lt;<span class="keyword">Long</span>&gt; taskIds);</span>
+</code></pre><h4 id="@BODY">@BODY</h4><p>支持将Bean直接作为参数传入RetroitAPI，默认的GsonConverter会反序列化对象，将其以json形式作为request-body发出。</p>
+<pre><code><span class="keyword">public</span> <span class="keyword">interface</span> TaskService {  
+    @POST(<span class="string">"/tasks"</span>)
+    <span class="keyword">Call</span>&lt;<span class="keyword">Task</span>&gt; createTask(@Body <span class="keyword">Task</span> <span class="keyword">task</span>);
 }
-</code></pre><p>附Github地址：<a href="https://github.com/opticalix/android-dropdown-menu" target="_blank" rel="external">源码</a></p>
-<h2 id="使用指南">使用指南</h2><ul>
-<li><p>From xml</p>
-<pre><code>&lt;com.opticalix.dropdown_lib.DropdownView
-    xmlns:<span class="keyword">app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>
-    android:id=<span class="string">"@+id/dropdown_view"</span>
-    android:layout_width=<span class="string">"match_parent"</span>
-    android:layout_height=<span class="string">"match_parent"</span>
-    <span class="keyword">app</span>:drop_down_arrow_up=<span class="string">"@mipmap/ic_arrow_up"</span>
-    <span class="keyword">app</span>:drop_down_arrow_down=<span class="string">"@mipmap/ic_arrow_down"</span>
-    <span class="keyword">app</span>:drop_down_duration=<span class="string">"200"</span>
-    <span class="keyword">app</span>:drop_down_enable_dim=<span class="string">"true"</span>
-    <span class="keyword">app</span>:drop_down_list_count=<span class="string">"2"</span>
-    <span class="keyword">app</span>:drop_down_list_height=<span class="string">"150dp"</span>
-    <span class="keyword">app</span>:drop_down_title_background=<span class="string">"@android:color/white"</span>
-    <span class="keyword">app</span>:drop_down_title_drawable_padding=<span class="string">"10dp"</span>
-    <span class="keyword">app</span>:drop_down_title_padding_bottom=<span class="string">"7dp"</span>
-    <span class="keyword">app</span>:drop_down_title_padding_top=<span class="string">"7dp"</span>
-    <span class="keyword">app</span>:drop_down_title_text=<span class="string">"@array/drop_down_titles"</span>
-    <span class="keyword">app</span>:drop_down_title_text_color=<span class="string">"#444444"</span>
-    <span class="keyword">app</span>:drop_down_title_text_size=<span class="string">"10sp"</span>/&gt;
-</code></pre></li>
-</ul>
-<p>然后关联对应的ListView，通常还需要设置item的点击回调事件。</p>
-<pre><code>mDropdownView = (DropdownView) findViewById(R.id.dropdown_view);
-mDropdownView.setup(simpleListView1, simpleListView2);
-mDropdownView.setOnDropdownItemClickListener(<span class="keyword">new</span> DropdownView.OnDropdownItemClickListener() {
-    <span class="annotation">@Override</span>
-    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onItemClick</span><span class="params">(View v, <span class="keyword">int</span> whichList, <span class="keyword">int</span> position)</span> </span>{
-        mDropdownView.setTitleText(whichList, whichList + <span class="string">"-"</span> + position);
+
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="keyword">Task</span> {  
+    <span class="keyword">public</span> <span class="keyword">long</span> id;
+    <span class="keyword">public</span> String text;
+}
+</code></pre><h4 id="@FIELD/@FIELDMAP">@FIELD/@FIELDMAP</h4><p>主要使用在POST请求时，默认表单(x-www-form-urlencoded)时键值对参数的拼装。如下</p>
+<pre><code><span class="tag">public</span> <span class="tag">interface</span> <span class="tag">TaskService</span> {  
+    <span class="variable">@FormUrlEncoded</span>
+    <span class="variable">@POST</span>(<span class="string">"tasks"</span>)
+    Call&lt;Task&gt; <span class="function">createTask</span>(<span class="variable">@Field</span>(<span class="string">"title"</span>) String title);
+}
+</code></pre><p>貌似也可以使用map，省的一个个添加key：</p>
+<pre><code><span class="tag">public</span> <span class="tag">interface</span> <span class="tag">UserService</span> {  
+    <span class="variable">@FormUrlEncoded</span>
+    <span class="variable">@PUT</span>(<span class="string">"user"</span>)
+    Call&lt;User&gt; <span class="function">update</span>(<span class="variable">@FieldMap</span> Map&lt;String, String&gt; fields);
+}
+</code></pre><h3 id="Headers">Headers</h3><p>使用Retrofit提供的@Header(s)可完成请求头的追加。</p>
+<pre><code><span class="tag">public</span> <span class="tag">interface</span> <span class="tag">TaskService</span> { 
+    <span class="variable">@Headers</span>(<span class="string">"Cache-Control: max-age=640000"</span>)
+    <span class="variable">@POST</span>(<span class="string">"/tasks"</span>)
+    Call&lt;Task&gt; <span class="function">createTask</span>(<span class="variable">@Body</span> Task task);
+}
+</code></pre><p>或者使用大括号包含多个header</p>
+<pre><code><span class="tag">public</span> <span class="tag">interface</span> <span class="tag">TaskService</span> { 
+    <span class="variable">@Headers</span>({
+        <span class="string">"Accept: application/json"</span>,
+        <span class="string">"User-Agent: Your-App-Name"</span>
+    })
+    <span class="variable">@POST</span>(<span class="string">"/tasks"</span>)
+    Call&lt;Task&gt; <span class="function">createTask</span>(<span class="variable">@Body</span> Task task);
+}
+</code></pre><p>除此之外，使用OkHttp给我们带来的好处之一，就是方便的interceptor，可以在request发出之前任意的打造它，包括添加header。</p>
+<pre><code>okHttpClient.interceptors().add(new <span class="type">Interceptor</span>() {  
+    @<span class="type">Override</span>
+    public <span class="type">Response</span> intercept(<span class="type">Interceptor</span>.<span class="type">Chain</span> chain) throws <span class="type">IOException</span> {
+        <span class="type">Request</span> original = chain.request();
+
+        <span class="type">Request</span>.<span class="type">Builder</span> requestBuilder = original.newBuilder().header(<span class="string">"Accept"</span>,<span class="string">"application/json"</span>).<span class="keyword">method</span>(original.<span class="keyword">method</span>(), original.body());
+        <span class="type">Request</span> request = requestBuilder.build();
+        <span class="keyword">return</span> chain.proceed(request);
     }
 });
-</code></pre><ul>
-<li>From code<br>新建该控件，调用setup初始化必要参数。</li>
-</ul>
-<pre><code>DropdownView dropdownView = <span class="keyword">new</span> DropdownView(<span class="keyword">this</span>);
-        dropdownView.setup(<span class="number">3</span>, titles_arr, simpleListView1, simpleListView2, simpleListView3);
-
-<span class="comment">//config dropdownView...</span>
-
-<span class="comment">//remember to addView</span>
-root.addView(dropdownView);
-</code></pre><ul>
-<li>注意<br>在5.0以上手机有可能出现其他View覆盖本控件的现象，虽然明明是DropdownView最后添加，按理说应该处于最顶层…可能是引入MD风格后，Z轴方向加强管理而导致的覆盖机制变化。可通过setZ解决：</li>
-</ul>
-<pre><code><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {
-    mDropdownView.setZ(<span class="number">100</span>);<span class="comment">//larger than others</span>
-}
-</code></pre></span>
+</code></pre><p>注意这里使用了<em>header(key, val)</em>方法，它会覆盖之前的key(如果有)；你也可使用<em>addHeader(key, val)</em>纯粹地添加header。</p>
+<h3 id="同步和异步访问">同步和异步访问</h3><p>类似OkHttp，Retrofit提供异步和同步两种访问发起方法(本来就是用的okhttp底层实现..)，同步和异步方法分别名为execute/enqueue。<br>同步是阻塞等待返回结果，异步需要传入Callback回调方法等待response回调。</p>
+<h3 id="Other">Other</h3><p>Error Handle，利用responseBodyConverter，待写。<br>Log，发现了一个针对Okhttp提供的方便的log库，只要使用OkHttp的都能使用。只需要设置log-level，日志会根据内建的规则打印相对应的数据（内容丰富程度不同）。加入依赖：</p>
+<pre><code><span class="keyword">compile</span> <span class="string">'com.squareup.okhttp3:logging-interceptor:3.2.0'</span>  
+</code></pre><p>使用时</p>
+<pre><code>HttpLoggingInterceptor logging = new HttpLoggingInterceptor()<span class="comment">;  </span>
+logging.setLevel(Level.BODY)<span class="comment">;</span>
+httpClient.addInterceptor(logging)<span class="comment">;</span>
+</code></pre><p>然后使用这个Cliet作为发起引擎就可以啦。</p>
+</span>
       
     </div>
 
@@ -339,8 +340,6 @@ root.addView(dropdownView);
           
             <a href="/tags/Android/" rel="tag">#Android</a>
           
-            <a href="/tags/CustomView/" rel="tag">#CustomView</a>
-          
         </div>
       
 
@@ -348,17 +347,13 @@ root.addView(dropdownView);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/01/03/gson-skill/" rel="next" title="Gson使用技巧小结">
-                <i class="fa fa-chevron-left"></i> Gson使用技巧小结
+              <a href="/2016/04/02/ms-analyze-demo/" rel="next" title="玩玩Microsoft Cognitive Services">
+                <i class="fa fa-chevron-left"></i> 玩玩Microsoft Cognitive Services
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/04/02/retrofit-0/" rel="prev" title="Retrofit入门笔记">
-                Retrofit入门笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -383,8 +378,8 @@ root.addView(dropdownView);
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/01/09/dropdown-menu/"
-                   data-title="DropdownMenu的介绍和使用" data-url="http://opticalix.github.com/2016/01/09/dropdown-menu/">
+              <div class="ds-thread" data-thread-key="2016/04/12/retrofit-1/"
+                   data-title="Retrofit入门笔记二" data-url="http://opticalix.github.com/2016/04/12/retrofit-1/">
               </div>
             
           </div>
@@ -489,7 +484,7 @@ root.addView(dropdownView);
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#效果"><span class="nav-number">2.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码分析"><span class="nav-number">3.</span> <span class="nav-text">代码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用指南"><span class="nav-number">4.</span> <span class="nav-text">使用指南</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求方式"><span class="nav-number">1.</span> <span class="nav-text">请求方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL拼装"><span class="nav-number">2.</span> <span class="nav-text">URL拼装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#@QUERY"><span class="nav-number">2.1.</span> <span class="nav-text">@QUERY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#@BODY"><span class="nav-number">2.2.</span> <span class="nav-text">@BODY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#@FIELD/@FIELDMAP"><span class="nav-number">2.3.</span> <span class="nav-text">@FIELD/@FIELDMAP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Headers"><span class="nav-number">3.</span> <span class="nav-text">Headers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步和异步访问"><span class="nav-number">4.</span> <span class="nav-text">同步和异步访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Other"><span class="nav-number">5.</span> <span class="nav-text">Other</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
