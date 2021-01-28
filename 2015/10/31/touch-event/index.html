@@ -1,65 +1,66 @@
 <!doctype html>
 <html class="theme-next use-motion theme-next-mist">
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   
 
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5">
 
 
 
   
-    <link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
-<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
-
-
-    <meta name="description" content="Keep going" />
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
 
 
-
-  <meta name="keywords" content="Android," />
+    <meta name="description" content="Keep going">
 
 
 
+  <meta name="keywords" content="Android,">
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="TouchEvent简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。
-Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouch">
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="TouchEvent简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。 Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouch">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TouchEvent场景简要分析和理解">
 <meta property="og:url" content="http://opticalix.github.com/2015/10/31/touch-event/index.html">
-<meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="TouchEvent简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。
-Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouch">
+<meta property="og:site_name" content="Opticalix的学习心得">
+<meta property="og:description" content="TouchEvent简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。 Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouch">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/touch-1.png">
 <meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/touch-2.png">
 <meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/touch-3.png">
+<meta property="og:updated_time" content="2016-01-03T01:39:51.292Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TouchEvent场景简要分析和理解">
-<meta name="twitter:description" content="TouchEvent简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。
-Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouch">
+<meta name="twitter:description" content="TouchEvent简介复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。 Test场景从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouch">
+<meta name="twitter:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/touch-1.png">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -71,7 +72,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
 
 
 
-  <title> TouchEvent场景简要分析和理解 | Opticalix Blog </title>
+  <title> TouchEvent场景简要分析和理解 | Opticalix的学习心得 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -110,9 +111,9 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Opticalix Blog</span>
+      <span class="site-title">Opticalix的学习心得</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -137,7 +138,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-home"></i> <br>
             
             首页
           </a>
@@ -147,7 +148,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-archive"></i> <br>
             
             归档
           </a>
@@ -157,7 +158,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-tags"></i> <br>
             
             标签
           </a>
@@ -167,7 +168,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-user"></i> <br>
             
             关于
           </a>
@@ -221,7 +222,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
@@ -261,18 +262,18 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
       
 
       
-        <span itemprop="articleBody"><h1 id="TouchEvent">TouchEvent</h1><h2 id="简介">简介</h2><p>复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。</p>
-<h2 id="Test场景">Test场景</h2><p>从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouchEvent。</p>
-<h3 id="子View放弃">子View放弃</h3><p>子View放弃，事件又回到Activity，如图。<br><img src="http://7xp2qc.com1.z0.glb.clouddn.com/touch-1.png" alt=""><br>具体过程：ActionDown时，事件先经dispatch方法，再经onTouch方法，直到最子View表示对Down事件不感兴趣（return false），方法返回。由于Down事件是一系列事件的开始，也是是否show interest的标识，系统通过Down的一些列传递明了了“不感兴趣”的View群，于是以后的事件（Move/Up/…）便不会想下传递，这样也提高了效率。</p>
-<h3 id="子View感兴趣">子View感兴趣</h3><p><img src="http://7xp2qc.com1.z0.glb.clouddn.com/touch-2.png" alt=""><br>知道了一种模式其实其他的都差不多，只不过此时View的onTouch返回了true，系统知道哪一个View感兴趣，之后的事件就全部发送到这个View，通过dispatch-onTouch路径。</p>
-<h3 id="子ViewGroup拦截">子ViewGroup拦截</h3><p><img src="http://7xp2qc.com1.z0.glb.clouddn.com/touch-3.png" alt=""><br>这类case要求ViewGroup复写onInterceptTouchEvent并return true，实际测试结果和图中有少许出入，dispatch的时候发现哪一层intercept了，就停止继续传递touch事件，直接传给该层的onTouch方法。也比较好理解。<br>以上只是简单测试，不过已覆盖了很多使用的场景，通过查看源码我们还可发掘更多dispatch/onTouch方法的纠葛..</p>
-<h2 id="DispatchTouchEvent">DispatchTouchEvent</h2><p>ViewGroup的dispatch方法才真正有意义，View的dispatch方式主要是分发事件给它本身去调用onTouchEvent，而ViewGroup则是分发给其children，且分发过程是递归执行，遇到ViewGroup会向更深处分发。在这个分发链上一旦遇到dispatchTouchEvent返回true，则终止这个序列。（<a href="http://www.cnblogs.com/linjzong/p/4191891.html）" target="_blank" rel="external">http://www.cnblogs.com/linjzong/p/4191891.html）</a><br>此外，dispatch方法其实感兴趣的是ACTION_DOWN，作为事件的开始，通过dispatch分发并测出target，以后的事件（MOVE/UP/..）就直接传递到target。</p>
-<h2 id="OnTouchListener">OnTouchListener</h2><p>OnTouchListener优先于onTouchEvent对事件进行消费。而且OnTouchListener多给使用该View的人使用，onTouchEvent则是实现该View的内部触摸逻辑。</p>
-<h2 id="总结">总结</h2><p>传递流程描述，ViewGroups和Views构成树形结构，可以看做Event是从根部向下传递（通过dispatch方法）。其中，遇View会转调onTouchEvent，而它的返回结果决定了dispatch的结果，true代表该View已完全处理，这将导致dispatch链中断；遇ViewGroups则递归调用，直到遇到View为止。<br>对于ViewGroup来说，它的onTouchEvent只有在其所有child的onTouchEvent返回false（表示都未处理，而onTouchEvent的结果与该View的dispatchTouchEvent返回值一致）、或没有child时，才会被调用（通过super.dispatch，只因为它也是View的子类..）。<br>关于onIntercept。//TODO<br>关于onTouchListener和onClickListener。//TODO<br>对一般自定义View，复写onTouchEvent一般就足够，毕竟这是事件最终目的地和处理的地方。对于ViewGroup得分情况考虑，大多数自定义View继承自现有XXLayout比如自定义一个RelativeLayout，那么一般只需要考虑分到它上面的事件如何处理即可，因此继承onTouchEvent；如果想要更高级别的控制、赶在child处理之前处理事件，可以复写dispatchTouchEvent，毕竟它的onTouchEvent只有在大家都不要时才执行..</p>
-<h2 id="Reference">Reference</h2><ol>
-<li><a href="https://github.com/devunwired/custom-touch-examples" target="_blank" rel="external">https://github.com/devunwired/custom-touch-examples</a></li>
-<li><a href="http://www.cnblogs.com/linjzong/p/4191891.html" target="_blank" rel="external">http://www.cnblogs.com/linjzong/p/4191891.html</a></li>
-<li><a href="http://blog.csdn.net/yanbober/article/details/45887547" target="_blank" rel="external">http://blog.csdn.net/yanbober/article/details/45887547</a></li>
+        <span itemprop="articleBody"><h1 id="TouchEvent"><a href="#TouchEvent" class="headerlink" title="TouchEvent"></a>TouchEvent</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>复杂View基本都有点击事件的处理，如若处理不当，则难免造成很差的用户体验。最简单的例子，比如合理利用ViewConfiguration提供的工具变量，用来达到Android一致的触控体验。</p>
+<h2 id="Test场景"><a href="#Test场景" class="headerlink" title="Test场景"></a>Test场景</h2><p>从几个简易的场景来初步搞清楚事件传递过程，Activity中放置ViewGroup，其中再放置View。分别复写对应类的dispatchTouchEvent、onTouchEvent。</p>
+<h3 id="子View放弃"><a href="#子View放弃" class="headerlink" title="子View放弃"></a>子View放弃</h3><p>子View放弃，事件又回到Activity，如图。<br><img src="http://7xp2qc.com1.z0.glb.clouddn.com/touch-1.png" alt><br>具体过程：ActionDown时，事件先经dispatch方法，再经onTouch方法，直到最子View表示对Down事件不感兴趣（return false），方法返回。由于Down事件是一系列事件的开始，也是是否show interest的标识，系统通过Down的一些列传递明了了“不感兴趣”的View群，于是以后的事件（Move/Up/…）便不会想下传递，这样也提高了效率。</p>
+<h3 id="子View感兴趣"><a href="#子View感兴趣" class="headerlink" title="子View感兴趣"></a>子View感兴趣</h3><p><img src="http://7xp2qc.com1.z0.glb.clouddn.com/touch-2.png" alt><br>知道了一种模式其实其他的都差不多，只不过此时View的onTouch返回了true，系统知道哪一个View感兴趣，之后的事件就全部发送到这个View，通过dispatch-onTouch路径。</p>
+<h3 id="子ViewGroup拦截"><a href="#子ViewGroup拦截" class="headerlink" title="子ViewGroup拦截"></a>子ViewGroup拦截</h3><p><img src="http://7xp2qc.com1.z0.glb.clouddn.com/touch-3.png" alt><br>这类case要求ViewGroup复写onInterceptTouchEvent并return true，实际测试结果和图中有少许出入，dispatch的时候发现哪一层intercept了，就停止继续传递touch事件，直接传给该层的onTouch方法。也比较好理解。<br>以上只是简单测试，不过已覆盖了很多使用的场景，通过查看源码我们还可发掘更多dispatch/onTouch方法的纠葛..</p>
+<h2 id="DispatchTouchEvent"><a href="#DispatchTouchEvent" class="headerlink" title="DispatchTouchEvent"></a>DispatchTouchEvent</h2><p>ViewGroup的dispatch方法才真正有意义，View的dispatch方式主要是分发事件给它本身去调用onTouchEvent，而ViewGroup则是分发给其children，且分发过程是递归执行，遇到ViewGroup会向更深处分发。在这个分发链上一旦遇到dispatchTouchEvent返回true，则终止这个序列。（<a href="http://www.cnblogs.com/linjzong/p/4191891.html）" target="_blank" rel="noopener">http://www.cnblogs.com/linjzong/p/4191891.html）</a><br>此外，dispatch方法其实感兴趣的是ACTION_DOWN，作为事件的开始，通过dispatch分发并测出target，以后的事件（MOVE/UP/..）就直接传递到target。</p>
+<h2 id="OnTouchListener"><a href="#OnTouchListener" class="headerlink" title="OnTouchListener"></a>OnTouchListener</h2><p>OnTouchListener优先于onTouchEvent对事件进行消费。而且OnTouchListener多给使用该View的人使用，onTouchEvent则是实现该View的内部触摸逻辑。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>传递流程描述，ViewGroups和Views构成树形结构，可以看做Event是从根部向下传递（通过dispatch方法）。其中，遇View会转调onTouchEvent，而它的返回结果决定了dispatch的结果，true代表该View已完全处理，这将导致dispatch链中断；遇ViewGroups则递归调用，直到遇到View为止。<br>对于ViewGroup来说，它的onTouchEvent只有在其所有child的onTouchEvent返回false（表示都未处理，而onTouchEvent的结果与该View的dispatchTouchEvent返回值一致）、或没有child时，才会被调用（通过super.dispatch，只因为它也是View的子类..）。<br>关于onIntercept。//TODO<br>关于onTouchListener和onClickListener。//TODO<br>对一般自定义View，复写onTouchEvent一般就足够，毕竟这是事件最终目的地和处理的地方。对于ViewGroup得分情况考虑，大多数自定义View继承自现有XXLayout比如自定义一个RelativeLayout，那么一般只需要考虑分到它上面的事件如何处理即可，因此继承onTouchEvent；如果想要更高级别的控制、赶在child处理之前处理事件，可以复写dispatchTouchEvent，毕竟它的onTouchEvent只有在大家都不要时才执行..</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
+<li><a href="https://github.com/devunwired/custom-touch-examples" target="_blank" rel="noopener">https://github.com/devunwired/custom-touch-examples</a></li>
+<li><a href="http://www.cnblogs.com/linjzong/p/4191891.html" target="_blank" rel="noopener">http://www.cnblogs.com/linjzong/p/4191891.html</a></li>
+<li><a href="http://blog.csdn.net/yanbober/article/details/45887547" target="_blank" rel="noopener">http://blog.csdn.net/yanbober/article/details/45887547</a></li>
 </ol>
 </span>
       
@@ -326,8 +327,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/10/31/touch-event/"
-                   data-title="TouchEvent场景简要分析和理解" data-url="http://opticalix.github.com/2015/10/31/touch-event/">
+              <div class="ds-thread" data-thread-key="2015/10/31/touch-event/" data-title="TouchEvent场景简要分析和理解" data-url="http://opticalix.github.com/2015/10/31/touch-event/">
               </div>
             
           </div>
@@ -352,7 +352,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -363,7 +363,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image"/>
+          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image">
           <p class="site-author-name" itemprop="name">Opticalix</p>
         </div>
         <p class="site-description motion-element" itemprop="description">Keep going</p>
@@ -415,7 +415,7 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
         
           <div class="cc-license motion-element" itemprop="license">
             <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
-              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
             </a>
           </div>
         
@@ -447,14 +447,20 @@ Test场景从几个简易的场景来初步搞清楚事件传递过程，Activit
     </main>
 
     <footer id="footer" class="footer">
-      <div class="footer-inner"> <div class="copyright" >
+      <div class="footer-inner"> <div class="copyright">
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Opticalix</span>
+<!--   <div style="width:300px;margin:0 auto; padding:20px 0;">
+		 		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802034236" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010802034236号</p></a>
+		 	</div> -->
+ 	<div>
+		<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802034236">京公网安备 11010802034236号</a>
+ 	</div>
 </div>
 
 <div class="powered-by">

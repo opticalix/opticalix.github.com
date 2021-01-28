@@ -1,70 +1,65 @@
 <!doctype html>
 <html class="theme-next use-motion theme-next-mist">
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   
 
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5">
 
 
 
   
-    <link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
-<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
-
-
-    <meta name="description" content="Keep going" />
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
 
 
-
-  <meta name="keywords" content="Android,CustomView," />
+    <meta name="description" content="Keep going">
 
 
 
+  <meta name="keywords" content="Android,CustomView,">
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="背景我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。
-效果功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：
-代码分析
-思路本控件继承自RelativeLay">
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="背景我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。 效果功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图： 代码分析 思路本控件继承自RelativeLay">
+<meta name="keywords" content="Android,CustomView">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DropdownMenu的介绍和使用">
 <meta property="og:url" content="http://opticalix.github.com/2016/01/09/dropdown-menu/index.html">
-<meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="背景我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。
-效果功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：
-代码分析
-思路本控件继承自RelativeLay">
+<meta property="og:site_name" content="Opticalix的学习心得">
+<meta property="og:description" content="背景我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。 效果功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图： 代码分析 思路本控件继承自RelativeLay">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://camo.githubusercontent.com/5ed3aef2888a20a22e8e642c771c9ac5d939d9de/687474703a2f2f3778703271632e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f64726f70646f776e5f64656d6f2e676966">
 <meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/dropdown-menu-flow.png">
+<meta property="og:updated_time" content="2016-01-09T06:22:19.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DropdownMenu的介绍和使用">
-<meta name="twitter:description" content="背景我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。
-效果功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：
-代码分析
-思路本控件继承自RelativeLay">
+<meta name="twitter:description" content="背景我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。 效果功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图： 代码分析 思路本控件继承自RelativeLay">
+<meta name="twitter:image" content="https://camo.githubusercontent.com/5ed3aef2888a20a22e8e642c771c9ac5d939d9de/687474703a2f2f3778703271632e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f64726f70646f776e5f64656d6f2e676966">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -76,7 +71,7 @@
 
 
 
-  <title> DropdownMenu的介绍和使用 | Opticalix Blog </title>
+  <title> DropdownMenu的介绍和使用 | Opticalix的学习心得 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -115,9 +110,9 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Opticalix Blog</span>
+      <span class="site-title">Opticalix的学习心得</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -142,7 +137,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-home"></i> <br>
             
             首页
           </a>
@@ -152,7 +147,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-archive"></i> <br>
             
             归档
           </a>
@@ -162,7 +157,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-tags"></i> <br>
             
             标签
           </a>
@@ -172,7 +167,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-user"></i> <br>
             
             关于
           </a>
@@ -226,7 +221,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
@@ -266,9 +261,9 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="背景">背景</h2><p>我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。</p>
-<h2 id="效果">效果</h2><p>功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：<br><img src="https://camo.githubusercontent.com/5ed3aef2888a20a22e8e642c771c9ac5d939d9de/687474703a2f2f3778703271632e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f64726f70646f776e5f64656d6f2e676966" alt="DropdownMenu demo"></p>
-<h2 id="代码分析">代码分析</h2><ul>
+        <span itemprop="articleBody"><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我在项目中不止一次的要求写下拉菜单以选择参数，之前写的很乱，难以复用，写过单个菜单的，下次项目又要求两个menu，而且都要带translate动画效果。所以这次整理出一个自定义View（其实是个自定义RelativeLayout）。</p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>功能并不复杂，支持一或多个ListView与本控件绑定，支持自定义title，供有需之人取之。不多说，贴图：<br><img src="https://camo.githubusercontent.com/5ed3aef2888a20a22e8e642c771c9ac5d939d9de/687474703a2f2f3778703271632e636f6d312e7a302e676c622e636c6f7564646e2e636f6d2f64726f70646f776e5f64656d6f2e676966" alt="DropdownMenu demo"></p>
+<h2 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h2><ul>
 <li><p>思路<br>本控件继承自RelativeLayout，考虑到展开时的黑色背景要铺开，所以width和height均默认MATCH_PARENT。并没有做太复杂的layout和draw，只是放置对应N个TextView&amp;箭头drawable于顶部，以LinearLayout为container，组织成默认1：1的样式。这就要求控件在使用前提供几个必须的参数：listView的个数，相应的listView，以及相应的title。因此，在xml方式使用时，应提供足够的自定义参数。具体使用方式见使用指南。<br>核心是如何实现translate动画。如果使用ViewAnimation，画面上看起来移动但点击区域并没有位移。其实只要将listView实际位置设在title下方，动画开始就从-Y移动到0，点击时就没有问题。只不过我觉得既然3.0后属性动画已经引入，不如用性能更好的。所以该控件使用借助Scroller计算位移、通过对ListView设置translationY的方式完成位移效果。这样由于Scroller默认使用Viscous-Interpolator，效果也比匀速动画更官方范和美观。<br>还需要注意的是，该控件大致分为三个部分：Title，ListView以及黑色背景。这三者在addView的时候需要注意先后顺序，保证从顶至底为：Title-ListView-黑色背景。</p>
 </li>
 <li><p>简易流程<br>如下，由postDelay来实现循环判断：</p>
@@ -276,58 +271,58 @@
 </ul>
 <p><img src="http://7xp2qc.com1.z0.glb.clouddn.com/dropdown-menu-flow.png" alt="流程图示意"></p>
 <p>其中startScroll负责初始化参数:</p>
-<pre><code><span class="keyword">if</span> (mDirection == MOVE_DOWN) {
-    mScroller.startScroll(<span class="number">0</span>, -mHeight, <span class="number">0</span>, mHeight, mDuration);
-} <span class="keyword">else</span> <span class="keyword">if</span> (mDirection == MOVE_UP) {
-    mScroller.startScroll(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, -mHeight, mDuration);
+<pre><code>if (mDirection == MOVE_DOWN) {
+    mScroller.startScroll(0, -mHeight, 0, mHeight, mDuration);
+} else if (mDirection == MOVE_UP) {
+    mScroller.startScroll(0, 0, 0, -mHeight, mDuration);
 }
-</code></pre><p>附Github地址：<a href="https://github.com/opticalix/android-dropdown-menu" target="_blank" rel="external">源码</a></p>
-<h2 id="使用指南">使用指南</h2><ul>
+</code></pre><p>附Github地址：<a href="https://github.com/opticalix/android-dropdown-menu" target="_blank" rel="noopener">源码</a></p>
+<h2 id="使用指南"><a href="#使用指南" class="headerlink" title="使用指南"></a>使用指南</h2><ul>
 <li><p>From xml</p>
 <pre><code>&lt;com.opticalix.dropdown_lib.DropdownView
-    xmlns:<span class="keyword">app</span>=<span class="string">"http://schemas.android.com/apk/res-auto"</span>
-    android:id=<span class="string">"@+id/dropdown_view"</span>
-    android:layout_width=<span class="string">"match_parent"</span>
-    android:layout_height=<span class="string">"match_parent"</span>
-    <span class="keyword">app</span>:drop_down_arrow_up=<span class="string">"@mipmap/ic_arrow_up"</span>
-    <span class="keyword">app</span>:drop_down_arrow_down=<span class="string">"@mipmap/ic_arrow_down"</span>
-    <span class="keyword">app</span>:drop_down_duration=<span class="string">"200"</span>
-    <span class="keyword">app</span>:drop_down_enable_dim=<span class="string">"true"</span>
-    <span class="keyword">app</span>:drop_down_list_count=<span class="string">"2"</span>
-    <span class="keyword">app</span>:drop_down_list_height=<span class="string">"150dp"</span>
-    <span class="keyword">app</span>:drop_down_title_background=<span class="string">"@android:color/white"</span>
-    <span class="keyword">app</span>:drop_down_title_drawable_padding=<span class="string">"10dp"</span>
-    <span class="keyword">app</span>:drop_down_title_padding_bottom=<span class="string">"7dp"</span>
-    <span class="keyword">app</span>:drop_down_title_padding_top=<span class="string">"7dp"</span>
-    <span class="keyword">app</span>:drop_down_title_text=<span class="string">"@array/drop_down_titles"</span>
-    <span class="keyword">app</span>:drop_down_title_text_color=<span class="string">"#444444"</span>
-    <span class="keyword">app</span>:drop_down_title_text_size=<span class="string">"10sp"</span>/&gt;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    android:id=&quot;@+id/dropdown_view&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    app:drop_down_arrow_up=&quot;@mipmap/ic_arrow_up&quot;
+    app:drop_down_arrow_down=&quot;@mipmap/ic_arrow_down&quot;
+    app:drop_down_duration=&quot;200&quot;
+    app:drop_down_enable_dim=&quot;true&quot;
+    app:drop_down_list_count=&quot;2&quot;
+    app:drop_down_list_height=&quot;150dp&quot;
+    app:drop_down_title_background=&quot;@android:color/white&quot;
+    app:drop_down_title_drawable_padding=&quot;10dp&quot;
+    app:drop_down_title_padding_bottom=&quot;7dp&quot;
+    app:drop_down_title_padding_top=&quot;7dp&quot;
+    app:drop_down_title_text=&quot;@array/drop_down_titles&quot;
+    app:drop_down_title_text_color=&quot;#444444&quot;
+    app:drop_down_title_text_size=&quot;10sp&quot;/&gt;
 </code></pre></li>
 </ul>
 <p>然后关联对应的ListView，通常还需要设置item的点击回调事件。</p>
 <pre><code>mDropdownView = (DropdownView) findViewById(R.id.dropdown_view);
 mDropdownView.setup(simpleListView1, simpleListView2);
-mDropdownView.setOnDropdownItemClickListener(<span class="keyword">new</span> DropdownView.OnDropdownItemClickListener() {
-    <span class="annotation">@Override</span>
-    <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onItemClick</span><span class="params">(View v, <span class="keyword">int</span> whichList, <span class="keyword">int</span> position)</span> </span>{
-        mDropdownView.setTitleText(whichList, whichList + <span class="string">"-"</span> + position);
+mDropdownView.setOnDropdownItemClickListener(new DropdownView.OnDropdownItemClickListener() {
+    @Override
+    public void onItemClick(View v, int whichList, int position) {
+        mDropdownView.setTitleText(whichList, whichList + &quot;-&quot; + position);
     }
 });
 </code></pre><ul>
 <li>From code<br>新建该控件，调用setup初始化必要参数。</li>
 </ul>
-<pre><code>DropdownView dropdownView = <span class="keyword">new</span> DropdownView(<span class="keyword">this</span>);
-        dropdownView.setup(<span class="number">3</span>, titles_arr, simpleListView1, simpleListView2, simpleListView3);
+<pre><code>DropdownView dropdownView = new DropdownView(this);
+        dropdownView.setup(3, titles_arr, simpleListView1, simpleListView2, simpleListView3);
 
-<span class="comment">//config dropdownView...</span>
+//config dropdownView...
 
-<span class="comment">//remember to addView</span>
+//remember to addView
 root.addView(dropdownView);
 </code></pre><ul>
 <li>注意<br>在5.0以上手机有可能出现其他View覆盖本控件的现象，虽然明明是DropdownView最后添加，按理说应该处于最顶层…可能是引入MD风格后，Z轴方向加强管理而导致的覆盖机制变化。可通过setZ解决：</li>
 </ul>
-<pre><code><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {
-    mDropdownView.setZ(<span class="number">100</span>);<span class="comment">//larger than others</span>
+<pre><code>if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {
+    mDropdownView.setZ(100);//larger than others
 }
 </code></pre></span>
       
@@ -383,8 +378,7 @@ root.addView(dropdownView);
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/01/09/dropdown-menu/"
-                   data-title="DropdownMenu的介绍和使用" data-url="http://opticalix.github.com/2016/01/09/dropdown-menu/">
+              <div class="ds-thread" data-thread-key="2016/01/09/dropdown-menu/" data-title="DropdownMenu的介绍和使用" data-url="http://opticalix.github.com/2016/01/09/dropdown-menu/">
               </div>
             
           </div>
@@ -409,7 +403,7 @@ root.addView(dropdownView);
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -420,7 +414,7 @@ root.addView(dropdownView);
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image"/>
+          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image">
           <p class="site-author-name" itemprop="name">Opticalix</p>
         </div>
         <p class="site-description motion-element" itemprop="description">Keep going</p>
@@ -472,7 +466,7 @@ root.addView(dropdownView);
         
           <div class="cc-license motion-element" itemprop="license">
             <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
-              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
             </a>
           </div>
         
@@ -504,14 +498,20 @@ root.addView(dropdownView);
     </main>
 
     <footer id="footer" class="footer">
-      <div class="footer-inner"> <div class="copyright" >
+      <div class="footer-inner"> <div class="copyright">
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Opticalix</span>
+<!--   <div style="width:300px;margin:0 auto; padding:20px 0;">
+		 		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802034236" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010802034236号</p></a>
+		 	</div> -->
+ 	<div>
+		<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802034236">京公网安备 11010802034236号</a>
+ 	</div>
 </div>
 
 <div class="powered-by">

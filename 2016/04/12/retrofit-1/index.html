@@ -1,68 +1,62 @@
 <!doctype html>
 <html class="theme-next use-motion theme-next-mist">
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   
 
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5">
 
 
 
   
-    <link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
-<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
-
-
-    <meta name="description" content="Keep going" />
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
 
 
-
-  <meta name="keywords" content="Android," />
+    <meta name="description" content="Keep going">
 
 
 
+  <meta name="keywords" content="Android,">
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="请求方式很简单，在API方法前加@GET，即说明该方法以get方式请求。HTTP/1.1协议中定义的八种方法都是支持的，灵活选用即可，此处不再赘述。
-URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参数完成按自己逻辑的拼装。除了上面的@PATH外，常用的还有：
-@QUERY用于拼装GET请求中请求参数，可以这么写（参考，下同）
-//url = BASE_HOST +">
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="请求方式很简单，在API方法前加@GET，即说明该方法以get方式请求。HTTP/1.1协议中定义的八种方法都是支持的，灵活选用即可，此处不再赘述。 URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参数完成按自己逻辑的拼装。除了上面的@PATH外，常用的还有： @QUERY用于拼装GET请求中请求参数，可以这么写（参考，下同） //url = BASE_HOST +">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Retrofit入门笔记二">
 <meta property="og:url" content="http://opticalix.github.com/2016/04/12/retrofit-1/index.html">
-<meta property="og:site_name" content="Opticalix Blog">
-<meta property="og:description" content="请求方式很简单，在API方法前加@GET，即说明该方法以get方式请求。HTTP/1.1协议中定义的八种方法都是支持的，灵活选用即可，此处不再赘述。
-URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参数完成按自己逻辑的拼装。除了上面的@PATH外，常用的还有：
-@QUERY用于拼装GET请求中请求参数，可以这么写（参考，下同）
-//url = BASE_HOST +">
+<meta property="og:site_name" content="Opticalix的学习心得">
+<meta property="og:description" content="请求方式很简单，在API方法前加@GET，即说明该方法以get方式请求。HTTP/1.1协议中定义的八种方法都是支持的，灵活选用即可，此处不再赘述。 URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参数完成按自己逻辑的拼装。除了上面的@PATH外，常用的还有： @QUERY用于拼装GET请求中请求参数，可以这么写（参考，下同） //url = BASE_HOST +">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2016-04-12T14:09:50.378Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit入门笔记二">
-<meta name="twitter:description" content="请求方式很简单，在API方法前加@GET，即说明该方法以get方式请求。HTTP/1.1协议中定义的八种方法都是支持的，灵活选用即可，此处不再赘述。
-URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参数完成按自己逻辑的拼装。除了上面的@PATH外，常用的还有：
-@QUERY用于拼装GET请求中请求参数，可以这么写（参考，下同）
-//url = BASE_HOST +">
+<meta name="twitter:description" content="请求方式很简单，在API方法前加@GET，即说明该方法以get方式请求。HTTP/1.1协议中定义的八种方法都是支持的，灵活选用即可，此处不再赘述。 URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参数完成按自己逻辑的拼装。除了上面的@PATH外，常用的还有： @QUERY用于拼装GET请求中请求参数，可以这么写（参考，下同） //url = BASE_HOST +">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -74,7 +68,7 @@ URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参�
 
 
 
-  <title> Retrofit入门笔记二 | Opticalix Blog </title>
+  <title> Retrofit入门笔记二 | Opticalix的学习心得 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -113,9 +107,9 @@ URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参�
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Opticalix Blog</span>
+      <span class="site-title">Opticalix的学习心得</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -140,7 +134,7 @@ URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参�
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-home"></i> <br>
             
             首页
           </a>
@@ -150,7 +144,7 @@ URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参�
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-archive"></i> <br>
             
             归档
           </a>
@@ -160,7 +154,7 @@ URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参�
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-tags"></i> <br>
             
             标签
           </a>
@@ -170,7 +164,7 @@ URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参�
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-user"></i> <br>
             
             关于
           </a>
@@ -224,7 +218,7 @@ URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参�
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
@@ -264,71 +258,71 @@ URL拼装Retrofit提供了灵活定义request的方式，URL可使用注解+参�
       
 
       
-        <span itemprop="articleBody"><h3 id="请求方式">请求方式</h3><p>很简单，在API方法前加@GET，即说明该方法以get方式请求。HTTP/1.1协议中定义的八种方法都是支持的，灵活选用即可，此处不再赘述。</p>
-<h3 id="URL拼装">URL拼装</h3><p>Retrofit提供了灵活定义request的方式，URL可使用注解+参数完成按自己逻辑的拼装。<br>除了上面的@PATH外，常用的还有：</p>
-<h4 id="@QUERY">@QUERY</h4><p>用于拼装GET请求中请求参数，可以这么写（<a href="https://futurestud.io/blog/retrofit-multiple-query-parameters-of-same-name" target="_blank" rel="external">参考</a>，下同）</p>
-<pre><code><span class="comment">//url = BASE_HOST + "/task?id=100"</span>
-<span class="variable">@GET</span>(<span class="string">"/task"</span>)
-Call&lt;Task&gt; <span class="function">getTask</span>(<span class="variable">@Query</span>(<span class="string">"id"</span>) long id);
+        <span itemprop="articleBody"><h3 id="请求方式"><a href="#请求方式" class="headerlink" title="请求方式"></a>请求方式</h3><p>很简单，在API方法前加@GET，即说明该方法以get方式请求。HTTP/1.1协议中定义的八种方法都是支持的，灵活选用即可，此处不再赘述。</p>
+<h3 id="URL拼装"><a href="#URL拼装" class="headerlink" title="URL拼装"></a>URL拼装</h3><p>Retrofit提供了灵活定义request的方式，URL可使用注解+参数完成按自己逻辑的拼装。<br>除了上面的@PATH外，常用的还有：</p>
+<h4 id="QUERY"><a href="#QUERY" class="headerlink" title="@QUERY"></a>@QUERY</h4><p>用于拼装GET请求中请求参数，可以这么写（<a href="https://futurestud.io/blog/retrofit-multiple-query-parameters-of-same-name" target="_blank" rel="noopener">参考</a>，下同）</p>
+<pre><code>//url = BASE_HOST + &quot;/task?id=100&quot;
+@GET(&quot;/task&quot;)
+Call&lt;Task&gt; getTask(@Query(&quot;id&quot;) long id);
 </code></pre><p>如果是多个id，则用list传参即可</p>
-<pre><code><span class="operator"><span class="keyword">Call</span>&lt;<span class="keyword">List</span>&lt;Task&gt;&gt; getTask(@<span class="keyword">Query</span>(<span class="string">"id"</span>) <span class="keyword">List</span>&lt;<span class="keyword">Long</span>&gt; taskIds);</span>
-</code></pre><h4 id="@BODY">@BODY</h4><p>支持将Bean直接作为参数传入RetroitAPI，默认的GsonConverter会反序列化对象，将其以json形式作为request-body发出。</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">interface</span> TaskService {  
-    @POST(<span class="string">"/tasks"</span>)
-    <span class="keyword">Call</span>&lt;<span class="keyword">Task</span>&gt; createTask(@Body <span class="keyword">Task</span> <span class="keyword">task</span>);
+<pre><code>Call&lt;List&lt;Task&gt;&gt; getTask(@Query(&quot;id&quot;) List&lt;Long&gt; taskIds);
+</code></pre><h4 id="BODY"><a href="#BODY" class="headerlink" title="@BODY"></a>@BODY</h4><p>支持将Bean直接作为参数传入RetroitAPI，默认的GsonConverter会反序列化对象，将其以json形式作为request-body发出。</p>
+<pre><code>public interface TaskService {  
+    @POST(&quot;/tasks&quot;)
+    Call&lt;Task&gt; createTask(@Body Task task);
 }
 
 
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="keyword">Task</span> {  
-    <span class="keyword">public</span> <span class="keyword">long</span> id;
-    <span class="keyword">public</span> String text;
+public class Task {  
+    public long id;
+    public String text;
 }
-</code></pre><h4 id="@FIELD/@FIELDMAP">@FIELD/@FIELDMAP</h4><p>主要使用在POST请求时，默认表单(x-www-form-urlencoded)时键值对参数的拼装。如下</p>
-<pre><code><span class="tag">public</span> <span class="tag">interface</span> <span class="tag">TaskService</span> {  
-    <span class="variable">@FormUrlEncoded</span>
-    <span class="variable">@POST</span>(<span class="string">"tasks"</span>)
-    Call&lt;Task&gt; <span class="function">createTask</span>(<span class="variable">@Field</span>(<span class="string">"title"</span>) String title);
+</code></pre><h4 id="FIELD-FIELDMAP"><a href="#FIELD-FIELDMAP" class="headerlink" title="@FIELD/@FIELDMAP"></a>@FIELD/@FIELDMAP</h4><p>主要使用在POST请求时，默认表单(x-www-form-urlencoded)时键值对参数的拼装。如下</p>
+<pre><code>public interface TaskService {  
+    @FormUrlEncoded
+    @POST(&quot;tasks&quot;)
+    Call&lt;Task&gt; createTask(@Field(&quot;title&quot;) String title);
 }
 </code></pre><p>貌似也可以使用map，省的一个个添加key：</p>
-<pre><code><span class="tag">public</span> <span class="tag">interface</span> <span class="tag">UserService</span> {  
-    <span class="variable">@FormUrlEncoded</span>
-    <span class="variable">@PUT</span>(<span class="string">"user"</span>)
-    Call&lt;User&gt; <span class="function">update</span>(<span class="variable">@FieldMap</span> Map&lt;String, String&gt; fields);
+<pre><code>public interface UserService {  
+    @FormUrlEncoded
+    @PUT(&quot;user&quot;)
+    Call&lt;User&gt; update(@FieldMap Map&lt;String, String&gt; fields);
 }
-</code></pre><h3 id="Headers">Headers</h3><p>使用Retrofit提供的@Header(s)可完成请求头的追加。</p>
-<pre><code><span class="tag">public</span> <span class="tag">interface</span> <span class="tag">TaskService</span> { 
-    <span class="variable">@Headers</span>(<span class="string">"Cache-Control: max-age=640000"</span>)
-    <span class="variable">@POST</span>(<span class="string">"/tasks"</span>)
-    Call&lt;Task&gt; <span class="function">createTask</span>(<span class="variable">@Body</span> Task task);
+</code></pre><h3 id="Headers"><a href="#Headers" class="headerlink" title="Headers"></a>Headers</h3><p>使用Retrofit提供的@Header(s)可完成请求头的追加。</p>
+<pre><code>public interface TaskService { 
+    @Headers(&quot;Cache-Control: max-age=640000&quot;)
+    @POST(&quot;/tasks&quot;)
+    Call&lt;Task&gt; createTask(@Body Task task);
 }
 </code></pre><p>或者使用大括号包含多个header</p>
-<pre><code><span class="tag">public</span> <span class="tag">interface</span> <span class="tag">TaskService</span> { 
-    <span class="variable">@Headers</span>({
-        <span class="string">"Accept: application/json"</span>,
-        <span class="string">"User-Agent: Your-App-Name"</span>
+<pre><code>public interface TaskService { 
+    @Headers({
+        &quot;Accept: application/json&quot;,
+        &quot;User-Agent: Your-App-Name&quot;
     })
-    <span class="variable">@POST</span>(<span class="string">"/tasks"</span>)
-    Call&lt;Task&gt; <span class="function">createTask</span>(<span class="variable">@Body</span> Task task);
+    @POST(&quot;/tasks&quot;)
+    Call&lt;Task&gt; createTask(@Body Task task);
 }
 </code></pre><p>除此之外，使用OkHttp给我们带来的好处之一，就是方便的interceptor，可以在request发出之前任意的打造它，包括添加header。</p>
-<pre><code>okHttpClient.interceptors().add(new <span class="type">Interceptor</span>() {  
-    @<span class="type">Override</span>
-    public <span class="type">Response</span> intercept(<span class="type">Interceptor</span>.<span class="type">Chain</span> chain) throws <span class="type">IOException</span> {
-        <span class="type">Request</span> original = chain.request();
+<pre><code>okHttpClient.interceptors().add(new Interceptor() {  
+    @Override
+    public Response intercept(Interceptor.Chain chain) throws IOException {
+        Request original = chain.request();
 
-        <span class="type">Request</span>.<span class="type">Builder</span> requestBuilder = original.newBuilder().header(<span class="string">"Accept"</span>,<span class="string">"application/json"</span>).<span class="keyword">method</span>(original.<span class="keyword">method</span>(), original.body());
-        <span class="type">Request</span> request = requestBuilder.build();
-        <span class="keyword">return</span> chain.proceed(request);
+        Request.Builder requestBuilder = original.newBuilder().header(&quot;Accept&quot;,&quot;application/json&quot;).method(original.method(), original.body());
+        Request request = requestBuilder.build();
+        return chain.proceed(request);
     }
 });
 </code></pre><p>注意这里使用了<em>header(key, val)</em>方法，它会覆盖之前的key(如果有)；你也可使用<em>addHeader(key, val)</em>纯粹地添加header。</p>
-<h3 id="同步和异步访问">同步和异步访问</h3><p>类似OkHttp，Retrofit提供异步和同步两种访问发起方法(本来就是用的okhttp底层实现..)，同步和异步方法分别名为execute/enqueue。<br>同步是阻塞等待返回结果，异步需要传入Callback回调方法等待response回调。</p>
-<h3 id="Other">Other</h3><p>Error Handle，利用responseBodyConverter，待写。<br>Log，发现了一个针对Okhttp提供的方便的log库，只要使用OkHttp的都能使用。只需要设置log-level，日志会根据内建的规则打印相对应的数据（内容丰富程度不同）。加入依赖：</p>
-<pre><code><span class="keyword">compile</span> <span class="string">'com.squareup.okhttp3:logging-interceptor:3.2.0'</span>  
+<h3 id="同步和异步访问"><a href="#同步和异步访问" class="headerlink" title="同步和异步访问"></a>同步和异步访问</h3><p>类似OkHttp，Retrofit提供异步和同步两种访问发起方法(本来就是用的okhttp底层实现..)，同步和异步方法分别名为execute/enqueue。<br>同步是阻塞等待返回结果，异步需要传入Callback回调方法等待response回调。</p>
+<h3 id="Other"><a href="#Other" class="headerlink" title="Other"></a>Other</h3><p>Error Handle，利用responseBodyConverter，待写。<br>Log，发现了一个针对Okhttp提供的方便的log库，只要使用OkHttp的都能使用。只需要设置log-level，日志会根据内建的规则打印相对应的数据（内容丰富程度不同）。加入依赖：</p>
+<pre><code>compile &apos;com.squareup.okhttp3:logging-interceptor:3.2.0&apos;  
 </code></pre><p>使用时</p>
-<pre><code>HttpLoggingInterceptor logging = new HttpLoggingInterceptor()<span class="comment">;  </span>
-logging.setLevel(Level.BODY)<span class="comment">;</span>
-httpClient.addInterceptor(logging)<span class="comment">;</span>
+<pre><code>HttpLoggingInterceptor logging = new HttpLoggingInterceptor();  
+logging.setLevel(Level.BODY);
+httpClient.addInterceptor(logging);
 </code></pre><p>然后使用这个Cliet作为发起引擎就可以啦。</p>
 </span>
       
@@ -378,8 +372,7 @@ httpClient.addInterceptor(logging)<span class="comment">;</span>
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/04/12/retrofit-1/"
-                   data-title="Retrofit入门笔记二" data-url="http://opticalix.github.com/2016/04/12/retrofit-1/">
+              <div class="ds-thread" data-thread-key="2016/04/12/retrofit-1/" data-title="Retrofit入门笔记二" data-url="http://opticalix.github.com/2016/04/12/retrofit-1/">
               </div>
             
           </div>
@@ -404,7 +397,7 @@ httpClient.addInterceptor(logging)<span class="comment">;</span>
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -415,7 +408,7 @@ httpClient.addInterceptor(logging)<span class="comment">;</span>
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image"/>
+          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image">
           <p class="site-author-name" itemprop="name">Opticalix</p>
         </div>
         <p class="site-description motion-element" itemprop="description">Keep going</p>
@@ -467,7 +460,7 @@ httpClient.addInterceptor(logging)<span class="comment">;</span>
         
           <div class="cc-license motion-element" itemprop="license">
             <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
-              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
             </a>
           </div>
         
@@ -484,7 +477,7 @@ httpClient.addInterceptor(logging)<span class="comment">;</span>
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求方式"><span class="nav-number">1.</span> <span class="nav-text">请求方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL拼装"><span class="nav-number">2.</span> <span class="nav-text">URL拼装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#@QUERY"><span class="nav-number">2.1.</span> <span class="nav-text">@QUERY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#@BODY"><span class="nav-number">2.2.</span> <span class="nav-text">@BODY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#@FIELD/@FIELDMAP"><span class="nav-number">2.3.</span> <span class="nav-text">@FIELD/@FIELDMAP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Headers"><span class="nav-number">3.</span> <span class="nav-text">Headers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步和异步访问"><span class="nav-number">4.</span> <span class="nav-text">同步和异步访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Other"><span class="nav-number">5.</span> <span class="nav-text">Other</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求方式"><span class="nav-number">1.</span> <span class="nav-text">请求方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL拼装"><span class="nav-number">2.</span> <span class="nav-text">URL拼装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#QUERY"><span class="nav-number">2.1.</span> <span class="nav-text">@QUERY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BODY"><span class="nav-number">2.2.</span> <span class="nav-text">@BODY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FIELD-FIELDMAP"><span class="nav-number">2.3.</span> <span class="nav-text">@FIELD/@FIELDMAP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Headers"><span class="nav-number">3.</span> <span class="nav-text">Headers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步和异步访问"><span class="nav-number">4.</span> <span class="nav-text">同步和异步访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Other"><span class="nav-number">5.</span> <span class="nav-text">Other</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -499,14 +492,20 @@ httpClient.addInterceptor(logging)<span class="comment">;</span>
     </main>
 
     <footer id="footer" class="footer">
-      <div class="footer-inner"> <div class="copyright" >
+      <div class="footer-inner"> <div class="copyright">
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Opticalix</span>
+<!--   <div style="width:300px;margin:0 auto; padding:20px 0;">
+		 		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802034236" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010802034236号</p></a>
+		 	</div> -->
+ 	<div>
+		<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802034236">京公网安备 11010802034236号</a>
+ 	</div>
 </div>
 
 <div class="powered-by">

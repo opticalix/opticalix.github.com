@@ -1,61 +1,65 @@
 <!doctype html>
 <html class="theme-next use-motion theme-next-mist">
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   
 
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5">
 
 
 
   
-    <link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
-<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
-
-
-    <meta name="description" content="Keep going" />
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
 
 
-
-  <meta name="keywords" content="Android,Fragment," />
+    <meta name="description" content="Keep going">
 
 
 
+  <meta name="keywords" content="Android,Fragment,">
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2">
 
 
 <meta name="description" content="初识DialogFragmentDialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由FragmentManager控制，当遇到特殊情况，例如转屏后，传统Dialog将会消失，而使用Dia">
+<meta name="keywords" content="Android,Fragment">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DialogFragment的简单分析和封装使用">
 <meta property="og:url" content="http://opticalix.github.com/2015/06/23/dialog-fragment/index.html">
-<meta property="og:site_name" content="Opticalix Blog">
+<meta property="og:site_name" content="Opticalix的学习心得">
 <meta property="og:description" content="初识DialogFragmentDialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由FragmentManager控制，当遇到特殊情况，例如转屏后，传统Dialog将会消失，而使用Dia">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/dialog_frg_flows.png">
 <meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/dialog_frg_tips.png">
+<meta property="og:updated_time" content="2016-01-03T01:39:03.595Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DialogFragment的简单分析和封装使用">
 <meta name="twitter:description" content="初识DialogFragmentDialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由FragmentManager控制，当遇到特殊情况，例如转屏后，传统Dialog将会消失，而使用Dia">
+<meta name="twitter:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/dialog_frg_flows.png">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -67,7 +71,7 @@
 
 
 
-  <title> DialogFragment的简单分析和封装使用 | Opticalix Blog </title>
+  <title> DialogFragment的简单分析和封装使用 | Opticalix的学习心得 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -106,9 +110,9 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Opticalix Blog</span>
+      <span class="site-title">Opticalix的学习心得</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -133,7 +137,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-home"></i> <br>
             
             首页
           </a>
@@ -143,7 +147,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-archive"></i> <br>
             
             归档
           </a>
@@ -153,7 +157,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-tags"></i> <br>
             
             标签
           </a>
@@ -163,7 +167,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-user"></i> <br>
             
             关于
           </a>
@@ -217,7 +221,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
@@ -257,8 +261,8 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="初识DialogFragment">初识DialogFragment</h2><p>DialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由FragmentManager控制，当遇到特殊情况，例如转屏后，传统Dialog将会消失，而使用DialogFragment，onCreate方法重新调用，并获取arguments。这种方式创建的对话框会再次生成。</p>
-<h2 id="DialogFragment的生命周期">DialogFragment的生命周期</h2><p>首先，Fragment生命周期参考此图，不再赘述。<br><img src="http://7xp2qc.com1.z0.glb.clouddn.com/dialog_frg_flows.png" alt="Fragment生命周期"></p>
+        <span itemprop="articleBody"><h2 id="初识DialogFragment"><a href="#初识DialogFragment" class="headerlink" title="初识DialogFragment"></a>初识DialogFragment</h2><p>DialogFragment是Android 3.0引入，Google官方更加推荐使用DialogFragment来代替Dialog使用。原因与推荐Fragment类似，使用DialogFragment归根结底也是使用Fragment，它具有相对完整的生命周期并且由FragmentManager控制，当遇到特殊情况，例如转屏后，传统Dialog将会消失，而使用DialogFragment，onCreate方法重新调用，并获取arguments。这种方式创建的对话框会再次生成。</p>
+<h2 id="DialogFragment的生命周期"><a href="#DialogFragment的生命周期" class="headerlink" title="DialogFragment的生命周期"></a>DialogFragment的生命周期</h2><p>首先，Fragment生命周期参考此图，不再赘述。<br><img src="http://7xp2qc.com1.z0.glb.clouddn.com/dialog_frg_flows.png" alt="Fragment生命周期"></p>
 <p>其实DialogFragment作为其子类，生命周期类似，重点是多了一个onCreateDialog方法，经过Log输出，确定创建时调用顺序为：</p>
 <blockquote>
 <p>onCreate –&gt; onCreateDialog –&gt; onCreateView</p>
@@ -267,194 +271,194 @@
 <ul>
 <li><strong>onCreate</strong>方法中主要是完成Fragmen重创建过程，如果savedInstanceState不为空则从savedInstanceState恢复由于转屏等引起的已销毁的Fragment。</li>
 <li><strong>onCreateDialog</strong>方法在getLayoutInflater中调用，向上追溯是FragmentManager在performCreateView时调用。如果onCreateDialog没有被子类override则直接new出一个默认的Dialog，因此在onCreateDialog方法中应该由我们自定义如何创建Dialog，比如利用AlertDialog.Builder。</li>
-<li><strong>onCreateView</strong>。该方法是继承Fragment必复写的，可是在DialogFragment中则有所不同，如果你同时复写onCreateView和onCreateDialog则有可能会发生一些奇怪的Exception，参见<a href="http://stackoverflow.com/questions/13257038/custom-layout-for-dialogfragment-oncreateview-vs-oncreatedialog" title="onCreateView or onCreateDialog" target="_blank" rel="external">http://stackoverflow.com/questions/13257038/custom-layout-for-dialogfragment-oncreateview-vs-oncreatedialog</a>。建议使用DialogFragment时只选择使用onCreateDialog，将inflate和findview的过程也全部放在onCreateDialog中即可。</li>
+<li><strong>onCreateView</strong>。该方法是继承Fragment必复写的，可是在DialogFragment中则有所不同，如果你同时复写onCreateView和onCreateDialog则有可能会发生一些奇怪的Exception，参见<a href="http://stackoverflow.com/questions/13257038/custom-layout-for-dialogfragment-oncreateview-vs-oncreatedialog" title="onCreateView or onCreateDialog" target="_blank" rel="noopener">http://stackoverflow.com/questions/13257038/custom-layout-for-dialogfragment-oncreateview-vs-oncreatedialog</a>。建议使用DialogFragment时只选择使用onCreateDialog，将inflate和findview的过程也全部放在onCreateDialog中即可。</li>
 </ul>
 <p>除此外，DialogFragment有别于普通Fragment的地方在于多了show、dismiss等方法，查看源码发现其实是多了一层转调，像show(FragmentManager manager, String tag)是传入FragmentManager后，add自身这个Fragment并commit。remove方法类似，转调dismissInternal，如果add了backStack则pop出栈，否则remove该Fragment。</p>
-<h2 id="自定义DialogFragment实例">自定义DialogFragment实例</h2><p>在这里写了一个基类BaseDialogFragment，作为各种提示型Dialog的父类。它继承自DialogFragment，本身主要是根据子类传递的Layout建立Dialog并加以点击事件。点击响应和Button的自定义则通过接口和抽象方法，由子类去实现。</p>
+<h2 id="自定义DialogFragment实例"><a href="#自定义DialogFragment实例" class="headerlink" title="自定义DialogFragment实例"></a>自定义DialogFragment实例</h2><p>在这里写了一个基类BaseDialogFragment，作为各种提示型Dialog的父类。它继承自DialogFragment，本身主要是根据子类传递的Layout建立Dialog并加以点击事件。点击响应和Button的自定义则通过接口和抽象方法，由子类去实现。</p>
 <p><strong>基类代码如下：</strong></p>
-<pre><code><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseDialogFragment</span> <span class="keyword">extends</span> <span class="title">DialogFragment</span> </span>{
-    <span class="keyword">protected</span> <span class="keyword">int</span> mLayout;
-    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG_ARG = <span class="string">"layout"</span>;
-    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_COLOR = -<span class="number">1</span>; <span class="comment">//default</span>
+<pre><code>public abstract class BaseDialogFragment extends DialogFragment {
+    protected int mLayout;
+    protected static final String TAG_ARG = &quot;layout&quot;;
+    protected static final int DEFAULT_COLOR = -1; //default
 
-    <span class="annotation">@NonNull</span>
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">public</span> Dialog <span class="title">onCreateDialog</span><span class="params">(Bundle savedInstanceState)</span> </span>{
-        <span class="comment">//Step1 build Dialog</span>
-        <span class="keyword">if</span> (mLayout == <span class="number">0</span>) {
-            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"no correct layout found."</span>);
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        //Step1 build Dialog
+        if (mLayout == 0) {
+            throw new RuntimeException(&quot;no correct layout found.&quot;);
         }
-        AlertDialog.Builder builder = <span class="keyword">new</span> AlertDialog.Builder(getActivity());
-        View view = LayoutInflater.from(getActivity()).inflate(mLayout, <span class="keyword">null</span>);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View view = LayoutInflater.from(getActivity()).inflate(mLayout, null);
 
-        builder.setView(view).setPositiveButton(getOkText(), <span class="keyword">new</span> DialogInterface.OnClickListener() {
-            <span class="annotation">@Override</span>
-            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>{
-                <span class="keyword">if</span> (mOnBtnClickListener != <span class="keyword">null</span>)
+        builder.setView(view).setPositiveButton(getOkText(), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (mOnBtnClickListener != null)
                     mOnBtnClickListener.onOkClick();
             }
-        }).setNegativeButton(getCancelText(), <span class="keyword">new</span> DialogInterface.OnClickListener() {
-            <span class="annotation">@Override</span>
-            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>{
-                <span class="keyword">if</span> (mOnBtnClickListener != <span class="keyword">null</span>)
+        }).setNegativeButton(getCancelText(), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (mOnBtnClickListener != null)
                     mOnBtnClickListener.onCancelClick();
             }
-        }).setCancelable(<span class="keyword">false</span>);
+        }).setCancelable(false);
         AlertDialog alertDialog = builder.create();
 
-        <span class="comment">//Step2 custom Button</span>
-        alertDialog.setOnShowListener(<span class="keyword">new</span> DialogInterface.OnShowListener() {
-            <span class="annotation">@Override</span>
-            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onShow</span><span class="params">(DialogInterface dialog)</span> </span>{
-                <span class="comment">//只有在Show之后才能getButton!</span>
+        //Step2 custom Button
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                //只有在Show之后才能getButton!
                 Button okButton = ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE);
                 Button cancelButton = ((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_NEGATIVE);
-                <span class="keyword">if</span> (getOkTextColorRes() != DEFAULT_COLOR) {
+                if (getOkTextColorRes() != DEFAULT_COLOR) {
                     okButton.setTextColor(getResources().getColor(getOkTextColorRes()));
                 }
-                <span class="keyword">if</span> (getCancelTextColorRes() != DEFAULT_COLOR) {
+                if (getCancelTextColorRes() != DEFAULT_COLOR) {
                     cancelButton.setTextColor(getResources().getColor(getCancelTextColorRes()));
                 }
-                <span class="keyword">if</span> (getOkBgColorRes() != DEFAULT_COLOR) {
+                if (getOkBgColorRes() != DEFAULT_COLOR) {
                     okButton.setBackgroundResource(getOkBgColorRes());
                 }
-                <span class="keyword">if</span> (getCancelBgColorRes() != DEFAULT_COLOR) {
+                if (getCancelBgColorRes() != DEFAULT_COLOR) {
                     cancelButton.setBackgroundResource(getCancelBgColorRes());
                 }
             }
         });
 
-        <span class="comment">//Step3 request feature</span>
+        //Step3 request feature
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        <span class="keyword">return</span> alertDialog;
+        return alertDialog;
     }
 
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroyView</span><span class="params">()</span> </span>{
-        <span class="keyword">super</span>.onDestroyView();
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
-    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnBtnClickListener</span> </span>{
-        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onOkClick</span><span class="params">()</span></span>;
+    public interface OnBtnClickListener {
+        public void onOkClick();
 
-        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCancelClick</span><span class="params">()</span></span>;
+        public void onCancelClick();
     }
 
-    <span class="keyword">private</span> OnBtnClickListener mOnBtnClickListener;
+    private OnBtnClickListener mOnBtnClickListener;
 
-    <span class="comment">/**
+    /**
      * 添加Button的Click监听
      *
-     * <span class="doctag">@param</span> onBtnClickListener
-     */</span>
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnBtnClickListener</span><span class="params">(OnBtnClickListener onBtnClickListener)</span> </span>{
+     * @param onBtnClickListener
+     */
+    public void setOnBtnClickListener(OnBtnClickListener onBtnClickListener) {
         mOnBtnClickListener = onBtnClickListener;
     }
 
-    <span class="comment">/**
+    /**
      * 用于设定Positive Button的Text颜色
-     * <span class="doctag">@return</span> Color的Resource Id
-     */</span>
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getOkTextColorRes</span><span class="params">()</span></span>;<span class="comment">// text 只能是color</span>
+     * @return Color的Resource Id
+     */
+    protected abstract int getOkTextColorRes();// text 只能是color
 
-    <span class="comment">/**
+    /**
      * 用于设定Positive Button的背景颜色
-     * <span class="doctag">@return</span> Color或者Drawable的Resource Id
-     */</span>
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getOkBgColorRes</span><span class="params">()</span></span>;
+     * @return Color或者Drawable的Resource Id
+     */
+    protected abstract int getOkBgColorRes();
 
-    <span class="comment">/**
+    /**
      * 用于设定Negative Button的Text颜色
-     * <span class="doctag">@return</span> Color的Resource Id
-     */</span>
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getCancelTextColorRes</span><span class="params">()</span></span>;
+     * @return Color的Resource Id
+     */
+    protected abstract int getCancelTextColorRes();
 
-    <span class="comment">/**
+    /**
      * 用于设定Negative Button的背景颜色
-     * <span class="doctag">@return</span> Color或者Drawable的Resource Id
-     */</span>
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">getCancelBgColorRes</span><span class="params">()</span></span>;
+     * @return Color或者Drawable的Resource Id
+     */
+    protected abstract int getCancelBgColorRes();
 
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> String <span class="title">getOkText</span><span class="params">()</span></span>;
+    protected abstract String getOkText();
 
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> String <span class="title">getCancelText</span><span class="params">()</span></span>;
+    protected abstract String getCancelText();
 
 }
-</code></pre><p>子类依据官方推荐的newInstance方式，传递参数并赋值给mLayout，这里的layout是必须要有的。剩下的就是自定义button。<br>注意Button的背景和字体颜色的自定义，本来想通过((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE)的方式拿到Button对象，但getDialog只有在这个Dialog显示出来后获取才不为null，所以这里选择在onShow方法的回调中处理Button的自定义。参考自<a href="http://stackoverflow.com/questions/17626228/alertdialog-getbutton-method-returns-null" title="getDialog returns null" target="_blank" rel="external">http://stackoverflow.com/questions/17626228/alertdialog-getbutton-method-returns-null</a>。</p>
+</code></pre><p>子类依据官方推荐的newInstance方式，传递参数并赋值给mLayout，这里的layout是必须要有的。剩下的就是自定义button。<br>注意Button的背景和字体颜色的自定义，本来想通过((AlertDialog) getDialog()).getButton(DialogInterface.BUTTON_POSITIVE)的方式拿到Button对象，但getDialog只有在这个Dialog显示出来后获取才不为null，所以这里选择在onShow方法的回调中处理Button的自定义。参考自<a href="http://stackoverflow.com/questions/17626228/alertdialog-getbutton-method-returns-null" title="getDialog returns null" target="_blank" rel="noopener">http://stackoverflow.com/questions/17626228/alertdialog-getbutton-method-returns-null</a>。</p>
 <p><strong>子类代码:</strong></p>
-<pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UniDialogFragment</span> <span class="keyword">extends</span> <span class="title">BaseDialogFragment</span> </span>{
+<pre><code>public class UniDialogFragment extends BaseDialogFragment {
 
-    <span class="comment">/**
+    /**
      * 根据布局文件，新建Fragment，传递argument
      *
-     * <span class="doctag">@param</span> layout
-     * <span class="doctag">@return</span>
-     */</span>
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> BaseDialogFragment <span class="title">newInstance</span><span class="params">(<span class="keyword">int</span> layout)</span> </span>{
-        UniDialogFragment dialogFragment = <span class="keyword">new</span> UniDialogFragment();
-        Bundle args = <span class="keyword">new</span> Bundle();
+     * @param layout
+     * @return
+     */
+    public static BaseDialogFragment newInstance(int layout) {
+        UniDialogFragment dialogFragment = new UniDialogFragment();
+        Bundle args = new Bundle();
         args.putInt(TAG_ARG, layout);
         dialogFragment.setArguments(args);
-        <span class="keyword">return</span> dialogFragment;
+        return dialogFragment;
     }
 
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>{
-        <span class="keyword">super</span>.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
-        <span class="keyword">if</span> (arguments != <span class="keyword">null</span>) {
-            mLayout = arguments.getInt(TAG_ARG, <span class="number">0</span>);
+        if (arguments != null) {
+            mLayout = arguments.getInt(TAG_ARG, 0);
         }
     }
 
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getOkTextColorRes</span><span class="params">()</span> </span>{
-        <span class="keyword">return</span> R.color.common_blue_0B86E5;
+    @Override
+    protected int getOkTextColorRes() {
+        return R.color.common_blue_0B86E5;
     }
 
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getOkBgColorRes</span><span class="params">()</span> </span>{
-        <span class="keyword">return</span> R.drawable.selector_item_bg;
+    @Override
+    protected int getOkBgColorRes() {
+        return R.drawable.selector_item_bg;
     }
 
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getCancelTextColorRes</span><span class="params">()</span> </span>{
-        <span class="keyword">return</span> BaseDialogFragment.DEFAULT_COLOR;
+    @Override
+    protected int getCancelTextColorRes() {
+        return BaseDialogFragment.DEFAULT_COLOR;
     }
 
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">protected</span> <span class="keyword">int</span> <span class="title">getCancelBgColorRes</span><span class="params">()</span> </span>{
-        <span class="keyword">return</span> R.drawable.selector_item_bg;
+    @Override
+    protected int getCancelBgColorRes() {
+        return R.drawable.selector_item_bg;
     }
 
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">protected</span> String <span class="title">getOkText</span><span class="params">()</span> </span>{
-        <span class="keyword">return</span> <span class="string">"确定"</span>;
+    @Override
+    protected String getOkText() {
+        return &quot;确定&quot;;
     }
 
-    <span class="annotation">@Override</span>
-    <span class="function"><span class="keyword">protected</span> String <span class="title">getCancelText</span><span class="params">()</span> </span>{
-        <span class="keyword">return</span> <span class="string">"取消"</span>;
+    @Override
+    protected String getCancelText() {
+        return &quot;取消&quot;;
     }
 }
 </code></pre><p>调用，注意如果创建过一次只需要show即可：</p>
-<pre><code><span class="annotation">@Override</span>
-<span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>{
-    <span class="keyword">if</span> (mDialogFragment == <span class="keyword">null</span>) {
+<pre><code>@Override
+public void onClick(View v) {
+    if (mDialogFragment == null) {
         mDialogFragment = UniDialogFragment.newInstance(R.layout.frg_custom_dialog);
-        mDialogFragment.setOnBtnClickListener(<span class="keyword">new</span> BaseDialogFragment.OnBtnClickListener() {
-            <span class="annotation">@Override</span>
-            <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onOkClick</span><span class="params">()</span> </span>{
-                ToastUtils.showShort(getApplicationContext(), <span class="string">"ok"</span>);
+        mDialogFragment.setOnBtnClickListener(new BaseDialogFragment.OnBtnClickListener() {
+            @Override
+            public void onOkClick() {
+                ToastUtils.showShort(getApplicationContext(), &quot;ok&quot;);
             }
 
-            <span class="annotation">@Override</span>
-            <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">onCancelClick</span><span class="params">()</span> </span>{
-                ToastUtils.showShort(getApplicationContext(), <span class="string">"cancel"</span>);
+            @Override
+            public void onCancelClick() {
+                ToastUtils.showShort(getApplicationContext(), &quot;cancel&quot;);
             }
         });
     }
-    mDialogFragment.show(getSupportFragmentManager(), <span class="string">"dialog"</span>);
+    mDialogFragment.show(getSupportFragmentManager(), &quot;dialog&quot;);
 
 }
 </code></pre><p><strong>效果如图：</strong><br><img src="http://7xp2qc.com1.z0.glb.clouddn.com/dialog_frg_tips.png" alt="UniDialogFragment show"></p>
@@ -512,8 +516,7 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/06/23/dialog-fragment/"
-                   data-title="DialogFragment的简单分析和封装使用" data-url="http://opticalix.github.com/2015/06/23/dialog-fragment/">
+              <div class="ds-thread" data-thread-key="2015/06/23/dialog-fragment/" data-title="DialogFragment的简单分析和封装使用" data-url="http://opticalix.github.com/2015/06/23/dialog-fragment/">
               </div>
             
           </div>
@@ -538,7 +541,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -549,7 +552,7 @@
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image"/>
+          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image">
           <p class="site-author-name" itemprop="name">Opticalix</p>
         </div>
         <p class="site-description motion-element" itemprop="description">Keep going</p>
@@ -601,7 +604,7 @@
         
           <div class="cc-license motion-element" itemprop="license">
             <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
-              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
             </a>
           </div>
         
@@ -633,14 +636,20 @@
     </main>
 
     <footer id="footer" class="footer">
-      <div class="footer-inner"> <div class="copyright" >
+      <div class="footer-inner"> <div class="copyright">
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Opticalix</span>
+<!--   <div style="width:300px;margin:0 auto; padding:20px 0;">
+		 		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802034236" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010802034236号</p></a>
+		 	</div> -->
+ 	<div>
+		<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802034236">京公网安备 11010802034236号</a>
+ 	</div>
 </div>
 
 <div class="powered-by">

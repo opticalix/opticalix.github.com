@@ -1,61 +1,65 @@
 <!doctype html>
 <html class="theme-next use-motion theme-next-mist">
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   
 
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5">
 
 
 
   
-    <link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
-<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
-
-
-    <meta name="description" content="Keep going" />
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
 
 
-
-  <meta name="keywords" content="Android," />
+    <meta name="description" content="Keep going">
 
 
 
+  <meta name="keywords" content="Android,">
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2">
 
 
 <meta name="description" content="引Microsoft(MS) Build 2016刚落幕，围观充值信仰后发现除了Hololens、Windows Shell外，还出了个Cognitive Services的东西，简单的来说是微软开放了图像识别领域的部分API给开发者把玩，直播中的美女演示了在台上拍了一张照片，通过MS server解析后识别出了desk等等信息，看起来蛮好玩的，闲的在家，玩一玩这一系列API，除了VISION系列">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="玩玩Microsoft Cognitive Services">
 <meta property="og:url" content="http://opticalix.github.com/2016/04/02/ms-analyze-demo/index.html">
-<meta property="og:site_name" content="Opticalix Blog">
+<meta property="og:site_name" content="Opticalix的学习心得">
 <meta property="og:description" content="引Microsoft(MS) Build 2016刚落幕，围观充值信仰后发现除了Hololens、Windows Shell外，还出了个Cognitive Services的东西，简单的来说是微软开放了图像识别领域的部分API给开发者把玩，直播中的美女演示了在台上拍了一张照片，通过MS server解析后识别出了desk等等信息，看起来蛮好玩的，闲的在家，玩一玩这一系列API，除了VISION系列">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/7a8aed7bgw1exixcxfj12j20in0rsgp0.jpg">
 <meta property="og:image" content="http://7xp2qc.com1.z0.glb.clouddn.com/ms-vision-analyze-result.png">
+<meta property="og:updated_time" content="2016-04-02T15:11:51.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="玩玩Microsoft Cognitive Services">
 <meta name="twitter:description" content="引Microsoft(MS) Build 2016刚落幕，围观充值信仰后发现除了Hololens、Windows Shell外，还出了个Cognitive Services的东西，简单的来说是微软开放了图像识别领域的部分API给开发者把玩，直播中的美女演示了在台上拍了一张照片，通过MS server解析后识别出了desk等等信息，看起来蛮好玩的，闲的在家，玩一玩这一系列API，除了VISION系列">
+<meta name="twitter:image" content="http://ww4.sinaimg.cn/large/7a8aed7bgw1exixcxfj12j20in0rsgp0.jpg">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -67,7 +71,7 @@
 
 
 
-  <title> 玩玩Microsoft Cognitive Services | Opticalix Blog </title>
+  <title> 玩玩Microsoft Cognitive Services | Opticalix的学习心得 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -106,9 +110,9 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Opticalix Blog</span>
+      <span class="site-title">Opticalix的学习心得</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -133,7 +137,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-home"></i> <br>
             
             首页
           </a>
@@ -143,7 +147,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-archive"></i> <br>
             
             归档
           </a>
@@ -153,7 +157,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-tags"></i> <br>
             
             标签
           </a>
@@ -163,7 +167,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-user"></i> <br>
             
             关于
           </a>
@@ -217,7 +221,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
@@ -257,116 +261,116 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="引">引</h2><p>Microsoft(MS) Build 2016刚落幕，围观充值信仰后发现除了Hololens、Windows Shell外，还出了个Cognitive Services的东西，简单的来说是微软开放了图像识别领域的部分API给开发者把玩，直播中的美女演示了在台上拍了一张照片，通过MS server解析后识别出了desk等等信息，看起来蛮好玩的，闲的在家，玩一玩这一系列API，除了<strong>VISION</strong>系列外，还有包括<strong>Speech/Language/Knowledge/Search</strong>等一系列黑科技智能API..时间有限，只玩了图像识别–返回图中基本信息和机器识别后的description。</p>
-<h2 id="官方资料">官方资料</h2><p>官方地址：<a href="https://www.microsoft.com/cognitive-services" target="_blank" rel="external">cognitive-services</a><br>里面的文档很全，还有test console..比如<a href="https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fa" target="_blank" rel="external">Computer Vision API</a>和<a href="https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fe/console" target="_blank" rel="external">API Console</a><br>有了这些文档完全就可以开发Android Demo了！当然，你还需要微软提供的开发者身份id，即<strong>subscriptions</strong>，这货是要在发起请求时带在Header中的，千万别忘记申请(貌似免费给了一个月时间？)。<br>对了，MS还放了<a href="https://github.com/Microsoft/ProjectOxford-ClientSDK" target="_blank" rel="external">Github</a>，其中部分系列有Android Sample可以参考，并且给封装了API访问过程，方便使用。我这里是用Retrofit重新写了一遍算是对Retrofit初学的巩固…</p>
-<h2 id="开发流程">开发流程</h2><p>图像识别API，提供url和file两种方式去传递待分析图片。File的话就是利用Gallery-&gt;ContentResolver-&gt;拿到图片真正路径，multi-part上传…试了一下，上传有点慢，而且retrofit传multipart，接口总是返回415，放弃改玩url方式。<br>Http request如下：</p>
+        <span itemprop="articleBody"><h2 id="引"><a href="#引" class="headerlink" title="引"></a>引</h2><p>Microsoft(MS) Build 2016刚落幕，围观充值信仰后发现除了Hololens、Windows Shell外，还出了个Cognitive Services的东西，简单的来说是微软开放了图像识别领域的部分API给开发者把玩，直播中的美女演示了在台上拍了一张照片，通过MS server解析后识别出了desk等等信息，看起来蛮好玩的，闲的在家，玩一玩这一系列API，除了<strong>VISION</strong>系列外，还有包括<strong>Speech/Language/Knowledge/Search</strong>等一系列黑科技智能API..时间有限，只玩了图像识别–返回图中基本信息和机器识别后的description。</p>
+<h2 id="官方资料"><a href="#官方资料" class="headerlink" title="官方资料"></a>官方资料</h2><p>官方地址：<a href="https://www.microsoft.com/cognitive-services" target="_blank" rel="noopener">cognitive-services</a><br>里面的文档很全，还有test console..比如<a href="https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fa" target="_blank" rel="noopener">Computer Vision API</a>和<a href="https://dev.projectoxford.ai/docs/services/56f91f2d778daf23d8ec6739/operations/56f91f2e778daf14a499e1fe/console" target="_blank" rel="noopener">API Console</a><br>有了这些文档完全就可以开发Android Demo了！当然，你还需要微软提供的开发者身份id，即<strong>subscriptions</strong>，这货是要在发起请求时带在Header中的，千万别忘记申请(貌似免费给了一个月时间？)。<br>对了，MS还放了<a href="https://github.com/Microsoft/ProjectOxford-ClientSDK" target="_blank" rel="noopener">Github</a>，其中部分系列有Android Sample可以参考，并且给封装了API访问过程，方便使用。我这里是用Retrofit重新写了一遍算是对Retrofit初学的巩固…</p>
+<h2 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a>开发流程</h2><p>图像识别API，提供url和file两种方式去传递待分析图片。File的话就是利用Gallery-&gt;ContentResolver-&gt;拿到图片真正路径，multi-part上传…试了一下，上传有点慢，而且retrofit传multipart，接口总是返回415，放弃改玩url方式。<br>Http request如下：</p>
 <blockquote>
-<p>POST <a href="https://api.projectoxford.ai/vision/v1.0/analyze?visualFeatures=Description,Tags,Categories,Faces,ImageType,Color,Adult" target="_blank" rel="external">https://api.projectoxford.ai/vision/v1.0/analyze?visualFeatures=Description,Tags,Categories,Faces,ImageType,Color,Adult</a> HTTP/1.1<br>Content-Type: application/json<br>Host: api.projectoxford.ai<br>Content-Length: 74<br>Ocp-Apim-Subscription-Key: ••••••••••••••••••••••••••••••••<br>{“url”:”<a href="http://ww4.sinaimg.cn/large/7a8aed7bgw1exixcxfj12j20in0rsgp0.jpg&quot;}" target="_blank" rel="external">http://ww4.sinaimg.cn/large/7a8aed7bgw1exixcxfj12j20in0rsgp0.jpg&quot;}</a></p>
+<p>POST <a href="https://api.projectoxford.ai/vision/v1.0/analyze?visualFeatures=Description,Tags,Categories,Faces,ImageType,Color,Adult" target="_blank" rel="noopener">https://api.projectoxford.ai/vision/v1.0/analyze?visualFeatures=Description,Tags,Categories,Faces,ImageType,Color,Adult</a> HTTP/1.1<br>Content-Type: application/json<br>Host: api.projectoxford.ai<br>Content-Length: 74<br>Ocp-Apim-Subscription-Key: ••••••••••••••••••••••••••••••••<br>{“url”:”<a href="http://ww4.sinaimg.cn/large/7a8aed7bgw1exixcxfj12j20in0rsgp0.jpg&quot;}" target="_blank" rel="noopener">http://ww4.sinaimg.cn/large/7a8aed7bgw1exixcxfj12j20in0rsgp0.jpg&quot;}</a></p>
 </blockquote>
 <p>其中visualFeatures可选，见官方文档。Ocp-Apim-Subscription-Key是开发者id。request body是json格式的图片url，这图长这样：<br><img src="http://ww4.sinaimg.cn/large/7a8aed7bgw1exixcxfj12j20in0rsgp0.jpg" alt="to be analyze"><br>返回结果，你感受一下：</p>
 <pre><code>{
-  "<span class="attribute">categories</span>": <span class="value">[
+  &quot;categories&quot;: [
     {
-      "<span class="attribute">name</span>": <span class="value"><span class="string">"others_"</span></span>,
-      "<span class="attribute">score</span>": <span class="value"><span class="number">0.1015625</span>
-    </span>},
+      &quot;name&quot;: &quot;others_&quot;,
+      &quot;score&quot;: 0.1015625
+    },
     {
-      "<span class="attribute">name</span>": <span class="value"><span class="string">"outdoor_"</span></span>,
-      "<span class="attribute">score</span>": <span class="value"><span class="number">0.00390625</span>
-    </span>}
-  ]</span>,
-  "<span class="attribute">adult</span>": <span class="value">{
-    "<span class="attribute">isAdultContent</span>": <span class="value"><span class="literal">false</span></span>,
-    "<span class="attribute">isRacyContent</span>": <span class="value"><span class="literal">false</span></span>,
-    "<span class="attribute">adultScore</span>": <span class="value"><span class="number">0.11355701088905335</span></span>,
-    "<span class="attribute">racyScore</span>": <span class="value"><span class="number">0.13894116878509522</span>
-  </span>}</span>,
-  "<span class="attribute">tags</span>": <span class="value">[
+      &quot;name&quot;: &quot;outdoor_&quot;,
+      &quot;score&quot;: 0.00390625
+    }
+  ],
+  &quot;adult&quot;: {
+    &quot;isAdultContent&quot;: false,
+    &quot;isRacyContent&quot;: false,
+    &quot;adultScore&quot;: 0.11355701088905335,
+    &quot;racyScore&quot;: 0.13894116878509522
+  },
+  &quot;tags&quot;: [
     {
-      "<span class="attribute">name</span>": <span class="value"><span class="string">"person"</span></span>,
-      "<span class="attribute">confidence</span>": <span class="value"><span class="number">0.999338686466217</span>
-    </span>},
+      &quot;name&quot;: &quot;person&quot;,
+      &quot;confidence&quot;: 0.999338686466217
+    },
     {
-      "<span class="attribute">name</span>": <span class="value"><span class="string">"indoor"</span></span>,
-      "<span class="attribute">confidence</span>": <span class="value"><span class="number">0.97037023305892944</span>
-    </span>},
+      &quot;name&quot;: &quot;indoor&quot;,
+      &quot;confidence&quot;: 0.97037023305892944
+    },
     {
-      "<span class="attribute">name</span>": <span class="value"><span class="string">"window"</span></span>,
-      "<span class="attribute">confidence</span>": <span class="value"><span class="number">0.84870690107345581</span>
-    </span>},
+      &quot;name&quot;: &quot;window&quot;,
+      &quot;confidence&quot;: 0.84870690107345581
+    },
     {
-      "<span class="attribute">name</span>": <span class="value"><span class="string">"staring"</span></span>,
-      "<span class="attribute">confidence</span>": <span class="value"><span class="number">0.48543870449066162</span>
-    </span>}
-  ]</span>,
-  "<span class="attribute">description</span>": <span class="value">{
-    "<span class="attribute">tags</span>": <span class="value">[
-      <span class="string">"person"</span>,
-      <span class="string">"indoor"</span>,
-      <span class="string">"window"</span>,
-      <span class="string">"looking"</span>,
-      <span class="string">"front"</span>,
-      <span class="string">"standing"</span>,
-      <span class="string">"man"</span>,
-      <span class="string">"woman"</span>,
-      <span class="string">"staring"</span>,
-      <span class="string">"laptop"</span>,
-      <span class="string">"holding"</span>,
-      <span class="string">"table"</span>,
-      <span class="string">"black"</span>,
-      <span class="string">"sitting"</span>,
-      <span class="string">"shirt"</span>,
-      <span class="string">"computer"</span>,
-      <span class="string">"mirror"</span>,
-      <span class="string">"room"</span>,
-      <span class="string">"young"</span>,
-      <span class="string">"glasses"</span>,
-      <span class="string">"glass"</span>,
-      <span class="string">"wearing"</span>,
-      <span class="string">"screen"</span>,
-      <span class="string">"white"</span>,
-      <span class="string">"phone"</span>,
-      <span class="string">"umbrella"</span>
-    ]</span>,
-    "<span class="attribute">captions</span>": <span class="value">[
+      &quot;name&quot;: &quot;staring&quot;,
+      &quot;confidence&quot;: 0.48543870449066162
+    }
+  ],
+  &quot;description&quot;: {
+    &quot;tags&quot;: [
+      &quot;person&quot;,
+      &quot;indoor&quot;,
+      &quot;window&quot;,
+      &quot;looking&quot;,
+      &quot;front&quot;,
+      &quot;standing&quot;,
+      &quot;man&quot;,
+      &quot;woman&quot;,
+      &quot;staring&quot;,
+      &quot;laptop&quot;,
+      &quot;holding&quot;,
+      &quot;table&quot;,
+      &quot;black&quot;,
+      &quot;sitting&quot;,
+      &quot;shirt&quot;,
+      &quot;computer&quot;,
+      &quot;mirror&quot;,
+      &quot;room&quot;,
+      &quot;young&quot;,
+      &quot;glasses&quot;,
+      &quot;glass&quot;,
+      &quot;wearing&quot;,
+      &quot;screen&quot;,
+      &quot;white&quot;,
+      &quot;phone&quot;,
+      &quot;umbrella&quot;
+    ],
+    &quot;captions&quot;: [
       {
-        "<span class="attribute">text</span>": <span class="value"><span class="string">"person standing in front of a window"</span></span>,
-        "<span class="attribute">confidence</span>": <span class="value"><span class="number">0.31947672828769375</span>
-      </span>}
+        &quot;text&quot;: &quot;person standing in front of a window&quot;,
+        &quot;confidence&quot;: 0.31947672828769375
+      }
     ]
-  </span>}</span>,
-  "<span class="attribute">requestId</span>": <span class="value"><span class="string">"8f80d6ad-561c-4bd8-851e-ffc108958ac9"</span></span>,
-  "<span class="attribute">faces</span>": <span class="value">[]</span>,
-  "<span class="attribute">color</span>": <span class="value">{
-    "<span class="attribute">dominantColorForeground</span>": <span class="value"><span class="string">"Black"</span></span>,
-    "<span class="attribute">dominantColorBackground</span>": <span class="value"><span class="string">"Black"</span></span>,
-    "<span class="attribute">dominantColors</span>": <span class="value">[
-      <span class="string">"Black"</span>,
-      <span class="string">"White"</span>,
-      <span class="string">"Grey"</span>
-    ]</span>,
-    "<span class="attribute">accentColor</span>": <span class="value"><span class="string">"424F59"</span></span>,
-    "<span class="attribute">isBWImg</span>": <span class="value"><span class="literal">false</span>
-  </span>}</span>,
-  "<span class="attribute">imageType</span>": <span class="value">{
-    "<span class="attribute">clipArtType</span>": <span class="value"><span class="number">0</span></span>,
-    "<span class="attribute">lineDrawingType</span>": <span class="value"><span class="number">0</span>
-  </span>}
-</span>}
+  },
+  &quot;requestId&quot;: &quot;8f80d6ad-561c-4bd8-851e-ffc108958ac9&quot;,
+  &quot;faces&quot;: [],
+  &quot;color&quot;: {
+    &quot;dominantColorForeground&quot;: &quot;Black&quot;,
+    &quot;dominantColorBackground&quot;: &quot;Black&quot;,
+    &quot;dominantColors&quot;: [
+      &quot;Black&quot;,
+      &quot;White&quot;,
+      &quot;Grey&quot;
+    ],
+    &quot;accentColor&quot;: &quot;424F59&quot;,
+    &quot;isBWImg&quot;: false
+  },
+  &quot;imageType&quot;: {
+    &quot;clipArtType&quot;: 0,
+    &quot;lineDrawingType&quot;: 0
+  }
+}
 </code></pre><p>抽取<strong>captions</strong>作为玩点~<strong>confidence</strong>是机器判断的可信度。结果如图：</p>
 <p><img src="http://7xp2qc.com1.z0.glb.clouddn.com/ms-vision-analyze-result.png" alt="result"></p>
-<h2 id="代码">代码</h2><p>这Demo主要是API访问..放一下所有的接口，前提是懂Retrofit的基本使用。<br>MS Vision Analyze Interface：</p>
-<pre><code><span class="variable">@Headers</span>({<span class="string">"Content-Type: application/json"</span>})
-<span class="variable">@POST</span>(<span class="string">"vision/v1.0/analyze"</span>)
-Call&lt;VisionAnalyzeResult &gt; <span class="function">analyzeImgFromUrl</span>(<span class="variable">@Header</span>(<span class="string">"Ocp-Apim-Subscription-Key"</span>) String key, <span class="variable">@Query</span>(<span class="string">"visualFeatures"</span>) String visualFeatures,
-                              <span class="variable">@Body</span> Url url);
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>这Demo主要是API访问..放一下所有的接口，前提是懂Retrofit的基本使用。<br>MS Vision Analyze Interface：</p>
+<pre><code>@Headers({&quot;Content-Type: application/json&quot;})
+@POST(&quot;vision/v1.0/analyze&quot;)
+Call&lt;VisionAnalyzeResult &gt; analyzeImgFromUrl(@Header(&quot;Ocp-Apim-Subscription-Key&quot;) String key, @Query(&quot;visualFeatures&quot;) String visualFeatures,
+                              @Body Url url);
 </code></pre><p>其中：</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> API_BASE_URL = <span class="string">"https://api.projectoxford.ai/"</span>;
-<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> MS_VISION_SUBSCRIPTION = <span class="string">"xxx"</span><span class="comment">//yours;</span>
-</code></pre><p>还有<a href="http://gank.io/api" target="_blank" rel="external">gank.io</a>提供的图片API：</p>
-<pre><code>    <span class="variable">@GET</span>(<span class="string">"{random}/data/{type}/{count}"</span>)
-Call&lt;GankModelWrapper&lt;FuliModel&gt;&gt; <span class="function">getGankData</span>(<span class="variable">@Path</span>(<span class="string">"random"</span>) String random, <span class="variable">@Path</span>(<span class="string">"type"</span>) String type, <span class="variable">@Path</span>(<span class="string">"count"</span>) String count);
-</code></pre><h2 id="小结">小结</h2><p>感觉是在大公司光环之下喝点汤玩玩API…抛砖引玉，感觉可以做出更有big的App</p>
+<pre><code>public static final String API_BASE_URL = &quot;https://api.projectoxford.ai/&quot;;
+public static final String MS_VISION_SUBSCRIPTION = &quot;xxx&quot;//yours;
+</code></pre><p>还有<a href="http://gank.io/api" target="_blank" rel="noopener">gank.io</a>提供的图片API：</p>
+<pre><code>    @GET(&quot;{random}/data/{type}/{count}&quot;)
+Call&lt;GankModelWrapper&lt;FuliModel&gt;&gt; getGankData(@Path(&quot;random&quot;) String random, @Path(&quot;type&quot;) String type, @Path(&quot;count&quot;) String count);
+</code></pre><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>感觉是在大公司光环之下喝点汤玩玩API…抛砖引玉，感觉可以做出更有big的App</p>
 </span>
       
     </div>
@@ -419,8 +423,7 @@ Call&lt;GankModelWrapper&lt;FuliModel&gt;&gt; <span class="function">getGankData
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/04/02/ms-analyze-demo/"
-                   data-title="玩玩Microsoft Cognitive Services" data-url="http://opticalix.github.com/2016/04/02/ms-analyze-demo/">
+              <div class="ds-thread" data-thread-key="2016/04/02/ms-analyze-demo/" data-title="玩玩Microsoft Cognitive Services" data-url="http://opticalix.github.com/2016/04/02/ms-analyze-demo/">
               </div>
             
           </div>
@@ -445,7 +448,7 @@ Call&lt;GankModelWrapper&lt;FuliModel&gt;&gt; <span class="function">getGankData
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -456,7 +459,7 @@ Call&lt;GankModelWrapper&lt;FuliModel&gt;&gt; <span class="function">getGankData
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image"/>
+          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image">
           <p class="site-author-name" itemprop="name">Opticalix</p>
         </div>
         <p class="site-description motion-element" itemprop="description">Keep going</p>
@@ -508,7 +511,7 @@ Call&lt;GankModelWrapper&lt;FuliModel&gt;&gt; <span class="function">getGankData
         
           <div class="cc-license motion-element" itemprop="license">
             <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
-              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
             </a>
           </div>
         
@@ -540,14 +543,20 @@ Call&lt;GankModelWrapper&lt;FuliModel&gt;&gt; <span class="function">getGankData
     </main>
 
     <footer id="footer" class="footer">
-      <div class="footer-inner"> <div class="copyright" >
+      <div class="footer-inner"> <div class="copyright">
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Opticalix</span>
+<!--   <div style="width:300px;margin:0 auto; padding:20px 0;">
+		 		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802034236" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010802034236号</p></a>
+		 	</div> -->
+ 	<div>
+		<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802034236">京公网安备 11010802034236号</a>
+ 	</div>
 </div>
 
 <div class="powered-by">

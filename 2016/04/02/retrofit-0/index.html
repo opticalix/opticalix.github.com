@@ -1,56 +1,59 @@
 <!doctype html>
 <html class="theme-next use-motion theme-next-mist">
-<head>
+<head><meta name="generator" content="Hexo 3.9.0">
   
 
-<meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
 
 
-  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5">
 
 
 
   
-    <link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
   
 
 
-<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0">
 
-<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
-
-
-    <meta name="description" content="Keep going" />
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
 
 
-
-  <meta name="keywords" content="Android,Retrofit," />
+    <meta name="description" content="Keep going">
 
 
 
+  <meta name="keywords" content="Android,Retrofit,">
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2" />
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.4.5.2">
 
 
 <meta name="description" content="引项目中网络访问模块经历了从AsyncHttp -&amp;gt; OkHttp的变迁，目前方案是对OkHttp做了一层简单封装，主要是结合业务逻辑，完成错误处理、Json解析以及线程切换。现在看来有点惨不忍睹，没能做到高内聚和全面考虑扩展性…对Retrofit听闻好久，但一直未能完整地学习使用，希望借Retrofit完成更清晰的访问层实现。Retrofit是一套RESTful规范的Android客户端实">
+<meta name="keywords" content="Android,Retrofit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Retrofit入门笔记">
 <meta property="og:url" content="http://opticalix.github.com/2016/04/02/retrofit-0/index.html">
-<meta property="og:site_name" content="Opticalix Blog">
+<meta property="og:site_name" content="Opticalix的学习心得">
 <meta property="og:description" content="引项目中网络访问模块经历了从AsyncHttp -&amp;gt; OkHttp的变迁，目前方案是对OkHttp做了一层简单封装，主要是结合业务逻辑，完成错误处理、Json解析以及线程切换。现在看来有点惨不忍睹，没能做到高内聚和全面考虑扩展性…对Retrofit听闻好久，但一直未能完整地学习使用，希望借Retrofit完成更清晰的访问层实现。Retrofit是一套RESTful规范的Android客户端实">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2016-04-02T13:58:53.555Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit入门笔记">
 <meta name="twitter:description" content="引项目中网络访问模块经历了从AsyncHttp -&amp;gt; OkHttp的变迁，目前方案是对OkHttp做了一层简单封装，主要是结合业务逻辑，完成错误处理、Json解析以及线程切换。现在看来有点惨不忍睹，没能做到高内聚和全面考虑扩展性…对Retrofit听闻好久，但一直未能完整地学习使用，希望借Retrofit完成更清晰的访问层实现。Retrofit是一套RESTful规范的Android客户端实">
@@ -65,7 +68,7 @@
 
 
 
-  <title> Retrofit入门笔记 | Opticalix Blog </title>
+  <title> Retrofit入门笔记 | Opticalix的学习心得 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -104,9 +107,9 @@
   
 
   <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Opticalix Blog</span>
+      <span class="site-title">Opticalix的学习心得</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -131,7 +134,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-home"></i> <br>
             
             首页
           </a>
@@ -141,7 +144,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-archive"></i> <br>
             
             归档
           </a>
@@ -151,7 +154,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-tags"></i> <br>
             
             标签
           </a>
@@ -161,7 +164,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-user"></i> <br>
             
             关于
           </a>
@@ -215,7 +218,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
@@ -255,55 +258,55 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="引">引</h2><p>项目中网络访问模块经历了从AsyncHttp -&gt; OkHttp的变迁，目前方案是对OkHttp做了一层简单封装，主要是结合业务逻辑，完成错误处理、Json解析以及线程切换。现在看来有点惨不忍睹，没能做到高内聚和全面考虑扩展性…<br>对Retrofit听闻好久，但一直未能完整地学习使用，希望借Retrofit完成更清晰的访问层实现。<br>Retrofit是一套RESTful规范的Android客户端实现，RESTful常见于API设计，意思是“表现层状态转移”，要求URL全部名词化..（若难以理解，可移步<a href="https://www.zhihu.com/question/28557115" target="_blank" rel="external">REST解释</a>）。个人理解是，Retrofit将网络访问细节封装，将“去服务器请求数据”的过程转化为“通过接口方法获得数据”，因此Retrofit的使用主要是“请求接口”的定义。</p>
-<h2 id="使用">使用</h2><h3 id="依赖">依赖</h3><p>先引入Retrofit三方库到自己的项目，这里使用gradle方式，而且以Retrofit 2.0.0为主。另外，请求后的数据解析需要Converter来转换为Java对象，这里使用Square提供的GsonConverter。</p>
-<pre><code><span class="keyword">dependencies</span> {  
-<span class="comment">// Retrofit</span>
-<span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:retrofit:2.0.0'</span>
-<span class="keyword">compile</span> <span class="string">'com.squareup.retrofit2:converter-gson:2.0.0'</span>
+        <span itemprop="articleBody"><h2 id="引"><a href="#引" class="headerlink" title="引"></a>引</h2><p>项目中网络访问模块经历了从AsyncHttp -&gt; OkHttp的变迁，目前方案是对OkHttp做了一层简单封装，主要是结合业务逻辑，完成错误处理、Json解析以及线程切换。现在看来有点惨不忍睹，没能做到高内聚和全面考虑扩展性…<br>对Retrofit听闻好久，但一直未能完整地学习使用，希望借Retrofit完成更清晰的访问层实现。<br>Retrofit是一套RESTful规范的Android客户端实现，RESTful常见于API设计，意思是“表现层状态转移”，要求URL全部名词化..（若难以理解，可移步<a href="https://www.zhihu.com/question/28557115" target="_blank" rel="noopener">REST解释</a>）。个人理解是，Retrofit将网络访问细节封装，将“去服务器请求数据”的过程转化为“通过接口方法获得数据”，因此Retrofit的使用主要是“请求接口”的定义。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><p>先引入Retrofit三方库到自己的项目，这里使用gradle方式，而且以Retrofit 2.0.0为主。另外，请求后的数据解析需要Converter来转换为Java对象，这里使用Square提供的GsonConverter。</p>
+<pre><code>dependencies {  
+// Retrofit
+compile &apos;com.squareup.retrofit2:retrofit:2.0.0&apos;
+compile &apos;com.squareup.retrofit2:converter-gson:2.0.0&apos;
 }
 </code></pre><p>注意从Retrofit 2开始，OkHttp就已经集成在里面了，而且不同于1.x支持各种网络引擎，OkHttp是唯一的HttpClient，因此从Retrofit 2包的体积也有所减少。</p>
-<h3 id="入门">入门</h3><p>推荐封装一个ServiceGenerator，便于根据日后为不同API所写的Intrface生成API实现类。</p>
-<pre><code><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ServiceGenerator</span> </span>{
+<h3 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h3><p>推荐封装一个ServiceGenerator，便于根据日后为不同API所写的Intrface生成API实现类。</p>
+<pre><code>public class ServiceGenerator {
 
-<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String API_BASE_URL = <span class="string">"http://your.api-base.url"</span>;
+public static final String API_BASE_URL = &quot;http://your.api-base.url&quot;;
 
-<span class="keyword">private</span> <span class="keyword">static</span> OkHttpClient.Builder httpClient = <span class="keyword">new</span> OkHttpClient.Builder();
+private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
-<span class="keyword">private</span> <span class="keyword">static</span> Retrofit.Builder builder =
-        <span class="keyword">new</span> Retrofit.Builder()
+private static Retrofit.Builder builder =
+        new Retrofit.Builder()
                 .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create());
 
-<span class="keyword">public</span> <span class="keyword">static</span> &lt;S&gt; S createService(<span class="class"><span class="keyword">Class</span>&lt;<span class="title">S</span>&gt; <span class="title">serviceClass</span>) </span>{
+public static &lt;S&gt; S createService(Class&lt;S&gt; serviceClass) {
     Retrofit retrofit = builder.client(httpClient.build()).build();
-    <span class="keyword">return</span> retrofit.create(serviceClass);
+    return retrofit.create(serviceClass);
 }
 }
 </code></pre><p>可以看到，访问引擎为OkHttpClient，且支持自定义（超时、缓存设置等），使用默认的GsonConverter。createService方法则是为了生成独有API而使用，见下。<br>比如现在要请求Github仓库数据，url为</p>
 <blockquote>
-<p><a href="https://api.github.com/repos/{owner}/{repo}/contributors" target="_blank" rel="external">https://api.github.com/repos/{owner}/{repo}/contributors</a></p>
+<p><a href="https://api.github.com/repos/{owner}/{repo}/contributors" target="_blank" rel="noopener">https://api.github.com/repos/{owner}/{repo}/contributors</a></p>
 </blockquote>
 <p>创建该API对应访问接口：</p>
-<pre><code><span class="tag">public</span> <span class="tag">interface</span> <span class="tag">GitHubClient</span> {  
-<span class="variable">@GET</span>(<span class="string">"/repos/{owner}/{repo}/contributors"</span>)
-Call&lt;List&lt;Contributor&gt;&gt; <span class="function">contributors</span>(
-    <span class="variable">@Path</span>(<span class="string">"owner"</span>) String owner,
-    <span class="variable">@Path</span>(<span class="string">"repo"</span>) String repo
+<pre><code>public interface GitHubClient {  
+@GET(&quot;/repos/{owner}/{repo}/contributors&quot;)
+Call&lt;List&lt;Contributor&gt;&gt; contributors(
+    @Path(&quot;owner&quot;) String owner,
+    @Path(&quot;repo&quot;) String repo
 );
 }
 </code></pre><p>可以看出，注解@GET指定了Http访问方式，后面的url是基于BASE_URL的相对路径，Retrofit会将他们拼接后访问。<br>再看contributors方法，不难看出<em>owner/repo</em>作为参数替换了相对路径中的<em>{owner}/{repo}</em>。当然，@PATH只是最简单的路径替换。更复杂的url拼接和Headers的定义Retrofit当然也可以胜任，下文会描述。<br>调用如下：</p>
-<pre><code><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(String... args) {  
-<span class="comment">// Create a very simple REST adapter which points the GitHub API endpoint.</span>
-GitHubClient client = ServiceGenerator.createService(GitHubClient.<span class="keyword">class</span>);
+<pre><code>public static void main(String... args) {  
+// Create a very simple REST adapter which points the GitHub API endpoint.
+GitHubClient client = ServiceGenerator.createService(GitHubClient.class);
 
-<span class="comment">// Fetch and print a list of the contributors to this library.</span>
-<span class="keyword">Call</span>&lt;List&lt;Contributor&gt;&gt; <span class="keyword">call</span> =
-    client.contributors(<span class="string">"fs_opensource"</span>, <span class="string">"android-boilerplate"</span>);
+// Fetch and print a list of the contributors to this library.
+Call&lt;List&lt;Contributor&gt;&gt; call =
+    client.contributors(&quot;fs_opensource&quot;, &quot;android-boilerplate&quot;);
 </code></pre><p>最后执行，注意要求在子线程：</p>
-<pre><code>List&lt;Contributor&gt; contributors = <span class="built_in">call</span>.<span class="built_in">execute</span>().body()<span class="comment">;</span>
+<pre><code>List&lt;Contributor&gt; contributors = call.execute().body();
 </code></pre><p>关键在于得到Call对象，接着子线程执行execute方法即可完成网络访问，Gson负责将Response中实体内容解析并返回相应对象。</p>
-<h2 id="小结">小结</h2><p>以上，可以看出Retrofit使用注解方式定义API真是异常的方便，常用的annotation基本都有，结合RESTful规范使用能极大地减少了代码量，保证了API部分的清晰。<br>更多待补，英文系列教程可参考<a href="https://futurestud.io/blog/retrofit-getting-started-and-android-client" target="_blank" rel="external">Retrofit-Retrofit Series</a></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>以上，可以看出Retrofit使用注解方式定义API真是异常的方便，常用的annotation基本都有，结合RESTful规范使用能极大地减少了代码量，保证了API部分的清晰。<br>更多待补，英文系列教程可参考<a href="https://futurestud.io/blog/retrofit-getting-started-and-android-client" target="_blank" rel="noopener">Retrofit-Retrofit Series</a></p>
 </span>
       
     </div>
@@ -358,8 +361,7 @@ GitHubClient client = ServiceGenerator.createService(GitHubClient.<span class="k
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2016/04/02/retrofit-0/"
-                   data-title="Retrofit入门笔记" data-url="http://opticalix.github.com/2016/04/02/retrofit-0/">
+              <div class="ds-thread" data-thread-key="2016/04/02/retrofit-0/" data-title="Retrofit入门笔记" data-url="http://opticalix.github.com/2016/04/02/retrofit-0/">
               </div>
             
           </div>
@@ -384,7 +386,7 @@ GitHubClient client = ServiceGenerator.createService(GitHubClient.<span class="k
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -395,7 +397,7 @@ GitHubClient client = ServiceGenerator.createService(GitHubClient.<span class="k
 
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image"/>
+          <img class="site-author-image" src="/uploads/avatar.jpg" alt="Opticalix" itemprop="image">
           <p class="site-author-name" itemprop="name">Opticalix</p>
         </div>
         <p class="site-description motion-element" itemprop="description">Keep going</p>
@@ -447,7 +449,7 @@ GitHubClient client = ServiceGenerator.createService(GitHubClient.<span class="k
         
           <div class="cc-license motion-element" itemprop="license">
             <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
-              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
             </a>
           </div>
         
@@ -479,14 +481,20 @@ GitHubClient client = ServiceGenerator.createService(GitHubClient.<span class="k
     </main>
 
     <footer id="footer" class="footer">
-      <div class="footer-inner"> <div class="copyright" >
+      <div class="footer-inner"> <div class="copyright">
   
   &copy;  2015 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Opticalix</span>
+<!--   <div style="width:300px;margin:0 auto; padding:20px 0;">
+		 		<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802034236" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img src="" style="float:left;"/><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">京公网安备 11010802034236号</p></a>
+		 	</div> -->
+ 	<div>
+		<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802034236">京公网安备 11010802034236号</a>
+ 	</div>
 </div>
 
 <div class="powered-by">
